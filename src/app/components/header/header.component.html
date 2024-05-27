@@ -1,0 +1,18 @@
+<div class="header">
+  <a [routerLink]="isLoggedIn ? '/home' : '/'" class="logo">Codisecurity</a>
+  <div class="header-right">
+    <a routerLink="/home">Página Principal</a>
+    <div class="dropdown" *ngIf="isLoggedIn">
+      <a [routerLink]="isLoggedIn ? '/guardias' : '/'">Empleados</a>
+      <div class="dropdown-content">
+        <a routerLink="/infoEmpleados">Ver Empleados</a>
+        <a routerLink="/registrarGuardia">Registrar Empleados</a>
+      </div>
+    </div>
+    <a *ngIf="isLoggedIn" [routerLink]="isLoggedIn ? '/infoEmpleados' : '/'">Asignación de Turnos</a>
+    <a *ngIf="isLoggedIn" [routerLink]="isLoggedIn ? '/home' : '/'">Ver Turnos</a>
+    <a *ngIf="isLoggedIn" [routerLink]="isLoggedIn ? '/home' : '/'">Monitoreo</a>
+    <a *ngIf="!isLoggedIn" routerLink="/login">Iniciar Sesión</a>
+    <a *ngIf="isLoggedIn" (click)="logout()">Cerrar Sesión</a>
+  </div>
+</div>

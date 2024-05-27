@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="main">
+    <p class="sign">Registrar Empleado</p>
+    <form class="form1" (ngSubmit)="onSubmit()">
+      <input class="un" type="text" [(ngModel)]="email" name="email" placeholder="Email" required>
+      <input class="pass" type="password" [(ngModel)]="password" name="password" placeholder="Password" required>
+      <div class="role-container">
+        <p>Select Role:</p>
+        <div class="role-option" [class.selected]="role === 'Supervisor'" (click)="role='Supervisor'">
+          <img src="https://cdn-icons-png.freepik.com/512/2133/2133124.png" alt="Supervisor">
+          <p>Supervisor</p>
+        </div>
+        <div class="role-option" [class.selected]="role === 'Guardia'" (click)="role='Guardia'">
+          <img src="https://cdn-icons-png.flaticon.com/512/5450/5450112.png" alt="Guardia">
+          <p>Guardia</p>
+        </div>
+      </div>
+      <button type="submit" class="submit">Registrar</button>
+    </form>
+  </div>
+</div>
