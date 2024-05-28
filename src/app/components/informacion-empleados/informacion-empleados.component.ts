@@ -108,6 +108,8 @@ export class InformacionEmpleadosComponent implements OnInit {
             title: 'Persona Creada',
             text: 'La persona ha sido creada exitosamente.'
           });
+          this.getPersonas();
+          this.getUsers();
         },
         error => {
           Swal.fire({
@@ -117,6 +119,7 @@ export class InformacionEmpleadosComponent implements OnInit {
           });
           console.error('Error al crear la persona', error);
         }
+        
       );
     }
   }
@@ -126,20 +129,39 @@ export class InformacionEmpleadosComponent implements OnInit {
       const personaData = this.editPersonaForm.getRawValue();  // Obtener todos los valores, incluidos los deshabilitados
       const userId = personaData.userId;
       delete personaData.userId;  // Eliminar userId de los datos a enviar, si no es necesario
-
+  
       this.personaService.updatePersona(userId, personaData)
         .subscribe(
           updatedPersona => {
             console.log('Persona actualizada:', updatedPersona);
             this.showEditForm = false;  // Ocultar el formulario después de la actualización
+            this.getPersonas();
+            this.getUsers();
+            // Mostrar una alerta de éxito
+            Swal.fire({
+              icon: 'success',
+              title: '¡Éxito!',
+              text: 'La persona ha sido actualizada correctamente.',
+              confirmButtonText: 'OK'
+            });
+  
             // Aquí puedes agregar lógica adicional, como actualizar la lista de personas en la vista
           },
           error => {
             console.error('Error al actualizar la persona:', error);
+  
+            // Mostrar una alerta de error
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'Ocurrió un error al actualizar la persona. Por favor, inténtalo de nuevo.',
+              confirmButtonText: 'OK'
+            });
           }
         );
     }
   }
+  
 
   cerrarCreateForm() {
     this.showCreateForm = false;
@@ -162,6 +184,30 @@ export class InformacionEmpleadosComponent implements OnInit {
   }
 
   deletePersona(userId: string): void {
-    // Lógica para eliminar una persona
+    Swal.fire({
+      title: '¿Estás seguro que deseas eliminar esta persona?',
+      showCancelButton: true,
+      confirmButtonText: 'Eliminar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.personaService.deletePersona(userId).subscribe(
+          () => {
+            console.log('Persona eliminada');
+            this.getPersonas();
+            this.getUsers();
+            // Aquí puedes agregar lógica para actualizar la lista de personas en la vista
+            
+            this.personas = this.personas.filter(persona => persona.userId !== userId);
+            Swal.fire('Eliminada!', '', 'success');
+          },
+          error => {
+            console.error('Error al eliminar la persona:', error);
+            Swal.fire('Error', 'Hubo un problema al eliminar la persona', 'error');
+          }
+        );
+      } else if (result.isDenied) {
+        Swal.fire('La persona no ha sido eliminada', '', 'info');
+      }
+    });
   }
 }

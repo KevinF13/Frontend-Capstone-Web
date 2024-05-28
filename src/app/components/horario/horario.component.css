@@ -1,0 +1,155 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.table-container {
+    overflow-x: auto;
+    margin: 20px;
+}
+
+.md-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+}
+
+.md-table th, .md-table td {
+    text-align: left;
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+
+.md-table-header {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+.md-table-content {
+    vertical-align: middle;
+}
+
+.md-table td img.persona-imagen {
+    width: 80px;
+    height: 80px;
+    display: block;
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 768px) {
+    .md-table, .md-table thead, .md-table tbody, .md-table th, .md-table td, .md-table tr {
+        display: block;
+    }
+
+    .md-table-headers-row {
+        display: none;
+    }
+
+    .md-table-content-row {
+        margin-bottom: 20px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .md-table-content {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+    }
+
+    .md-table-content:before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 50%;
+        padding-left: 15px;
+        font-weight: bold;
+        text-align: left;
+    }
+
+    .md-table-content img.persona-imagen {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+
+/*ESTE ES EL CSS PARA EL FORMULARIO DE CREACION*/
+/*ESTE ES EL CSS PARA EL FORMULARIO DE CREACION*/
+/*ESTE ES EL CSS PARA EL FORMULARIO DE CREACION*/
+/* Estilos para la pantalla flotante del formulario */
+#form-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 999; /* Asegura que el formulario esté por encima de otros elementos */
+    max-width: 80%; /* Establece el ancho máximo del formulario */
+  }
+  
+  /* Estilos para el formulario dentro de la pantalla flotante */
+  #horarioForm {
+    max-width: 100%; /* Ancho máximo del formulario */
+  }
+  
+  /* Estilos para los campos del formulario */
+  #horarioForm input[type="text"] {
+    width: calc(100% - 10px); /* Ancho del campo de texto con margen */
+    margin-bottom: 10px; /* Espacio entre campos */
+  }
+  
+  /* Estilos para el botón del formulario */
+  #horarioForm button {
+    background-color: #007bff; /* Color de fondo del botón */
+    color: #ffffff; /* Color del texto del botón */
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px; /* Relleno del botón */
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Transición suave para el color de fondo */
+  }
+  
+  /* Cambia el color de fondo del botón cuando se pasa el mouse */
+  #horarioForm button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Estilos para la tabla de personas */
+  .md-table {
+    width: 100%; /* Ancho completo de la tabla */
+    margin-bottom: 20px; /* Espacio inferior */
+    border-collapse: collapse; /* Colapsa los bordes de las celdas */
+  }
+  
+  /* Estilos para las filas de la tabla */
+  .md-table-content-row {
+    border-bottom: 1px solid #ddd; /* Borde inferior de cada fila */
+  }
+  
+  /* Estilos para las celdas de la tabla */
+  .md-table-content {
+    padding: 10px; /* Relleno de las celdas */
+  }
+  
+  /* Estilos para los botones de la tabla */
+  .md-table-td-more button {
+    background-color: transparent; /* Botones transparentes */
+    border: none;
+    cursor: pointer;
+    transition: color 0.3s ease; /* Transición suave para el color del ícono */
+  }
+  
+  /* Cambia el color del ícono cuando se pasa el mouse */
+  .md-table-td-more button:hover {
+    color: #007bff;
+  }
+  
+  /* Estilos para la imagen de la persona */
+  .persona-imagen {
+    width: 50px; /* Ancho de la imagen */
+    height: 50px; /* Alto de la imagen */
+    border-radius: 50%; /* Bordes redondeados para un aspecto circular */
+  }
+  

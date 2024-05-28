@@ -9,7 +9,7 @@
         <a routerLink="/registrarGuardia">Registrar Empleados</a>
       </div>
     </div>
-    <a *ngIf="isLoggedIn" [routerLink]="isLoggedIn ? '/infoEmpleados' : '/'">Asignación de Turnos</a>
+    <a *ngIf="isLoggedIn" [routerLink]="isLoggedIn ? '/asignacionHorario' : '/'">Asignación de Turnos</a>
     <a *ngIf="isLoggedIn" [routerLink]="isLoggedIn ? '/home' : '/'">Ver Turnos</a>
     <a *ngIf="isLoggedIn" [routerLink]="isLoggedIn ? '/home' : '/'">Monitoreo</a>
     <a *ngIf="!isLoggedIn" routerLink="/login">Iniciar Sesión</a>

@@ -6,6 +6,7 @@ import { HomeComponent } from './components/home/home.component';
 import { DashboardComponent } from './components/dashboard/dashboard/dashboard.component';
 import { AuthGuard } from './auth/service/auth.guard';
 import { InformacionEmpleadosComponent } from './components/informacion-empleados/informacion-empleados.component';
+import { HorarioComponent } from './components/horario/horario.component';
 
 const routes: Routes = [
   { path: 'registrarGuardia', component: SignupComponent },
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent},
   { path: 'dashboard', component: DashboardComponent },
   { path: 'infoEmpleados', component: InformacionEmpleadosComponent },
+  { path: 'asignacionHorario', component: HorarioComponent },
   //{ path: '**', redirectTo: '/home' }
   { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];

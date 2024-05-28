@@ -1,250 +1,256 @@
 a {
-    text-decoration: none;
-  }
-  
-  i {
-    vertical-align: middle;
-    font-size: 24px;
-  }
-  
-  .main-fab {
-    position: absolute;
-    z-index: 20;
-    font-size: 30px;
-    top: 100px;
-    left: 24px;
-    transform: scale(.88, .88);
-  }
-  
-  .md-breadcrumb {
-    padding-left: 88px;  
-  }
-  
-  .JCLRgrip:first-child {
-    left: 105px!important;
-    display: none!important;
-  }
-  
-  .JColResizer th:first-child {
-    width: 105px!important;
-  }
-  
-  .md-table {
-    width: 90%; /* Ajuste del ancho de la tabla */
-    margin: 0 auto; /* Centrar la tabla horizontalmente */
-    border-collapse: collapse;
-  }
-  
-  .md-table tbody tr:hover, 
-  .md-table tbody tr:focus {
-    cursor: pointer;
-    background-color: rgba(63, 81, 181, 0.2);
-  }
-  
-  .md-table-header {
-    border-bottom: 1px solid rgb(230, 230, 230);
-    color: rgb(130, 130, 130);
-    text-align: left;
-    font-size: 0.75em;
-    font-weight: 700;
-    padding: 16px 16px 16px 0;
-  }
-  
-  .md-table-header a {
-    text-decoration: none;
-    color: inherit;
-  }
-  
-  .md-table-content {
-    white-space: nowrap;
-    font-size: 0.8em;
-    padding: 16px 16px 16px 0;
-    height: 72px;
-  }
-  
-  .md-table-td-more {
-    width: 200px; /* Ajuste del ancho de la columna Acciones */
-    padding: 16px; 
-  }
-  
-  /* Estilos para los botones */
-  .action-button {
-    padding: 8px 12px;
-    margin-right: 8px;
-    border-radius: 4px;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  
-  .edit-button {
-    background-color: #2196F3; /* Color para el botón de editar */
-    color: white; /* Color del texto */
-  }
-  
-  .delete-button {
-    background-color: #F44336; /* Color para el botón de eliminar */
-    color: white; /* Color del texto */
-  }
-  
-  .md-table-thumbs {
-    max-width: 104px;
-    width: 104px;
-    padding: 16px 32px;
-  }
-  
-  .md-table-thumbs div {
-    overflow: hidden;
-    width: 40px;
-    height: 40px;
-    border-radius: 20px;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    background-size: cover;
-    box-shadow: 0 8px 10px rgba(0, 0, 0, .3);
-    -webkit-box-shadow: 0 8px 10px rgba(0, 0, 0, .1);
-  }
-  
-  .md-table-footer {
-    height: 40px;
-    padding-left: 32px;
-    padding-right: 32px;
-  }
-  
-  .md-table-count-info {
-    line-height: 40px;
-    font-size: .75em;
-  }
-  
-  .md-table-footer-item {
-    width: 40px;
-    height: 40px;
-    vertical-align: middle;
-  }
-  
-  .md-table-active-page {
-    font-weight: 700;
-  }
-  
-  .bold {
-    font-weight: 700;
-  }
-  
-  .grey {
-    color: grey;
-  }
-  
-  md-input-container.md-default-theme .md-input {
-    color: white;
-    border-color: white;
-    margin-top: 24px;
-  }
+  text-decoration: none;
+}
+
+i {
+  vertical-align: middle;
+  font-size: 24px;
+}
+
+.main-fab {
+  position: absolute;
+  z-index: 20;
+  font-size: 30px;
+  top: 100px;
+  left: 24px;
+  transform: scale(.88, .88);
+}
+
+.md-breadcrumb {
+  padding-left: 88px;  
+}
+
+.JCLRgrip:first-child {
+  left: 105px!important;
+  display: none!important;
+}
+
+.JColResizer th:first-child {
+  width: 105px!important;
+}
+
+.md-table {
+  width: 90%; /* Ajuste del ancho de la tabla */
+  margin: 0 auto; /* Centrar la tabla horizontalmente */
+  border-collapse: collapse;
+}
+
+.md-table tbody tr:hover, 
+.md-table tbody tr:focus {
+  cursor: pointer;
+  background-color: rgba(63, 81, 181, 0.2);
+}
+
+.md-table-header {
+  border-bottom: 1px solid rgb(230, 230, 230);
+  color: rgb(130, 130, 130);
+  text-align: left;
+  font-size: 0.75em;
+  font-weight: 700;
+  padding: 16px 16px 16px 0;
+}
+
+.md-table-header a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.md-table-content {
+  white-space: nowrap;
+  font-size: 0.8em;
+  padding: 16px 16px 16px 0;
+  height: 72px;
+}
+
+.md-table-td-more {
+  width: 200px; /* Ajuste del ancho de la columna Acciones */
+  padding: 16px; 
+}
+
+/* Estilos para los botones */
+.action-button {
+  padding: 8px 12px;
+  margin-right: 8px;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.edit-button {
+  background-color: #2196F3; /* Color para el botón de editar */
+  color: white; /* Color del texto */
+}
+
+.delete-button {
+  background-color: #F44336; /* Color para el botón de eliminar */
+  color: white; /* Color del texto */
+}
+
+.md-table-thumbs {
+  max-width: 104px;
+  width: 104px;
+  padding: 16px 32px;
+}
+
+.md-table-thumbs div {
+  overflow: hidden;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  background-size: cover;
+  box-shadow: 0 8px 10px rgba(0, 0, 0, .3);
+  -webkit-box-shadow: 0 8px 10px rgba(0, 0, 0, .1);
+}
+
+.md-table-footer {
+  height: 40px;
+  padding-left: 32px;
+  padding-right: 32px;
+}
+
+.md-table-count-info {
+  line-height: 40px;
+  font-size: .75em;
+}
+
+.md-table-footer-item {
+  width: 40px;
+  height: 40px;
+  vertical-align: middle;
+}
+
+.md-table-active-page {
+  font-weight: 700;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.grey {
+  color: grey;
+}
+
+md-input-container.md-default-theme .md-input {
+  color: white;
+  border-color: white;
+  margin-top: 24px;
+}
 
 
-  /*/////////////////////////////////Aqui hacer los cambios del formulario
-  /* Estilos para el contenedor del formulario emergente */
+/*/////////////////////////////////Aqui hacer los cambios del formulario
+/* Estilos para el contenedor del formulario emergente */
 .new-person-form-container {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: white;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  z-index: 1000; /* Asegura que esté en la capa superior */
-  display: flex;
-  justify-content: space-between; /* Distribuir los elementos horizontalmente */
-  flex-wrap: wrap; /* Permite que los elementos se envuelvan */
+position: fixed;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+background-color: white;
+padding: 20px;
+border: 1px solid #ccc;
+border-radius: 5px;
+box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+z-index: 1000; /* Asegura que esté en la capa superior */
+display: flex;
+justify-content: space-between; /* Distribuir los elementos horizontalmente */
+flex-wrap: wrap; /* Permite que los elementos se envuelvan */
 }
 
 /* Estilos para el fondo oscurecido cuando aparece el formulario emergente */
 .overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Fondo oscurecido semi-transparente */
-  z-index: 999; /* Asegura que esté debajo del formulario emergente */
-  display: flex;
-  justify-content: center;
-  align-items: center;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.5); /* Fondo oscurecido semi-transparente */
+z-index: 999; /* Asegura que esté debajo del formulario emergente */
+display: flex;
+justify-content: center;
+align-items: center;
 }
 
 /* Estilos para el botón de cerrar el formulario emergente */
 .close-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  cursor: pointer;
+position: absolute;
+top: 10px;
+right: 10px;
+cursor: pointer;
 }
 
 /* Estilos para el formulario emergente */
 .main {
-  background-color: #FFFFFF;
-  width: 45%; /* Ajusta el ancho del formulario */
-  padding: 20px; /* Añade un poco de espacio interno */
-  border-radius: 1.5em;
-  box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
-  box-sizing: border-box;
+background-color: #FFFFFF;
+width: 45%; /* Ajusta el ancho del formulario */
+padding: 20px; /* Añade un poco de espacio interno */
+border-radius: 1.5em;
+box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
+box-sizing: border-box;
 }
 
 .sign {
-  color: #8C55AA;
-  font-weight: bold;
-  font-size: 23px;
-  text-align: center;
-  margin-bottom: 20px;
+color: #8C55AA;
+font-weight: bold;
+font-size: 23px;
+text-align: center;
+margin-bottom: 20px;
 }
 
 .form1 input {
-  width: calc(100% - 40px);
-  color: rgb(38, 50, 56);
-  font-weight: 700;
-  font-size: 14px;
-  letter-spacing: 1px;
-  background: rgba(136, 126, 126, 0.04);
-  padding: 10px 20px;
-  border: none;
-  border-radius: 20px;
-  outline: none;
-  box-sizing: border-box;
-  border: 2px solid rgba(0, 0, 0, 0.02);
-  margin-bottom: 20px;
-  text-align: center;
-  font-family: 'Ubuntu', sans-serif;
+width: calc(100% - 40px);
+color: rgb(38, 50, 56);
+font-weight: 700;
+font-size: 14px;
+letter-spacing: 1px;
+background: rgba(136, 126, 126, 0.04);
+padding: 10px 20px;
+border: none;
+border-radius: 20px;
+outline: none;
+box-sizing: border-box;
+border: 2px solid rgba(0, 0, 0, 0.02);
+margin-bottom: 20px;
+text-align: center;
+font-family: 'Ubuntu', sans-serif;
 }
 
 .form1 input:focus {
-  border: 2px solid rgba(0, 0, 0, 0.18);
+border: 2px solid rgba(0, 0, 0, 0.18);
 }
 
 .submit {
-  cursor: pointer;
-  border-radius: 5em;
-  color: #fff;
-  background: linear-gradient(to right, #9C27B0, #E040FB);
-  border: 0;
-  padding: 10px 0;
-  font-family: 'Ubuntu', sans-serif;
-  width: calc(100% - 40px);
-  font-size: 13px;
-  box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
+cursor: pointer;
+border-radius: 5em;
+color: #fff;
+background: linear-gradient(to right, #9C27B0, #E040FB);
+border: 0;
+padding: 10px 0;
+font-family: 'Ubuntu', sans-serif;
+width: calc(100% - 40px);
+font-size: 13px;
+box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
 }
 
 .forgot {
-  text-align: center;
-  color: #E1BEE7;
-  margin-top: 20px;
+text-align: center;
+color: #E1BEE7;
+margin-top: 20px;
 }
 
 a {
-  color: #E1BEE7;
-  text-decoration: none;
+color: #E1BEE7;
+text-decoration: none;
 }
 
 @media (max-width: 768px) {
-  .main {
-      width: 80%;
-  }
+.main {
+    width: 80%;
+}
+}
+.md-table td img.persona-imagen {
+width: 80px;
+height: 80px;
+display: block;
+margin: 0 auto;
 }

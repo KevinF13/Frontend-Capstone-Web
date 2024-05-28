@@ -15,6 +15,7 @@ import { GuardiaComponent } from './components/guardia/guardia/guardia.component
 import { InformacionEmpleadosComponent } from './components/informacion-empleados/informacion-empleados.component';
 import { MatInputModule } from '@angular/material/input';
 import { AuthInterceptor } from './auth/service/auth.interceptor';
+import { HorarioComponent } from './components/horario/horario.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { AuthInterceptor } from './auth/service/auth.interceptor';
     FooterComponent,
     DashboardComponent,
     GuardiaComponent,
-    InformacionEmpleadosComponent
+    InformacionEmpleadosComponent,
+    HorarioComponent
   ],
   imports: [
     BrowserModule,

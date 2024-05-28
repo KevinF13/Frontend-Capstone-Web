@@ -107,7 +107,9 @@
       <td class="md-table-content">{{ persona.direccionDomicilio }}</td>
       <td class="md-table-content">{{ persona.telefono }}</td>
       <td class="md-table-content">{{ persona.manejaArma }}</td>
-      <td class="md-table-content">{{ persona.imagen }}</td>
+      <td class="md-table-content">
+        <img src="{{ persona.imagen }}" alt="Imagen de la persona" class="persona-imagen">
+    </td>
       <td class="md-table-content">{{ persona.fechaIngreso }}</td>
       <td class="md-table-content">{{ persona.userId }}</td>
       <td class="md-table-td-more">
