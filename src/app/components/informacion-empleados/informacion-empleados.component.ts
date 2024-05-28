@@ -11,16 +11,29 @@ import Swal from 'sweetalert2';
   styleUrls: ['./informacion-empleados.component.css']
 })
 export class InformacionEmpleadosComponent implements OnInit {
-  users: User[] = []; // Cambia el nombre de personas a users
+  users: User[] = [];
   personas: Persona[] = [];
-  showForm: boolean = false;
-  personaForm: FormGroup;
+  showCreateForm: boolean = false;
+  showEditForm: boolean = false;
+  createPersonaForm: FormGroup;
+  editPersonaForm: FormGroup;
   selectedUserId: string | undefined;
-  // personaSeleccionada: Persona | null = null;
-  // editingMode: boolean = false;
 
   constructor(private fb: FormBuilder, private personaService: PersonaService, private authService: AuthService) {
-    this.personaForm = this.fb.group({
+    this.createPersonaForm = this.fb.group({
+      nombres: ['', Validators.required],
+      apellidos: ['', Validators.required],
+      cedula: ['', Validators.required],
+      fechaNacimiento: ['', Validators.required],
+      direccionDomicilio: ['', Validators.required],
+      telefono: ['', Validators.required],
+      manejaArma: [false, Validators.required],
+      imagen: ['', Validators.required],
+      fechaIngreso: ['', Validators.required],
+      userId: ['', Validators.required]
+    });
+
+    this.editPersonaForm = this.fb.group({
       nombres: ['', Validators.required],
       apellidos: ['', Validators.required],
       cedula: ['', Validators.required],
@@ -33,22 +46,20 @@ export class InformacionEmpleadosComponent implements OnInit {
       userId: ['', Validators.required]
     });
   }
+
   ngOnInit(): void {
-    this.getPersonas(); // Llamada al método implementado
-    this.getUsers(); // Llamada al método para obtener usuarios
+    this.getPersonas();
+    this.getUsers();
   }
 
   seleccionarUsuario(userId: string) {
-    // Verificar si el userId no está presente en la tabla de Personas
-    // this.editingMode = false;
     const usuarioExistente = this.personas.find(persona => persona.userId === userId);
     if (!usuarioExistente) {
       this.selectedUserId = userId;
-      this.personaForm.get('userId')!.setValue(userId); // Asignar el valor de userId al campo del formulario
-      this.personaForm.get('userId')!.disable(); // Deshabilitar el input para que no se pueda modificar
-      this.showForm = true; // Esto mostrará el formulario emergente
+      this.createPersonaForm.get('userId')!.setValue(userId);
+      this.createPersonaForm.get('userId')!.disable();
+      this.showCreateForm = true;
     } else {
-      // Mostrar SweetAlert si el usuario ya tiene un perfil creado
       Swal.fire({
         icon: 'error',
         title: 'Perfil Existente',
@@ -56,8 +67,23 @@ export class InformacionEmpleadosComponent implements OnInit {
       });
     }
   }
-  
-  
+
+  seleccionarPersona(persona: Persona, userId: string) {
+    this.editPersonaForm.patchValue({
+      nombres: persona.nombres,
+      apellidos: persona.apellidos,
+      cedula: persona.cedula,
+      fechaNacimiento: persona.fechaNacimiento,
+      direccionDomicilio: persona.direccionDomicilio,
+      telefono: persona.telefono,
+      manejaArma: persona.manejaArma,
+      imagen: persona.imagen,
+      fechaIngreso: persona.fechaIngreso,
+      userId: userId  // Asignar el userId al campo del formulario
+    });
+    this.editPersonaForm.get('userId')!.disable();
+    this.showEditForm = true;
+  }
   getUsers(): void {
     this.authService.getAllUsers().subscribe(
       (users) => {
@@ -68,38 +94,22 @@ export class InformacionEmpleadosComponent implements OnInit {
       }
     );
   }
-  
-  updatePersona(userId: string): void {
-    // this.editingMode = true;
-    // const personaEncontrada = this.personas.find(persona => persona.userId === userId);
-    // if (personaEncontrada) {
-    //   this.personaSeleccionada = personaEncontrada;
-    //   this.personaForm.patchValue(this.personaSeleccionada);
-    //   this.showForm = true; // Abrir el formulario
-    // } else {
-    //   console.error('Persona no encontrada');
-    // }
-  }
-  
-  onSubmit() {
-    console.log(this.personaForm);
-    if (this.personaForm.valid && this.selectedUserId) {
-      this.personaForm.patchValue({ userId: this.selectedUserId });
-      this.personaForm.get('userId')!.disable(); // Bloquear el campo userId
-      const newPersona: Persona = this.personaForm.value;
+
+  onCreateSubmit() {
+    if (this.createPersonaForm.valid && this.selectedUserId) {
+      this.createPersonaForm.patchValue({ userId: this.selectedUserId });
+      this.createPersonaForm.get('userId')!.disable();
+      const newPersona: Persona = this.createPersonaForm.value;
       newPersona.userId = this.selectedUserId;
       this.personaService.createPersona(newPersona).subscribe(
         response => {
-          // Mostrar SweetAlert si la persona se crea exitosamente
           Swal.fire({
             icon: 'success',
             title: 'Persona Creada',
             text: 'La persona ha sido creada exitosamente.'
           });
-          // Aquí puedes añadir lógica para redirigir al usuario, mostrar un mensaje, etc.
         },
         error => {
-          // Mostrar SweetAlert si hay un error al crear la persona
           Swal.fire({
             icon: 'error',
             title: 'Error',
@@ -110,11 +120,34 @@ export class InformacionEmpleadosComponent implements OnInit {
       );
     }
   }
-  
 
-  cerrarFormulario() {
-    this.showForm = false;
-    this.selectedUserId = undefined; // Limpiar el ID seleccionado cuando se cierra el formulario
+  onEditSubmit() {
+    if (this.editPersonaForm.valid) {
+      const personaData = this.editPersonaForm.getRawValue();  // Obtener todos los valores, incluidos los deshabilitados
+      const userId = personaData.userId;
+      delete personaData.userId;  // Eliminar userId de los datos a enviar, si no es necesario
+
+      this.personaService.updatePersona(userId, personaData)
+        .subscribe(
+          updatedPersona => {
+            console.log('Persona actualizada:', updatedPersona);
+            this.showEditForm = false;  // Ocultar el formulario después de la actualización
+            // Aquí puedes agregar lógica adicional, como actualizar la lista de personas en la vista
+          },
+          error => {
+            console.error('Error al actualizar la persona:', error);
+          }
+        );
+    }
+  }
+
+  cerrarCreateForm() {
+    this.showCreateForm = false;
+    this.selectedUserId = undefined;
+  }
+
+  cerrarEditForm() {
+    this.showEditForm = false;
   }
 
   getPersonas(): void {
@@ -131,5 +164,4 @@ export class InformacionEmpleadosComponent implements OnInit {
   deletePersona(userId: string): void {
     // Lógica para eliminar una persona
   }
-  
 }

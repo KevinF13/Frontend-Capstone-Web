@@ -1,9 +1,9 @@
 <!-- Formulario emergente para crear una nueva persona -->
-<div *ngIf="showForm" class="overlay">
+<div *ngIf="showCreateForm" class="overlay">
   <div class="container">
     <div class="main">
       <p class="sign">Creación de Perfil</p>
-      <form class="form1" [formGroup]="personaForm" (ngSubmit)="onSubmit()">
+      <form class="form1" [formGroup]="createPersonaForm" (ngSubmit)="onCreateSubmit()">
         <div class="left-column">
           <input class="un" type="text" formControlName="nombres" placeholder="Nombres" required>
           <input class="un" type="text" formControlName="apellidos" placeholder="Apellidos" required>
@@ -20,9 +20,36 @@
         </div>
         <button type="submit" class="submit">Registrar Perfil</button>
       </form>
-      
-      <button class="close-button" (click)="cerrarFormulario()">Cerrar</button>
+      <button class="close-button" (click)="cerrarCreateForm()">Cerrar</button>
+    </div>
+  </div>
+</div>
 
+
+<!-- ESTO SI SE PUEDE MOVER OJO-->
+<!-- Formulario emergente para editar una persona -->
+<div *ngIf="showEditForm" class="overlay">
+  <div class="container">
+    <div class="main">
+      <p class="sign">Edición de Perfil</p>
+      <form class="form2" [formGroup]="editPersonaForm" (ngSubmit)="onEditSubmit()">
+        <div class="left-column">
+          <input class="un" type="text" formControlName="nombres" placeholder="Nombres" required>
+          <input class="un" type="text" formControlName="apellidos" placeholder="Apellidos" required>
+          <input class="un" type="text" formControlName="cedula" placeholder="Cédula" required>
+          <input class="un" type="date" formControlName="fechaNacimiento" placeholder="Fecha de Nacimiento" required>
+        </div>
+        <div class="right-column">
+          <input class="un" type="text" formControlName="direccionDomicilio" placeholder="Dirección Domicilio" required>
+          <input class="un" type="text" formControlName="telefono" placeholder="Teléfono" required>
+          <input class="un" type="text" formControlName="manejaArma" placeholder="Maneja Arma" required>
+          <input class="un" type="text" formControlName="imagen" placeholder="Imagen">
+          <input class="un" type="date" formControlName="fechaIngreso" placeholder="Fecha de Ingreso" required>
+          <input class="un" type="text" formControlName="userId" placeholder="UserID" required>
+        </div>
+        <button type="submit" class="submit">Actualizar Perfil</button>
+      </form>
+      <button class="close-button" (click)="cerrarEditForm()">Cerrar</button>
     </div>
   </div>
 </div>
@@ -84,13 +111,11 @@
       <td class="md-table-content">{{ persona.fechaIngreso }}</td>
       <td class="md-table-content">{{ persona.userId }}</td>
       <td class="md-table-td-more">
-        <button
-          mat-button
-          aria-label="Editar"
-          (click)="updatePersona(persona.userId)"
-        >
+        <button mat-button aria-label="Editar" (click)="seleccionarPersona(persona, persona.userId)">
           <i class="material-icons">edit</i>
         </button>
+        
+        
         <button
           mat-button
           aria-label="Eliminar"
