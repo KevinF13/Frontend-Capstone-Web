@@ -4,6 +4,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
+
+export interface User {
+  _id: string;
+  email: string;
+  password: string;
+  role: string;
+  isActive: boolean;
+}
+
 interface SignUpResponse {
   token: string;
 }
@@ -54,6 +63,24 @@ export class AuthService {
         this.loggedIn.next(true);
       })
     );
+  }
+
+  getAllUsers(): Observable<User[]> {
+    // Obtener el token almacenado en el localStorage
+    const token = localStorage.getItem('token');
+
+    // Comprobar si el token está presente
+    if (!token) {
+      throw new Error('No se ha iniciado sesión. El token no está disponible.');
+    }
+
+    // Configurar el encabezado de autorización
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    // Realizar la solicitud GET con el encabezado de autorización
+    return this.http.get<User[]>(`${this.apiUrl}/users`, { headers });
   }
 
   // logout() {

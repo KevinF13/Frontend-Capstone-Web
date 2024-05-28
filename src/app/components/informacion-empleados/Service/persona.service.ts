@@ -1,43 +1,73 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.development';
 import { Persona } from '../Model/persona';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PersonaService {
+  private apiUrl = `${environment.apiUrl}/persona`; // Ajusta el URL de acuerdo a tu configuración
 
-  private apiUrl = `${environment.apiUrl}/persona`;
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
-
-  getAllPersonas(): Observable<Persona[]> {
-    return this.http.get<Persona[]>(this.apiUrl, this.getAuthHeaders());
-  }
-
-  createPersona(personaData: any): Observable<Persona> {
-    return this.http.post<Persona>(this.apiUrl, personaData, this.getAuthHeaders());
-  }
-
-  updatePersona(personaId: string, personaData: any): Observable<Persona> {
-    return this.http.put<Persona>(`${this.apiUrl}/${personaId}`, personaData, this.getAuthHeaders());
-  }
-
-  deletePersona(personaId: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${personaId}`, this.getAuthHeaders());
-  }
-
-  private getAuthHeaders(): { headers: HttpHeaders } {
+  // Método privado para obtener el token almacenado en localStorage
+  private getToken(): string {
     const token = localStorage.getItem('token');
     if (!token) {
       throw new Error('No se ha iniciado sesión. El token no está disponible.');
     }
-    const headers = new HttpHeaders({
+    return token;
+  }
+
+  // Método para obtener todas las personas
+  getAllPersonas(page: number = 1, keyword: string = ''): Observable<Persona[]> {
+    const token = this.getToken();
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('keyword', keyword);
+    let headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return { headers };
+    return this.http.get<Persona[]>(this.apiUrl, { params, headers });
+  }
+
+  // Métodos restantes con la misma lógica de agregar el token a la solicitud...
+
+  // Método para obtener una persona por ID
+  getPersona(id: string): Observable<Persona> {
+    const token = this.getToken();
+    let headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get<Persona>(`${this.apiUrl}/${id}`, { headers });
+  }
+
+  // Método para crear una nueva persona
+  createPersona(persona: Persona): Observable<Persona> {
+    const token = this.getToken();
+    let headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.post<Persona>(this.apiUrl, persona, { headers });
+  }
+
+  // Método para actualizar una persona por ID
+  updatePersona(id: string, persona: Partial<Persona>): Observable<Persona> {
+    const token = this.getToken();
+    let headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.put<Persona>(`${this.apiUrl}/${id}`, persona, { headers });
+  }
+
+  // Método para eliminar una persona por ID
+  deletePersona(id: string): Observable<Persona> {
+    const token = this.getToken();
+    let headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.delete<Persona>(`${this.apiUrl}/${id}`, { headers });
   }
 }

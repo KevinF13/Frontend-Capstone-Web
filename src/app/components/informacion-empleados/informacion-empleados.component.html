@@ -1,39 +1,60 @@
-<button class="open-button" (click)="showForm = true">Crear Nueva Persona</button>
-
 <!-- Formulario emergente para crear una nueva persona -->
 <div *ngIf="showForm" class="overlay">
   <div class="container">
     <div class="main">
-      <p class="sign">Crear Nueva Persona</p>
+      <p class="sign">Creación de Perfil</p>
       <form class="form1" [formGroup]="personaForm" (ngSubmit)="onSubmit()">
         <div class="left-column">
           <input class="un" type="text" formControlName="nombres" placeholder="Nombres" required>
           <input class="un" type="text" formControlName="apellidos" placeholder="Apellidos" required>
           <input class="un" type="text" formControlName="cedula" placeholder="Cédula" required>
-          <input class="un" type="text" formControlName="fechaNacimiento" placeholder="Fecha de Nacimiento" required>
+          <input class="un" type="date" formControlName="fechaNacimiento" placeholder="Fecha de Nacimiento" required>
         </div>
         <div class="right-column">
           <input class="un" type="text" formControlName="direccionDomicilio" placeholder="Dirección Domicilio" required>
           <input class="un" type="text" formControlName="telefono" placeholder="Teléfono" required>
           <input class="un" type="text" formControlName="manejaArma" placeholder="Maneja Arma" required>
           <input class="un" type="text" formControlName="imagen" placeholder="Imagen">
-          <input class="un" type="text" formControlName="fechaIngreso" placeholder="Fecha de Ingreso" required>
-          <input class="un" type="text" formControlName="userId" placeholder="UserID">
+          <input class="un" type="date" formControlName="fechaIngreso" placeholder="Fecha de Ingreso" required>
+          <input class="un" type="text" formControlName="userId" placeholder="UserID" required>
         </div>
-        <!-- Agregar más campos según las propiedades de la persona -->
-        <button type="submit" class="submit">Crear Persona</button>
+        <button type="submit" class="submit">Registrar Perfil</button>
       </form>
       
-      <!-- Botón para cerrar el formulario emergente -->
-      <button class="close-button" (click)="showForm = false">Cerrar</button>
+      <button class="close-button" (click)="cerrarFormulario()">Cerrar</button>
+
     </div>
   </div>
 </div>
 
+<!-- Tabla de Usuarios -->
+<table class="md-table">
+  <thead>
+    <tr class="md-table-headers-row">
+      <th class="md-table-header">ID</th>
+      <th class="md-table-header">Email</th>
+      <th class="md-table-header">Role</th>
+      <th class="md-table-header">Estado</th>
+      <th class="md-table-header md-table-td-more">Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="md-table-content-row" *ngFor="let user of users">
+      <td class="md-table-content">{{ user._id }}</td>
+      <td class="md-table-content">{{ user.email }}</td>
+      <td class="md-table-content">{{ user.role }}</td>
+      <td class="md-table-content">{{ user.isActive ? 'Activo' : 'Inactivo' }}</td>
+      <td class="md-table-td-more">
+        <button class="open-button" (click)="seleccionarUsuario(user._id)">
+          Crear Perfil
+        </button>        
+        
+      </td>
+    </tr>
+  </tbody>
+</table>
 
-
-<!-- Resto del contenido -->
-
+<!-- Tabla de Personas -->
 <table class="md-table">
   <thead>
     <tr class="md-table-headers-row">
@@ -46,8 +67,7 @@
       <th class="md-table-header">Maneja Arma</th>
       <th class="md-table-header">Imagen</th>
       <th class="md-table-header">Fecha Ingreso</th>
-      <th class="md-table-header">UserId</th>
-      <!-- Añade aquí más columnas según las propiedades de tu entidad Persona -->
+      <th class="md-table-header">UserID</th>
       <th class="md-table-header md-table-td-more">Acciones</th>
     </tr>
   </thead>
@@ -63,12 +83,19 @@
       <td class="md-table-content">{{ persona.imagen }}</td>
       <td class="md-table-content">{{ persona.fechaIngreso }}</td>
       <td class="md-table-content">{{ persona.userId }}</td>
-      <!-- Añade aquí más columnas según las propiedades de tu entidad Persona -->
       <td class="md-table-td-more">
-        <button mat-button aria-label="Editar" (click)="updatePersona(persona._id)">
+        <button
+          mat-button
+          aria-label="Editar"
+          (click)="updatePersona(persona.userId)"
+        >
           <i class="material-icons">edit</i>
         </button>
-        <button mat-button aria-label="Eliminar" (click)="deletePersona(persona._id)">
+        <button
+          mat-button
+          aria-label="Eliminar"
+          (click)="deletePersona(persona.userId)"
+        >
           <i class="material-icons">delete</i>
         </button>
       </td>
