@@ -12,6 +12,7 @@ export class HorarioComponent implements OnInit {
   
   personas: Persona[] = [];
   selectedUserId: string | null = null;
+  today!: string;
 
   constructor(
     private personaService: PersonaService,
@@ -20,6 +21,12 @@ export class HorarioComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPersonas();
+    // Calcula la fecha actual en el formato YYYY-MM-DD
+    const today = new Date();
+    const day = String(today.getDate()).padStart(2, '0');
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const year = today.getFullYear();
+    this.today = `${year}-${month}-${day}`;
   }
 
   getPersonas(): void {
@@ -45,6 +52,8 @@ export class HorarioComponent implements OnInit {
     }
 
     const createHorarioDto = {
+      lugarTrabajo: formData.get('lugar') as string,
+      puesto: formData.get('puesto') as string,
       diaSemana: formData.get('diaSemana') as string,
       fecha: formData.get('fecha') as string,
       horaInicio: formData.get('horaInicio') as string,
@@ -73,4 +82,18 @@ export class HorarioComponent implements OnInit {
   setSelectedUserId(userId: string) {
     this.selectedUserId = userId;
   }
+
+  // Función para manejar el cierre del formulario
+  closeForm() {
+    this.selectedUserId = null;
+}
+// Función para actualizar el día de la semana según la fecha seleccionada
+updateDiaSemana(event: Event) {
+  const input = event.target as HTMLInputElement;
+  const date = new Date(input.value);
+  const days = [ 'LUNES', 'MARTES', 'MIERCOLES', 'JUEVES', 'VIERNES', 'SABADO','DOMINGO'];
+  const diaSemana = days[date.getDay()];
+  const diaSemanaInput = document.getElementById('diaSemana') as HTMLInputElement;
+  diaSemanaInput.value = diaSemana;
+}
 }

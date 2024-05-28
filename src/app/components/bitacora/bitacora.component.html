@@ -1,0 +1,24 @@
+<div class="bitacoras-container" *ngIf="bitacoras">
+    <h1>Bitácoras</h1>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>User ID</th>
+            <th>Fecha y Hora</th>
+            <th>Cliente</th>
+            <th>Hora Novedades</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let bitacora of bitacoras">
+            <td>{{ bitacora.userId }}</td>
+            <td>{{ bitacora.fechaHorario }}</td>
+            <td>{{ bitacora.nombreAgente }}</td>
+            <td>{{ bitacora.horaNovedades }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

@@ -2,6 +2,7 @@
   <a [routerLink]="isLoggedIn ? '/home' : '/'" class="logo">Codisecurity</a>
   <div class="header-right">
     <a routerLink="/home">Página Principal</a>
+    <a *ngIf="isLoggedIn" [routerLink]="isLoggedIn ? '/bitacora' : '/'">Bitácora</a>
     <div class="dropdown" *ngIf="isLoggedIn">
       <a [routerLink]="isLoggedIn ? '/guardias' : '/'">Empleados</a>
       <div class="dropdown-content">
