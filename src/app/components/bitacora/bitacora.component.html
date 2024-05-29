@@ -1,24 +1,51 @@
 <div class="bitacoras-container" *ngIf="bitacoras">
-    <h1>Bitácoras</h1>
-    <div class="table-container">
-      <table>
-        <thead>
-          <tr>
-            <th>User ID</th>
-            <th>Fecha y Hora</th>
-            <th>Cliente</th>
-            <th>Hora Novedades</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let bitacora of bitacoras">
-            <td>{{ bitacora.userId }}</td>
-            <td>{{ bitacora.fechaHorario }}</td>
-            <td>{{ bitacora.nombreAgente }}</td>
-            <td>{{ bitacora.horaNovedades }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+  <h1>Bitácoras Registradas</h1>
   
+  <!-- Selector para elegir nombre de agente -->
+  <div class="selector-container">
+    <select class="select-input" [(ngModel)]="filtroNombreAgente">
+      <option value="">Seleccionar agente</option>
+      <option *ngFor="let nombreAgente of nombresAgentes" [value]="nombreAgente">{{ nombreAgente }}</option>
+    </select>
+  </div>
+
+  <!-- Input para filtrar por fechaHorario -->
+  <div class="filtro-fecha-container">
+    <input class="date-input" type="date" [(ngModel)]="filtroFechaHorario">
+  </div>
+
+  <!-- Botón para limpiar los filtros -->
+  <div class="limpiar-filtros-container">
+    <button class="limpiar-btn" (click)="limpiarFiltros()">Limpiar Filtros</button>
+  </div>
+
+  <div class="table-container">
+    <table class="bitacoras-table">
+      <thead>
+        <tr>
+          <th>User ID</th>
+          <th>Nombre Agente</th>
+          <th>Fecha</th>
+          <th>Hora</th>
+          <th>Cliente</th>
+          <th>Visualizar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Iterar sobre las bitácoras filtradas por nombre de agente -->
+        <tr *ngFor="let bitacora of filtrarBitacorasPorNombreAgente()">
+          <td>{{ bitacora.userId }}</td>
+          <td>{{ bitacora.nombreAgente }}</td>
+          <td>{{ bitacora.fechaHorario }}</td>
+          <td>{{ bitacora.horaNovedades }}</td>
+          <td>{{ bitacora.cliente }}</td>
+          <td>
+            <div *ngIf="bitacoras">
+              <button class="pdf-btn" (click)="generarPDF(bitacora)">Generar PDF</button>
+            </div>              
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
