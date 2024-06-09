@@ -1,11 +1,11 @@
 export interface Bitacora {
+    _id: string;
     userId: string;
     fechaHorario: string;
     turnoHorario: string;
     cliente: string;
     nombreAgente: string;
-    prendas: string;
-    horaNovedades: string;
-    novedades: string;
+    prendasEmpresa: string;
+    prendasCliente: string;
   }
   

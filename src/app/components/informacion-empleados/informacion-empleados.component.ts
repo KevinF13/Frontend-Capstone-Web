@@ -210,4 +210,12 @@ export class InformacionEmpleadosComponent implements OnInit {
       }
     });
   }
+
+  showDetails: boolean = false;
+
+  toggleDetails() {
+    // Cambiar el estado de showDetails
+    this.showDetails = !this.showDetails;
+  }
+  
 }

@@ -4,82 +4,25 @@
     <div class="main">
       <p class="sign">Creación de Perfil</p>
       <form class="form1" [formGroup]="createPersonaForm" (ngSubmit)="onCreateSubmit()">
-        <div class="left-column">
-          <input class="un" type="text" formControlName="nombres" placeholder="Nombres" required>
-          <input class="un" type="text" formControlName="apellidos" placeholder="Apellidos" required>
-          <input class="un" type="text" formControlName="cedula" placeholder="Cédula" required>
-          <input class="un" type="date" formControlName="fechaNacimiento" placeholder="Fecha de Nacimiento" required>
+        <div class="form-group">
+          <input class="form-control" type="text" formControlName="nombres" placeholder="Nombres" required>
         </div>
-        <div class="right-column">
-          <input class="un" type="text" formControlName="direccionDomicilio" placeholder="Dirección Domicilio" required>
-          <input class="un" type="text" formControlName="telefono" placeholder="Teléfono" required>
-          <input class="un" type="text" formControlName="manejaArma" placeholder="Maneja Arma" required>
-          <input class="un" type="text" formControlName="imagen" placeholder="Imagen">
-          <input class="un" type="date" formControlName="fechaIngreso" placeholder="Fecha de Ingreso" required>
-          <input class="un" type="text" formControlName="userId" placeholder="UserID" required>
+        <div class="form-group">
+          <input class="form-control" type="text" formControlName="apellidos" placeholder="Apellidos" required>
         </div>
-        <button type="submit" class="submit">Registrar Perfil</button>
+        <div class="form-group">
+          <input class="form-control" type="text" formControlName="cedula" placeholder="Cédula" required>
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="date" formControlName="fechaNacimiento" placeholder="Fecha de Nacimiento" required>
+        </div>
+        <!-- Agrega el resto de los campos del formulario -->
+        <button type="submit" class="submit btn btn-primary">Registrar Perfil</button>
       </form>
       <button class="close-button" (click)="cerrarCreateForm()">Cerrar</button>
     </div>
   </div>
 </div>
-
-
-<!-- ESTO SI SE PUEDE MOVER OJO-->
-<!-- Formulario emergente para editar una persona -->
-<div *ngIf="showEditForm" class="overlay">
-  <div class="container">
-    <div class="main">
-      <p class="sign">Edición de Perfil</p>
-      <form class="form2" [formGroup]="editPersonaForm" (ngSubmit)="onEditSubmit()">
-        <div class="left-column">
-          <input class="un" type="text" formControlName="nombres" placeholder="Nombres" required>
-          <input class="un" type="text" formControlName="apellidos" placeholder="Apellidos" required>
-          <input class="un" type="text" formControlName="cedula" placeholder="Cédula" required>
-          <input class="un" type="date" formControlName="fechaNacimiento" placeholder="Fecha de Nacimiento" required>
-        </div>
-        <div class="right-column">
-          <input class="un" type="text" formControlName="direccionDomicilio" placeholder="Dirección Domicilio" required>
-          <input class="un" type="text" formControlName="telefono" placeholder="Teléfono" required>
-          <input class="un" type="text" formControlName="manejaArma" placeholder="Maneja Arma" required>
-          <input class="un" type="text" formControlName="imagen" placeholder="Imagen">
-          <input class="un" type="date" formControlName="fechaIngreso" placeholder="Fecha de Ingreso" required>
-          <input class="un" type="text" formControlName="userId" placeholder="UserID" required>
-        </div>
-        <button type="submit" class="submit">Actualizar Perfil</button>
-      </form>
-      <button class="close-button" (click)="cerrarEditForm()">Cerrar</button>
-    </div>
-  </div>
-</div>
-
-<!-- Tabla de Usuarios -->
-<table class="md-table">
-  <thead>
-    <tr class="md-table-headers-row">
-      <th class="md-table-header">ID</th>
-      <th class="md-table-header">Email</th>
-      <th class="md-table-header">Role</th>
-      <th class="md-table-header">Estado</th>
-      <th class="md-table-header md-table-td-more">Acciones</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr class="md-table-content-row" *ngFor="let user of users">
-      <td class="md-table-content">{{ user._id }}</td>
-      <td class="md-table-content">{{ user.email }}</td>
-      <td class="md-table-content">{{ user.role }}</td>
-      <td class="md-table-content">{{ user.isActive ? 'Activo' : 'Inactivo' }}</td>
-      <td class="md-table-td-more">
-        <button class="open-button" (click)="seleccionarUsuario(user._id)">
-          Crear Perfil
-        </button>        
-        
-      </td>
-    </tr>
-  </tbody>
-</table>
 
 <!-- Tabla de Personas -->
 <table class="md-table">
@@ -89,12 +32,17 @@
       <th class="md-table-header">Apellidos</th>
       <th class="md-table-header">Cédula</th>
       <th class="md-table-header">Fecha Nacimiento</th>
-      <th class="md-table-header">Dirección Domicilio</th>
-      <th class="md-table-header">Telefono</th>
-      <th class="md-table-header">Maneja Arma</th>
-      <th class="md-table-header">Imagen</th>
-      <th class="md-table-header">Fecha Ingreso</th>
-      <th class="md-table-header">UserID</th>
+      <th class="md-table-header md-collapsible-header" (click)="toggleDetails()">
+        <div class="collapsible-header">Detalles <i class="material-icons">keyboard_arrow_down</i></div>
+        <div class="collapsible-content" [ngClass]="{ 'collapsed': !showDetails }">
+          <span>Dirección Domicilio</span>
+          <span>Telefono</span>
+          <span>Maneja Arma</span>
+          <span>Imagen</span>
+          <span>Fecha Ingreso</span>
+          <span>UserID</span>
+        </div>
+      </th>
       <th class="md-table-header md-table-td-more">Acciones</th>
     </tr>
   </thead>
@@ -104,26 +52,44 @@
       <td class="md-table-content">{{ persona.apellidos }}</td>
       <td class="md-table-content">{{ persona.cedula }}</td>
       <td class="md-table-content">{{ persona.fechaNacimiento }}</td>
-      <td class="md-table-content">{{ persona.direccionDomicilio }}</td>
-      <td class="md-table-content">{{ persona.telefono }}</td>
-      <td class="md-table-content">{{ persona.manejaArma }}</td>
-      <td class="md-table-content">
+      <td class="md-table-content md-collapsible-content" [ngClass]="{ 'collapsed': !showDetails }">
+        <span>{{ persona.direccionDomicilio }}</span>
+        <span>{{ persona.telefono }}</span>
+        <span>{{ persona.manejaArma }}</span>
         <img src="{{ persona.imagen }}" alt="Imagen de la persona" class="persona-imagen">
-    </td>
-      <td class="md-table-content">{{ persona.fechaIngreso }}</td>
-      <td class="md-table-content">{{ persona.userId }}</td>
+        <span>{{ persona.fechaIngreso }}</span>
+        <span>{{ persona.userId }}</span>
+      </td>
       <td class="md-table-td-more">
         <button mat-button aria-label="Editar" (click)="seleccionarPersona(persona, persona.userId)">
           <i class="material-icons">edit</i>
         </button>
-        
-        
-        <button
-          mat-button
-          aria-label="Eliminar"
-          (click)="deletePersona(persona.userId)"
-        >
+        <button mat-button aria-label="Eliminar" (click)="deletePersona(persona.userId)">
           <i class="material-icons">delete</i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Tabla de Usuarios -->
+<table class="md-table">
+  <thead>
+    <tr class="md-table-headers-row">
+      <th class="md-table-header">ID</th>
+      <th class="md-table-header">Email</th>
+      <th class="md-table-header">Role</th>
+      <th class="md-table-header md-table-td-more">Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="md-table-content-row" *ngFor="let user of users">
+      <td class="md-table-content">{{ user._id }}</td>
+      <td class="md-table-content">{{ user.email }}</td>
+      <td class="md-table-content">{{ user.role }}</td>
+      <td class="md-table-td-more">
+        <button class="open-button" (click)="seleccionarUsuario(user._id)">
+          Crear Perfil
         </button>
       </td>
     </tr>

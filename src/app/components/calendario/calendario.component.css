@@ -1,0 +1,94 @@
+/* calendario.component.css */
+.date-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Centra verticalmente los elementos */
+    margin-bottom: 20px;
+    font-size: 18px;
+    background-color: #f44336; /* Rojo oscuro */
+    padding: 10px; /* Agrega espacio interno */
+    border-radius: 5px; /* Bordes redondeados */
+  }
+  
+  .date-navigation button {
+    background-color: #d32f2f; /* Rojo más oscuro */
+    color: #fff; /* Texto blanco */
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .calendar {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .calendar th,
+  .calendar td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center; /* Centra el contenido */
+  }
+  
+  .calendar th {
+    background-color: #e57373; /* Rojo claro */
+    color: #fff; /* Texto blanco */
+  }
+  
+  .day-column {
+    position: relative;
+  }
+  
+  .time-slot {
+    position: relative;
+    cursor: pointer;
+    background-color: #ffebee; /* Rojo claro */
+    border-radius: 5px;
+    padding: 8px;
+    margin-bottom: 5px; /* Espacio entre slots */
+  }
+  
+  .floating-label {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 200px;
+    z-index: 1;
+  }
+  
+  /* Estilos para pantallas pequeñas */
+  @media screen and (max-width: 768px) {
+    .calendar th,
+    .calendar td {
+      font-size: 14px;
+      padding: 8px;
+    }
+  
+    .date-navigation {
+      font-size: 16px;
+    }
+  }
+  
+  /* ESTILO PARA LA IMAGEN DEL AGENTE */
+  .persona-imagen {
+    max-width: 80px; /* Ajusta el tamaño máximo de la imagen según sea necesario */
+    height: auto; /* Permite que la altura se ajuste automáticamente */
+    border-radius: 50%; /* Para hacer la imagen redonda */
+    border: 3px solid #fff; /* Borde blanco alrededor de la imagen */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    display: block; /* Alinea la imagen al centro */
+    margin: 0 auto 10px; /* Alinea la imagen al centro y agrega espacio inferior */
+  }
+  
+  
+  .persona-nombre {
+    text-align: center; /* Centra el texto */
+  }
+  

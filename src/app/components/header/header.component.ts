@@ -9,12 +9,17 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
   isLoggedIn: boolean = false; // Variable para verificar si el usuario ha iniciado sesión
+  isSupervisor: boolean = false; // Variable para verificar si el usuario es Supervisor
 
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
     this.authService.isLoggedIn().subscribe((loggedIn) => {
       this.isLoggedIn = loggedIn; // Actualiza el estado de inicio de sesión en el componente de encabezado
+    });
+
+    this.authService.getCurrentUserRole().subscribe((role) => {
+      this.isSupervisor = role === 'Supervisor';
     });
   }
 

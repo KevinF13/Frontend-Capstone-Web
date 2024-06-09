@@ -4,12 +4,14 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment.development';
 import { Bitacora } from '../Model/bitacora';
+import { BitacoraNovedad } from '../Model/bitacoraNovedad';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BitacoraService {
   private apiUrl = `${environment.apiUrl}/bitacora`;
+  private apiUrlNovedad = `${environment.apiUrl}/bitacora-novedad`; // Asegúrate de que la URL coincide con tu controlador
 
   constructor(private http: HttpClient) {}
 
@@ -80,5 +82,60 @@ export class BitacoraService {
       errorMessage = `Código de error: ${error.status}\nMensaje: ${error.message}`;
     }
     return throwError(errorMessage);
+  }
+
+
+
+
+
+
+
+
+
+
+  /////////////////////////////METODOS PARA BITACORA NOVEDAD///////////////////////////
+  // Método para obtener todas las bitácoras
+  getAllBitacoraNovedad(queryParams: any = {}): Observable<BitacoraNovedad[]> {
+    return this.http.get<BitacoraNovedad[]>(this.apiUrlNovedad, {
+      ...this.getHttpOptions(),
+      params: queryParams
+    }).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  // Método para obtener una bitácora por ID
+  getBitacoraNovedadById(id: string): Observable<BitacoraNovedad> {
+    const url = `${this.apiUrlNovedad}/${id}`;
+    return this.http.get<BitacoraNovedad>(url, this.getHttpOptions())
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  // Método para crear una bitácora
+  createBitacoraNovedad(bitacoraNovedad: any): Observable<BitacoraNovedad> {
+    return this.http.post<BitacoraNovedad>(this.apiUrlNovedad, bitacoraNovedad, this.getHttpOptions())
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  // Método para actualizar una bitácora
+  updateBitacoraNovedad(id: string, bitacoraNovedad: any): Observable<BitacoraNovedad> {
+    const url = `${this.apiUrlNovedad}/${id}`;
+    return this.http.put<BitacoraNovedad>(url, bitacoraNovedad, this.getHttpOptions())
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  // Método para eliminar una bitácora
+  deleteBitacoraNovedad(id: string): Observable<any> {
+    const url = `${this.apiUrlNovedad}/${id}`;
+    return this.http.delete(url, this.getHttpOptions())
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 }

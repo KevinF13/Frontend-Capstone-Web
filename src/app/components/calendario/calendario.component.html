@@ -1,0 +1,50 @@
+<!-- calendario.component.html -->
+<div class="date-navigation">
+  <!-- Selector de lugares de trabajo -->
+  <select [(ngModel)]="selectedLugarTrabajo">
+    <option value="">Todos los lugares de trabajo</option>
+    <option *ngFor="let lugar of lugaresTrabajo" [value]="lugar">{{ lugar }}</option>
+  </select>
+  <button (click)="changeWeek(-1)">&#9664; Semana Anterior</button>
+  <span>{{ fechasSemana[0] | date: 'dd/MM/yyyy' }} - {{ fechasSemana[6] | date: 'dd/MM/yyyy' }}</span>
+  <button (click)="changeWeek(1)">Semana Siguiente &#9654;</button>
+</div>
+
+<table class="calendar">
+  <thead>
+    <tr>
+      <th>AGENTE</th>
+      <th *ngFor="let dia of dias; let i = index">{{ dia }}<br>{{ fechasSemana[i] | date: 'dd/MM/yyyy' }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let persona of personas">
+      <tr>
+        <td>
+          <div class="persona-contenedor" [ngClass]="'agente-' + persona.userId">
+            <img [src]="persona.imagen" alt="{{ persona.nombres }} {{ persona.apellidos }}" class="persona-imagen">
+            <div class="persona-nombre">{{ persona.nombres }} {{ persona.apellidos }}</div>
+          </div>
+        </td>                      
+        <ng-container *ngFor="let dia of dias">
+          <td>
+            <div class="day-column">
+              <div *ngFor="let horario of getHorariosPorDia(dia, persona)">
+                <div class="time-slot" *ngIf="horario.lugarTrabajo === selectedLugarTrabajo || !selectedLugarTrabajo" (click)="openHorarioInfo(horario)">
+                  {{ horario.horaInicio }} - {{ horario.horaFin }}
+                  <div *ngIf="selectedHorario === horario" class="floating-label">
+                    <p><strong>Fecha:</strong> {{ horario.fecha }}</p>
+                    <p><strong>Hora Inicio:</strong> {{ horario.horaInicio }}</p>
+                    <p><strong>Hora Fin:</strong> {{ horario.horaFin }}</p>
+                    <p><strong>Puesto:</strong> {{ horario.puesto }}</p>
+                    <p><strong>Lugar de Trabajo:</strong> {{ horario.lugarTrabajo }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+        </ng-container>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>

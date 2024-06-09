@@ -1,4 +1,4 @@
-<div class="bitacoras-container" *ngIf="bitacoras">
+<div class="bitacoras-container" *ngIf="bitacoras.length">
   <h1>Bitácoras Registradas</h1>
   
   <!-- Selector para elegir nombre de agente -->
@@ -26,18 +26,15 @@
           <th>User ID</th>
           <th>Nombre Agente</th>
           <th>Fecha</th>
-          <th>Hora</th>
           <th>Cliente</th>
           <th>Visualizar</th>
         </tr>
       </thead>
       <tbody>
-        <!-- Iterar sobre las bitácoras filtradas por nombre de agente -->
         <tr *ngFor="let bitacora of filtrarBitacorasPorNombreAgente()">
           <td>{{ bitacora.userId }}</td>
           <td>{{ bitacora.nombreAgente }}</td>
           <td>{{ bitacora.fechaHorario }}</td>
-          <td>{{ bitacora.horaNovedades }}</td>
           <td>{{ bitacora.cliente }}</td>
           <td>
             <div *ngIf="bitacoras">

@@ -17,6 +17,7 @@ import { MatInputModule } from '@angular/material/input';
 import { AuthInterceptor } from './auth/service/auth.interceptor';
 import { HorarioComponent } from './components/horario/horario.component';
 import { BitacoraComponent } from './components/bitacora/bitacora.component';
+import { CalendarioComponent } from './components/calendario/calendario.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { BitacoraComponent } from './components/bitacora/bitacora.component';
     GuardiaComponent,
     InformacionEmpleadosComponent,
     HorarioComponent,
-    BitacoraComponent
+    BitacoraComponent,
+    CalendarioComponent
   ],
   imports: [
     BrowserModule,

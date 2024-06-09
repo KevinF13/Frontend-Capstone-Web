@@ -1,11 +1,11 @@
 export enum DiaSemana {
-    Lunes = 'Lunes',
-    Martes = 'Martes',
-    Miercoles = 'Miercoles',
-    Jueves = 'Jueves',
-    Viernes = 'Viernes',
-    Sabado = 'Sabado',
-    Domingo = 'Domingo'
+    Lunes = 'LUNES',
+    Martes = 'MARTES',
+    Miercoles = 'MIERCOLES',
+    Jueves = 'JUEVES',
+    Viernes = 'VIERNES',
+    Sabado = 'SABADO',
+    Domingo = 'DOMINGO'
   }
   
   export interface Horario {

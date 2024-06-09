@@ -16,13 +16,22 @@ export class LoginComponent {
 
   onSubmit() {
     this.authService.login(this.email, this.password).subscribe(
-      () => {
-        Swal.fire({
-          icon: 'success',
-          title: 'Inicio de sesión exitoso',
-          text: '¡Bienvenido de nuevo!',
-        });
-        this.router.navigate(['/home']);
+      (response) => {
+        if (response.role === 'Supervisor') {
+          Swal.fire({
+            icon: 'success',
+            title: 'Inicio de sesión exitoso',
+            text: '¡Bienvenido de nuevo!',
+          });
+          this.authService.setCurrentUserRole(response.role);  // Actualiza el rol actual en AuthService
+          this.router.navigate(['/home']);
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Acceso Denegado',
+            text: 'No tienes permiso para iniciar sesión con este rol.',
+          });
+        }
       },
       (error) => {
         console.error('Error logging in:', error);
@@ -42,4 +51,7 @@ export class LoginComponent {
       }
     );
   }
+  
+  
+  
 }

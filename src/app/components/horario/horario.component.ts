@@ -21,12 +21,12 @@ export class HorarioComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPersonas();
-    // Calcula la fecha actual en el formato YYYY-MM-DD
+    // Calcula la fecha actual en el formato DD/MM/YYYY
     const today = new Date();
     const day = String(today.getDate()).padStart(2, '0');
     const month = String(today.getMonth() + 1).padStart(2, '0');
     const year = today.getFullYear();
-    this.today = `${year}-${month}-${day}`;
+    this.today = `${day}/${month}/${year}`;
   }
 
   getPersonas(): void {
@@ -51,11 +51,16 @@ export class HorarioComponent implements OnInit {
       return;
     }
 
+    const fecha = formData.get('fecha') as string;
+    // Convertir fecha a formato dd/mm/yyyy
+    const [year, month, day] = fecha.split('-');
+    const fechaFormatted = `${day}/${month}/${year}`;
+
     const createHorarioDto = {
       lugarTrabajo: formData.get('lugar') as string,
       puesto: formData.get('puesto') as string,
       diaSemana: formData.get('diaSemana') as string,
-      fecha: formData.get('fecha') as string,
+      fecha: fechaFormatted, // Enviar fecha en formato dd/mm/yyyy
       horaInicio: formData.get('horaInicio') as string,
       horaFin: formData.get('horaFin') as string,
       userId: this.selectedUserId // Usa el userId seleccionado
@@ -86,14 +91,16 @@ export class HorarioComponent implements OnInit {
   // Función para manejar el cierre del formulario
   closeForm() {
     this.selectedUserId = null;
-}
-// Función para actualizar el día de la semana según la fecha seleccionada
-updateDiaSemana(event: Event) {
-  const input = event.target as HTMLInputElement;
-  const date = new Date(input.value);
-  const days = [ 'LUNES', 'MARTES', 'MIERCOLES', 'JUEVES', 'VIERNES', 'SABADO','DOMINGO'];
-  const diaSemana = days[date.getDay()];
-  const diaSemanaInput = document.getElementById('diaSemana') as HTMLInputElement;
-  diaSemanaInput.value = diaSemana;
-}
+  }
+
+  // Función para actualizar el día de la semana según la fecha seleccionada
+  updateDiaSemana(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const [year, month, day] = input.value.split('-');
+    const date = new Date(`${month}/${day}/${year}`);
+    const days = ['DOMINGO', 'LUNES', 'MARTES', 'MIERCOLES', 'JUEVES', 'VIERNES', 'SABADO'];
+    const diaSemana = days[date.getDay()];
+    const diaSemanaInput = document.getElementById('diaSemana') as HTMLInputElement;
+    diaSemanaInput.value = diaSemana;
+  }
 }
