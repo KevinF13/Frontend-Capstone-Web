@@ -18,6 +18,7 @@ export class InformacionEmpleadosComponent implements OnInit {
   createPersonaForm: FormGroup;
   editPersonaForm: FormGroup;
   selectedUserId: string | undefined;
+  selectedUserDetails: any; // Variable para almacenar los detalles del usuario seleccionado
 
   constructor(private fb: FormBuilder, private personaService: PersonaService, private authService: AuthService) {
     this.createPersonaForm = this.fb.group({
@@ -60,12 +61,25 @@ export class InformacionEmpleadosComponent implements OnInit {
       this.createPersonaForm.get('userId')!.disable();
       this.showCreateForm = true;
     } else {
+    }
+  }
+
+  mostrarDetallesUsuario(userId: string) {
+    const usuarioSeleccionado = this.personas.find(persona => persona.userId === userId);
+    if (usuarioSeleccionado) {
+      this.selectedUserDetails = usuarioSeleccionado;
+    } else {
+      this.selectedUserDetails = null;
       Swal.fire({
         icon: 'error',
-        title: 'Perfil Existente',
-        text: 'El usuario ya tiene un perfil creado.'
+        title: 'Perfil no encontrado',
+        text: 'No se encontraron detalles para el usuario seleccionado.'
       });
     }
+  }
+
+  cerrarDetallesUsuario() {
+    this.selectedUserDetails = null;
   }
 
   seleccionarPersona(persona: Persona, userId: string) {
@@ -84,6 +98,7 @@ export class InformacionEmpleadosComponent implements OnInit {
     this.editPersonaForm.get('userId')!.disable();
     this.showEditForm = true;
   }
+
   getUsers(): void {
     this.authService.getAllUsers().subscribe(
       (users) => {
@@ -119,50 +134,10 @@ export class InformacionEmpleadosComponent implements OnInit {
           });
           console.error('Error al crear la persona', error);
         }
-        
       );
     }
   }
-
-  onEditSubmit() {
-    if (this.editPersonaForm.valid) {
-      const personaData = this.editPersonaForm.getRawValue();  // Obtener todos los valores, incluidos los deshabilitados
-      const userId = personaData.userId;
-      delete personaData.userId;  // Eliminar userId de los datos a enviar, si no es necesario
-  
-      this.personaService.updatePersona(userId, personaData)
-        .subscribe(
-          updatedPersona => {
-            console.log('Persona actualizada:', updatedPersona);
-            this.showEditForm = false;  // Ocultar el formulario después de la actualización
-            this.getPersonas();
-            this.getUsers();
-            // Mostrar una alerta de éxito
-            Swal.fire({
-              icon: 'success',
-              title: '¡Éxito!',
-              text: 'La persona ha sido actualizada correctamente.',
-              confirmButtonText: 'OK'
-            });
-  
-            // Aquí puedes agregar lógica adicional, como actualizar la lista de personas en la vista
-          },
-          error => {
-            console.error('Error al actualizar la persona:', error);
-  
-            // Mostrar una alerta de error
-            Swal.fire({
-              icon: 'error',
-              title: 'Error',
-              text: 'Ocurrió un error al actualizar la persona. Por favor, inténtalo de nuevo.',
-              confirmButtonText: 'OK'
-            });
-          }
-        );
-    }
-  }
-  
-
+    
   cerrarCreateForm() {
     this.showCreateForm = false;
     this.selectedUserId = undefined;
@@ -205,17 +180,53 @@ export class InformacionEmpleadosComponent implements OnInit {
             Swal.fire('Error', 'Hubo un problema al eliminar la persona', 'error');
           }
         );
+        this.authService.deleteUser(userId).subscribe(
+          () => {
+            console.log('Usuario eliminada');
+          },
+          error => {
+            console.error('Error al eliminar la persona:', error);
+            Swal.fire('Error', 'Hubo un problema al eliminar la persona', 'error');
+          }
+        );
       } else if (result.isDenied) {
         Swal.fire('La persona no ha sido eliminada', '', 'info');
       }
     });
   }
 
-  showDetails: boolean = false;
-
-  toggleDetails() {
-    // Cambiar el estado de showDetails
-    this.showDetails = !this.showDetails;
+  guardarCambios() {
+    const personaData = this.selectedUserDetails;
+    const userId = this.selectedUserDetails.userId;
+  
+    this.personaService.updatePersona(userId, personaData).subscribe(
+      updatedPersona => {
+        // Actualizar los detalles del usuario en la variable local
+        this.selectedUserDetails = updatedPersona;
+  
+        // Ocultar el formulario de edición
+        this.showEditForm = false;
+  
+        // Mostrar una alerta de éxito
+        Swal.fire({
+          icon: 'success',
+          title: '¡Éxito!',
+          text: 'La persona ha sido actualizada correctamente.',
+          confirmButtonText: 'OK'
+        });
+      },
+      error => {
+        console.error('Error al actualizar la persona:', error);
+  
+        // Mostrar una alerta de error
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Ocurrió un error al actualizar la persona. Por favor, inténtalo de nuevo.',
+          confirmButtonText: 'OK'
+        });
+      }
+    );
   }
   
 }

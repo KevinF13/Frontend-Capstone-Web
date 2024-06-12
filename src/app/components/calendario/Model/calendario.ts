@@ -18,6 +18,7 @@ export interface HorarioPorDia {
 }
 
 export interface Calendario {
+  id(id: any, horario: Calendario): unknown;
   _id: string;
   userId: string;
   diaSemana: DiaSemanaKeys;

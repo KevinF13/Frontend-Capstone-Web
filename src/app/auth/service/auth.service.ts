@@ -13,6 +13,7 @@ export interface User {
 }
 
 interface SignUpResponse {
+  _id: any;
   token: string;
 }
 
@@ -99,5 +100,32 @@ export class AuthService {
 
   isLoggedIn(): Observable<boolean> {
     return this.loggedIn.asObservable();
+  }
+
+  // Método delete para eliminar un usuario por ID
+deleteUser(userId: string): Observable<void> {
+  const token = this.getToken();
+  let headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}`
+  });
+  return this.http.delete<void>(`${this.apiUrl}/user/${userId}`, { headers });
+}
+private getToken(): string {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    throw new Error('No se ha iniciado sesión. El token no está disponible.');
+  }
+  return token;
+}
+
+  ///PRUEBAS
+  private userId: string | null = null;
+
+  setUserId(userId: string) {
+    this.userId = userId;
+  }
+
+  getUserId(): string | null {
+    return this.userId;
   }
 }

@@ -1,16 +1,3 @@
-/* Estilos generales */
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
 /* Estilos para el formulario emergente */
 .overlay {
   position: fixed;
@@ -18,29 +5,33 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Fondo oscurecido semi-transparente */
-  z-index: 999; /* Asegura que esté debajo del formulario emergente */
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.main {
+.container {
   background-color: #ffffff;
-  width: 70%; /* Ajusta el ancho del formulario */
-  padding: 20px; /* Añade un poco de espacio interno */
-  border-radius: 15px;
-  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
-  text-align: center;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+}
+
+.main {
+  max-width: 500px;
 }
 
 .sign {
-  color: #8C55AA;
-  font-weight: bold;
-  font-size: 24px;
   text-align: center;
+  font-size: 28px;
   margin-bottom: 20px;
+  color: #ff0000; /* Rojo */
+}
+
+.form1 {
+  display: flex;
+  flex-direction: column;
 }
 
 .form-group {
@@ -49,103 +40,142 @@ body {
 
 .form-control {
   width: 100%;
-  padding: 10px;
-  border-radius: 20px;
-  border: 1px solid #ccc;
-  outline: none;
+  padding: 15px;
+  border: 2px solid #ff0000; /* Rojo */
+  border-radius: 5px;
+  font-size: 18px;
 }
 
 .submit {
-  cursor: pointer;
-  border-radius: 20px;
-  color: #fff;
-  background: linear-gradient(to right, #9C27B0, #E040FB);
+  background-color: #ff0000; /* Rojo */
+  color: white;
   border: none;
-  padding: 10px 0;
-  font-family: 'Ubuntu', sans-serif;
-  width: 100%;
-  font-size: 16px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  padding: 15px 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
 }
 
 .close-button {
-  cursor: pointer;
-  background-color: #f44336;
-  color: #ffffff;
+  background-color: #ff0000; /* Rojo */
+  color: white;
   border: none;
+  padding: 15px 30px;
   border-radius: 5px;
-  padding: 10px 20px;
-  font-size: 16px;
+  cursor: pointer;
+  font-size: 18px;
+  margin-top: 10px;
 }
 
-/* Estilos para la tabla */
+/* Estilos para la tabla de Usuarios */
 .md-table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 20px;
+  border: 2px solid #ff0000; /* Rojo */
+  margin-top: 20px;
 }
 
-.md-table th,
-.md-table td {
-  border: 1px solid #ddd;
-  padding: 8px;
+.md-table-headers-row {
+  background-color: #ff0000; /* Rojo */
+  color: white;
+}
+
+.md-table-header,
+.md-table-content {
+  padding: 12px;
   text-align: left;
 }
 
-.md-table th {
-  background-color: #f2f2f2;
+.md-table-td-more {
+  text-align: center;
 }
 
-.md-table tr:nth-child(even) {
-  background-color: #f2f2f2;
+.md-table-content-row:hover {
+  background-color: #ffcccc; /* Rojo claro al hacer hover */
+  cursor: pointer; /* Cambiar el cursor al hacer hover */
 }
 
-.md-table tr:hover {
-  background-color: #ddd;
-  cursor: pointer;
+/* Estilos para los detalles del usuario seleccionado */
+.user-details {
+  width: 60%;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Estilos para la imagen de persona */
-.persona-imagen {
-  width: 80px;
-  height: 80px;
-  display: block;
-  margin: 0 auto;
-}
-
-/* Estilos para los botones de la tabla */
-.md-table button {
+.close-button {
+  float: right;
+  background-color: #e74c3c;
+  color: #fff;
   border: none;
-  background: none;
+  padding: 10px;
   cursor: pointer;
-  padding: 0;
+  border-radius: 4px;
 }
 
-/* Estilos adicionales si es necesario */
-
-/* Estilos para las columnas colapsables */
-.md-collapsible-header {
-  cursor: pointer;
+.close-button:hover {
+  background-color: #c0392b;
 }
 
-.collapsible-header {
+.user-image {
+  display: block;
+  margin: 0 auto 20px;
+  max-width: 150px;
+  border-radius: 50%;
+}
+
+.user-info p {
+  margin: 10px 0;
+}
+
+.input-field {
+  width: calc(50% - 10px);
+  margin-left: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.input-field + .input-field {
+  margin-left: 20px;
+}
+
+.input-checkbox {
+  margin-left: 10px;
+  transform: scale(1.5);
+}
+
+.button-container {
   display: flex;
   justify-content: space-between;
+  margin-top: 20px;
 }
 
-.collapsible-content {
-  display: flex;
-  flex-direction: column;
-  padding: 0;
-  overflow: hidden;
-  max-height: 0;
-  transition: max-height 0.3s ease-out;
+.edit-button,
+.delete-button {
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
 }
 
-.collapsible-content span {
-  padding: 8px;
+.edit-button {
+  background-color: #27ae60;
+  color: #fff;
 }
 
-.collapsed {
-  max-height: none;
+.edit-button:hover {
+  background-color: #2ecc71;
+}
+
+.delete-button {
+  background-color: #e74c3c;
+  color: #fff;
+}
+
+.delete-button:hover {
+  background-color: #c0392b;
 }

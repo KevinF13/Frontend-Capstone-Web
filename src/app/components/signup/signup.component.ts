@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/service/auth.service';
 import Swal from 'sweetalert2';
 
@@ -12,7 +13,9 @@ export class SignupComponent {
   password: string = '';
   role: string = '';
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
+
+  @Output() userIdEmitter: EventEmitter<string> = new EventEmitter<string>();
 
   onSubmit() {
     // Verificar el formato del correo electrónico
@@ -41,10 +44,19 @@ export class SignupComponent {
       if (result.isConfirmed) {
         this.authService.signUp(this.email, this.password, this.role).subscribe(
           (response) => {
+            console.log('SignUp Response:', response); // Log para depurar
+            const userId = response._id;
+            this.authService.setUserId(userId);
             Swal.fire('Éxito', '¡Usuario registrado exitosamente!', 'success');
+            this.router.navigate(['/registroPerfil']);
           },
           (error) => {
-            Swal.fire('Error', 'El correo ya fue registrado, intenta con otro correo', 'error');
+            console.error('Error al registrar usuario:', error); // Log para depurar
+            if (error.status === 409) { // Conflict - Correo ya registrado
+              Swal.fire('Error', 'El correo ya fue registrado, intenta con otro correo', 'error');
+            } else if (error.status !== 201) { // Cualquier otro error diferente a 201
+              Swal.fire('Error', 'Hubo un problema al registrar el usuario, por favor intenta de nuevo más tarde', 'error');
+            }
           }
         );
       } else if (result.isDenied) {
@@ -52,7 +64,6 @@ export class SignupComponent {
       }
     });
   }
-
   // Función para verificar el formato del correo electrónico usando una expresión regular
   isValidEmail(email: string): boolean {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

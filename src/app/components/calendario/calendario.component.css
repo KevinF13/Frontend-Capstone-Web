@@ -1,94 +1,222 @@
 /* calendario.component.css */
 .date-navigation {
-    display: flex;
-    justify-content: space-between;
-    align-items: center; /* Centra verticalmente los elementos */
-    margin-bottom: 20px;
-    font-size: 18px;
-    background-color: #f44336; /* Rojo oscuro */
-    padding: 10px; /* Agrega espacio interno */
-    border-radius: 5px; /* Bordes redondeados */
-  }
-  
-  .date-navigation button {
-    background-color: #d32f2f; /* Rojo más oscuro */
-    color: #fff; /* Texto blanco */
-    border: none;
-    padding: 8px 16px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .calendar {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Centra verticalmente los elementos */
+  margin-bottom: 20px;
+  font-size: 18px;
+  background-color: #f44336; /* Rojo oscuro */
+  padding: 10px; /* Agrega espacio interno */
+  border-radius: 5px; /* Bordes redondeados */
+}
+
+.date-navigation button {
+  background-color: #d32f2f; /* Rojo más oscuro */
+  color: #fff; /* Texto blanco */
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.calendar {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.calendar th,
+.calendar td {
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: center; /* Centra el contenido */
+}
+
+.calendar th {
+  background-color: #e57373; /* Rojo claro */
+  color: #fff; /* Texto blanco */
+}
+
+.day-column {
+  position: relative;
+}
+
+.time-slot {
+  position: relative;
+  cursor: pointer;
+  background-color: #c52e45; /* Rojo claro */
+  border-radius: 5px;
+  padding: 8px;
+  margin-bottom: 5px; /* Espacio entre slots */
+}
+
+/* General styles */
+body {
+  font-family: Arial, sans-serif;
+}
+
+.date-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.date-navigation select,
+.date-navigation button {
+  padding: 8px 12px;
+  margin: 0 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.date-navigation button:hover,
+.date-navigation select:hover {
+  background-color: #e9e9e9;
+}
+
+.date-navigation span {
+  font-weight: bold;
+}
+
+.calendar {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.calendar th, .calendar td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.calendar th {
+  background-color: #cc2f2f;
+}
+
+/* Modificaciones para centrar la imagen y colocar el texto debajo */
+.persona-contenedor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.persona-imagen {
+  width: 100px; /* Ajusta el tamaño de la imagen según sea necesario */
+  height: 100px;
+  border-radius: 10%; /* Para hacer la imagen redonda */
+  border: 3px solid #fff; /* Borde blanco alrededor de la imagen */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  display: block;
+  margin: 0 auto 10px; /* Alinea la imagen al centro y agrega espacio inferior */
+}
+
+.persona-nombre {
+  text-align: center; /* Centra el texto */
+}
+
+.day-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.time-slot {
+  padding: 5px;
+  margin: 5px 0;
+  background-color: #e9f7f9;
+  border: 1px solid #b2d8d8;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.time-slot:hover {
+  background-color: #d1eef0;
+}
+
+.floating-label {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 220px;
+  z-index: 1;
+  display: none;
+}
+
+.time-slot:hover .floating-label,
+.floating-label:hover {
+  display: block;
+}
+
+.floating-label p {
+  margin: 5px 0;
+}
+
+.floating-label label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.floating-label input {
+  width: calc(100% - 10px);
+  padding: 5px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.floating-label button {
+  margin-top: 10px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  background-color: #5cb85c;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.floating-label button:hover {
+  background-color: #4cae4c;
+}
+
+.floating-label button[type="submit"] {
+  background-color: #337ab7;
+}
+
+.floating-label button[type="submit"]:hover {
+  background-color: #286090;
+}
+
+.floating-label button[type="button"] {
+  background-color: #d9534f;
+}
+
+.floating-label button[type="button"]:hover {
+  background-color: #c9302c;
+}
+
+/* Estilos para pantallas pequeñas */
+@media screen and (max-width: 768px) {
   .calendar th,
   .calendar td {
-    padding: 10px;
-    border: 1px solid #ccc;
-    text-align: center; /* Centra el contenido */
-  }
-  
-  .calendar th {
-    background-color: #e57373; /* Rojo claro */
-    color: #fff; /* Texto blanco */
-  }
-  
-  .day-column {
-    position: relative;
-  }
-  
-  .time-slot {
-    position: relative;
-    cursor: pointer;
-    background-color: #ffebee; /* Rojo claro */
-    border-radius: 5px;
+    font-size: 14px;
     padding: 8px;
-    margin-bottom: 5px; /* Espacio entre slots */
   }
-  
-  .floating-label {
-    position: absolute;
-    top: calc(100% + 5px);
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #fff;
-    border: 1px solid #ccc;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 200px;
-    z-index: 1;
+
+  .date-navigation {
+    font-size: 16px;
   }
-  
-  /* Estilos para pantallas pequeñas */
-  @media screen and (max-width: 768px) {
-    .calendar th,
-    .calendar td {
-      font-size: 14px;
-      padding: 8px;
-    }
-  
-    .date-navigation {
-      font-size: 16px;
-    }
-  }
-  
-  /* ESTILO PARA LA IMAGEN DEL AGENTE */
-  .persona-imagen {
-    max-width: 80px; /* Ajusta el tamaño máximo de la imagen según sea necesario */
-    height: auto; /* Permite que la altura se ajuste automáticamente */
-    border-radius: 50%; /* Para hacer la imagen redonda */
-    border: 3px solid #fff; /* Borde blanco alrededor de la imagen */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
-    display: block; /* Alinea la imagen al centro */
-    margin: 0 auto 10px; /* Alinea la imagen al centro y agrega espacio inferior */
-  }
-  
-  
-  .persona-nombre {
-    text-align: center; /* Centra el texto */
-  }
-  
+}

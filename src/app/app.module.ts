@@ -18,6 +18,8 @@ import { AuthInterceptor } from './auth/service/auth.interceptor';
 import { HorarioComponent } from './components/horario/horario.component';
 import { BitacoraComponent } from './components/bitacora/bitacora.component';
 import { CalendarioComponent } from './components/calendario/calendario.component';
+import { RegistroPersonaComponent } from './components/registro-persona/registro-persona.component';
+import { DatePipe } from '@angular/common';
 
 
 @NgModule({
@@ -33,7 +35,8 @@ import { CalendarioComponent } from './components/calendario/calendario.componen
     InformacionEmpleadosComponent,
     HorarioComponent,
     BitacoraComponent,
-    CalendarioComponent
+    CalendarioComponent,
+    RegistroPersonaComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +47,8 @@ import { CalendarioComponent } from './components/calendario/calendario.componen
     MatInputModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

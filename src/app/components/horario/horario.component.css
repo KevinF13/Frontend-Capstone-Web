@@ -182,3 +182,71 @@ body {
   width: calc(100% - 10px); /* Ancho del campo con margen */
   margin-bottom: 10px; /* Espacio entre campos */
 }
+
+
+/* Estilos para la tabla de personas */
+.md-table {
+  width: 100%;
+  margin-bottom: 20px;
+  border-collapse: collapse;
+  background-color: #f8d7da; /* Fondo rojo claro para la tabla */
+  color: #721c24; /* Texto rojo oscuro para la tabla */
+}
+
+/* Estilos para las filas de la tabla */
+.md-table-content-row {
+  border-bottom: 1px solid #e2616e51; /* Borde inferior rojo oscuro */
+}
+
+/* Estilos para las celdas de la tabla */
+.md-table-content {
+  padding: 10px;
+}
+
+/* Estilos para los botones de la tabla */
+.md-table-td-more button {
+  background-color: #109402b2; /* Rojo oscuro */
+  color: #ffffff; /* Texto blanco */
+  border: none;
+  border-radius: 5px;
+  padding: 8px 16px; /* Ajuste de relleno */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Cambia el color de fondo del botón cuando se pasa el mouse */
+.md-table-td-more button:hover {
+  background-color: #4caf00; /* Rojo más oscuro al pasar el mouse */
+}
+
+
+/* Estilos para la imagen de la persona */
+.persona-imagen {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+/* Estilos para el botón Cerrar */
+#close-button {
+  background-color: #dc3546;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+/* Cambia el color de fondo del botón cuando se pasa el mouse */
+#close-button:hover {
+  background-color: #c82333; /* Cambio a rojo más oscuro al pasar el mouse */
+}
+
+/* Resto de tus estilos */
+body {
+  font-family: Arial, sans-serif;
+}

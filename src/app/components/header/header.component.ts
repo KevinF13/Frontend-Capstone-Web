@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/auth/service/auth.service';
 import { Router } from '@angular/router';
+import { Observable, tap } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -25,7 +26,10 @@ export class HeaderComponent implements OnInit {
 
   // Método para cerrar sesión
   logout() {
-    this.authService.logout(); // Llama al método de cierre de sesión en el servicio
+    this.authService.logout();
+    this.isLoggedIn = false; // Actualiza isLoggedIn como false después de cerrar sesión
     this.router.navigate(['/']); // Redirige al usuario a la página de inicio
-  }
 }
+
+}
+

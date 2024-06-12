@@ -1,30 +1,55 @@
+/* Estilos generales */
 .bitacoras-container {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
 }
 
-.select-input, .date-input {
-  padding: 8px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.limpiar-filtros-container {
-  margin-top: 10px;
-}
-
-.limpiar-btn {
+.select-input, .date-input, .limpiar-btn, .pdf-btn {
   padding: 8px 16px;
   font-size: 16px;
-  background-color: #f44336;
-  color: white;
-  border: none;
   border-radius: 5px;
   cursor: pointer;
 }
 
+.select-input, .date-input {
+  border: 1px solid #ccc;
+}
+
+.limpiar-btn, .pdf-btn {
+  border: none;
+  color: white;
+}
+
+/* Estilos para el selector de agente */
+.selector-container {
+  margin-top: 10px;
+}
+
+.select-input {
+  width: 100%;
+}
+
+/* Estilos para el filtro de fecha */
+.filtro-fecha-container {
+  margin-top: 10px;
+}
+
+.date-input {
+  width: 100%;
+}
+
+/* Estilos para el botón de limpiar filtros */
+.limpiar-filtros-container {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.limpiar-btn {
+  background-color: #f44336; /* Rojo */
+}
+
+/* Estilos para la tabla */
 .table-container {
   overflow-x: auto;
 }
@@ -40,19 +65,14 @@
 }
 
 .bitacoras-table th {
-  background-color: #f2f2f2;
+  background-color: #fc6161; /* Rojo claro */
 }
 
 .bitacoras-table tr:nth-child(even) {
-  background-color: #f2f2f2;
+  background-color: #ff00001f; /* Rojo claro */
 }
 
+/* Estilos para el botón de generar PDF */
 .pdf-btn {
-  padding: 8px 16px;
-  font-size: 16px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+  background-color: #00214ea2; /* Rojo */
 }

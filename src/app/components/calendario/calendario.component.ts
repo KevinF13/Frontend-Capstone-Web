@@ -143,4 +143,36 @@ export class CalendarioComponent implements OnInit {
     }
   }
   
+  // Método para actualizar un horario
+  updateHorario(horario: Calendario): void {
+    this.calendarioService.updateHorario(horario._id, horario).subscribe(
+      (updatedHorario) => {
+        const index = this.horarios.findIndex(h => h._id === updatedHorario._id);
+        if (index !== -1) {
+          this.horarios[index] = updatedHorario;
+        }
+        this.closeHorarioInfo();
+      },
+      (error) => {
+        console.error('Error al actualizar el horario', error);
+      }
+    );
+  }
+
+  // Método para eliminar un horario
+  deleteHorario(horario: Calendario): void {
+    this.calendarioService.deleteHorario(horario._id).subscribe(
+      () => {
+        this.horarios = this.horarios.filter(h => h._id !== horario._id);
+        this.closeHorarioInfo();
+      },
+      (error) => {
+        console.error('Error al eliminar el horario', error);
+      }
+    );
+  }
+  stopEventPropagation(event: MouseEvent): void {
+    event.stopPropagation();
+  }
+  
 }

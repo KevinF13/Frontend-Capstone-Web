@@ -1,22 +1,17 @@
 import { Injectable } from '@angular/core';
-import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpResponse } from '@angular/common/http';
+import { Observable, tap } from 'rxjs';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const token = localStorage.getItem('token'); // Obtén el token almacenado en el localStorage
-
-    if (token) {
-      // Clona la solicitud y añade el encabezado de autorización con el token
-      request = request.clone({
-        setHeaders: {
-          Authorization: `Bearer ${token}`
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    return next.handle(req).pipe(
+      tap(event => {
+        if (event instanceof HttpResponse) {
+          console.log('HTTP response:', event);
         }
-      });
-    }
-
-    return next.handle(request);
+      })
+    );
   }
 }

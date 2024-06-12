@@ -13,7 +13,7 @@
     <a *ngIf="isLoggedIn && isSupervisor" [routerLink]="'/asignacionHorario'">Asignación de Turnos</a>
     <a *ngIf="isLoggedIn && isSupervisor" [routerLink]="'/calendario'">Ver Turnos</a>
     <a *ngIf="isLoggedIn && isSupervisor" [routerLink]="'/home'">Monitoreo</a>
-    <a *ngIf="!isLoggedIn" routerLink="/login">Iniciar Sesión</a>
+    <a *ngIf="!isLoggedIn " routerLink="/login">Iniciar Sesión</a>
     <a *ngIf="isLoggedIn" (click)="logout()">Cerrar Sesión</a>
   </div>
 </div>

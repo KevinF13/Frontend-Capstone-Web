@@ -8,6 +8,8 @@ import { InformacionEmpleadosComponent } from './components/informacion-empleado
 import { HorarioComponent } from './components/horario/horario.component';
 import { BitacoraComponent } from './components/bitacora/bitacora.component';
 import { CalendarioComponent } from './components/calendario/calendario.component';
+import { HeaderComponent } from './components/header/header.component';
+import { RegistroPersonaComponent } from './components/registro-persona/registro-persona.component';
 
 const routes: Routes = [
   { path: 'registrarGuardia', component: SignupComponent },
@@ -18,8 +20,9 @@ const routes: Routes = [
   { path: 'asignacionHorario', component: HorarioComponent },
   { path: 'bitacora', component: BitacoraComponent },
   { path: 'calendario', component: CalendarioComponent },
-  //{ path: '**', redirectTo: '/home' }
-  { path: '', redirectTo: '/home', pathMatch: 'full' }
+  { path: 'registroPerfil', component: RegistroPersonaComponent },
+  { path: '**', redirectTo: '/home' }
+  // { path: '', redirectTo: '/header', pathMatch: 'full' }
 ];
 
 @NgModule({
