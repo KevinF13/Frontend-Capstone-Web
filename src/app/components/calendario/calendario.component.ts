@@ -35,10 +35,11 @@ export class CalendarioComponent implements OnInit {
     const currentDate = new Date();
     const first = currentDate.getDate() - currentDate.getDay() + 1;
     this.startDate = new Date(currentDate.setDate(first));
-    this.endDate = new Date(currentDate.setDate(first + 6));
+    this.endDate = new Date(this.startDate);
+    this.endDate.setDate(this.startDate.getDate() + 6);
     this.updateFechasSemana();
   }
-
+  
   updateFechasSemana(): void {
     this.fechasSemana = [];
     for (let i = 0; i < 7; i++) {
@@ -48,18 +49,18 @@ export class CalendarioComponent implements OnInit {
     }
     this.endDate = new Date(this.fechasSemana[6]);
   }
+  
 
   getHorarios(): void {
-    const startDateStr = this.formatDate(this.startDate);
-    const endDateStr = this.formatDate(this.endDate);
     this.personaService.getAllPersonas().subscribe(
       (personas) => {
         this.personas = personas;
         this.calendarioService.getAllHorarios().subscribe(
           (horarios) => {
-            this.horarios = horarios.filter(horario => this.isDateInRange(horario.fecha));
+            this.horarios = horarios;
             this.lugaresTrabajo = [...new Set(this.horarios.map(horario => horario.lugarTrabajo))];
             this.getUniqueLugaresTrabajo();
+            console.log('Horarios obtenidos:', this.horarios);
           },
           (error) => {
             console.error('Error al obtener horarios', error);
@@ -71,6 +72,10 @@ export class CalendarioComponent implements OnInit {
       }
     );
   }
+  
+  
+  
+  
 
   changeWeek(direction: number): void {
     const daysToAdd = direction * 7;
@@ -86,23 +91,30 @@ export class CalendarioComponent implements OnInit {
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
   }
+  
 
   isDateInRange(dateStr: string): boolean {
     const [day, month, year] = dateStr.split('/').map(Number);
     const date = new Date(year, month - 1, day);
     return date >= this.startDate && date <= this.endDate;
   }
+  
 
   getHorariosPorDia(dia: string, persona: Persona): Calendario[] {
     const index = this.dias.indexOf(dia);
     if (index === -1) return [];
     const dateToCompare = this.fechasSemana[index];
-    return this.horarios.filter(horario => 
+    const horarios = this.horarios.filter(horario => 
       horario.diaSemana === dia && 
       horario.userId === persona.userId && 
       this.isSameDate(horario.fecha, dateToCompare)
     );
+    return horarios;
   }
+  
+  
+  
+  
 
   isSameDate(dateStr: string, date: Date): boolean {
     const [day, month, year] = dateStr.split('/').map(Number);
@@ -111,6 +123,7 @@ export class CalendarioComponent implements OnInit {
            horarioDate.getMonth() === date.getMonth() &&
            horarioDate.getFullYear() === date.getFullYear();
   }
+  
 
   openHorarioInfo(horario: Calendario): void {
     if (this.selectedHorario === horario) {

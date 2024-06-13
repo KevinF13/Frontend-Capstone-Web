@@ -26,7 +26,7 @@ body {
 }
 
 .md-table-header {
-  background-color: #f4f4f4;
+  background-color: #ff1c1c85;
   font-weight: bold;
 }
 
@@ -100,25 +100,51 @@ body {
 }
 
 /* Estilos para los campos del formulario */
-#horarioForm input[type="text"] {
-  width: calc(100% - 10px); /* Ancho del campo de texto con margen */
-  margin-bottom: 10px; /* Espacio entre campos */
+#horarioForm input[type="text"],
+#horarioForm select,
+#horarioForm input[type="date"],
+#horarioForm input[type="time"] {
+  width: calc(100% - 10px); /* Ancho del campo con margen */
+  margin-bottom: 15px; /* Espacio entre campos */
+  padding: 10px; /* Ajuste de relleno */
+  border: 1px solid #ddd; /* Borde del campo */
+  border-radius: 5px; /* Bordes redondeados */
+  font-size: 16px; /* Tamaño de fuente */
 }
 
 /* Estilos para el botón del formulario */
-#horarioForm button {
-  background-color: #007bff; /* Color de fondo del botón */
+#horarioForm button.submit-button {
+  background-color: #048b7d; /* Color de fondo del botón */
+  color: #ffffff; /* Color del texto del botón */
+  border: none;
+  border-radius: 5px;
+  padding: 12px 24px; /* Relleno del botón */
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Transición suave para el color de fondo */
+}
+
+/* Cambia el color de fondo del botón cuando se pasa el mouse */
+#horarioForm button.submit-button:hover {
+  background-color: #05a1c4; /* Cambia a un tono más oscuro al pasar el mouse */
+}
+
+/* Estilos para el botón Cerrar */
+#close-button {
+  background-color: #dc3545; /* Color de fondo del botón */
   color: #ffffff; /* Color del texto del botón */
   border: none;
   border-radius: 5px;
   padding: 10px 20px; /* Relleno del botón */
   cursor: pointer;
   transition: background-color 0.3s ease; /* Transición suave para el color de fondo */
+  position: absolute; /* Posiciona el botón */
+  top: 10px; /* Espacio desde arriba */
+  right: 10px; /* Espacio desde la derecha */
 }
 
-/* Cambia el color de fondo del botón cuando se pasa el mouse */
-#horarioForm button:hover {
-  background-color: #0056b3;
+/* Cambia el color de fondo del botón Cerrar cuando se pasa el mouse */
+#close-button:hover {
+  background-color: #c82333; /* Cambio a un tono más oscuro al pasar el mouse */
 }
 
 /* Estilos para la tabla de personas */
@@ -140,15 +166,18 @@ body {
 
 /* Estilos para los botones de la tabla */
 .md-table-td-more button {
-  background-color: transparent; /* Botones transparentes */
+  background-color: #02abff; /* Color de fondo del botón */
+  color: #ffffff; /* Color del texto del botón */
   border: none;
+  border-radius: 5px;
+  padding: 8px 16px; /* Ajuste de relleno */
   cursor: pointer;
-  transition: color 0.3s ease; /* Transición suave para el color del ícono */
+  transition: background-color 0.3s ease; /* Transición suave para el color de fondo */
 }
 
-/* Cambia el color del ícono cuando se pasa el mouse */
+/* Cambia el color de fondo del botón cuando se pasa el mouse */
 .md-table-td-more button:hover {
-  color: #007bff;
+  background-color: #0056b3; /* Cambio a un tono más oscuro al pasar el mouse */
 }
 
 /* Estilos para la imagen de la persona */
@@ -158,95 +187,7 @@ body {
   border-radius: 50%; /* Bordes redondeados para un aspecto circular */
 }
 
-/* Estilos para el botón Cerrar */
-#close-button {
-  background-color: #dc3545; /* Color de fondo del botón */
-  color: #ffffff; /* Color del texto del botón */
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px; /* Relleno del botón */
-  cursor: pointer;
-  transition: background-color 0.3s ease; /* Transición suave para el color de fondo */
-  position: absolute; /* Posiciona el botón */
-  top: 10px; /* Espacio desde arriba */
-  right: 10px; /* Espacio desde la derecha */
-}
-
-/* Cambia el color de fondo del botón cuando se pasa el mouse */
-#close-button:hover {
-  background-color: #c82333;
-}
-
-/* Estilos para los campos del formulario */
-#horarioForm input[type="text"], #horarioForm select, #horarioForm input[type="date"], #horarioForm input[type="time"] {
-  width: calc(100% - 10px); /* Ancho del campo con margen */
-  margin-bottom: 10px; /* Espacio entre campos */
-}
-
-
-/* Estilos para la tabla de personas */
-.md-table {
-  width: 100%;
-  margin-bottom: 20px;
-  border-collapse: collapse;
-  background-color: #f8d7da; /* Fondo rojo claro para la tabla */
-  color: #721c24; /* Texto rojo oscuro para la tabla */
-}
-
-/* Estilos para las filas de la tabla */
-.md-table-content-row {
-  border-bottom: 1px solid #e2616e51; /* Borde inferior rojo oscuro */
-}
-
-/* Estilos para las celdas de la tabla */
-.md-table-content {
-  padding: 10px;
-}
-
-/* Estilos para los botones de la tabla */
-.md-table-td-more button {
-  background-color: #109402b2; /* Rojo oscuro */
-  color: #ffffff; /* Texto blanco */
-  border: none;
-  border-radius: 5px;
-  padding: 8px 16px; /* Ajuste de relleno */
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-/* Cambia el color de fondo del botón cuando se pasa el mouse */
-.md-table-td-more button:hover {
-  background-color: #4caf00; /* Rojo más oscuro al pasar el mouse */
-}
-
-
-/* Estilos para la imagen de la persona */
-.persona-imagen {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-}
-
-/* Estilos para el botón Cerrar */
-#close-button {
-  background-color: #dc3546;
-  color: #ffffff;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  position: absolute;
-  top: 10px;
-  right: 10px;
-}
-
-/* Cambia el color de fondo del botón cuando se pasa el mouse */
-#close-button:hover {
-  background-color: #c82333; /* Cambio a rojo más oscuro al pasar el mouse */
-}
-
-/* Resto de tus estilos */
+/* Estilos generales para el cuerpo */
 body {
-  font-family: Arial, sans-serif;
+  font-family: Arial, sans-serif; /* Fuente predeterminada */
 }

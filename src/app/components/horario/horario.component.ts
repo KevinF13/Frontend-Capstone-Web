@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Persona } from '../informacion-empleados/Model/persona';
 import { PersonaService } from '../informacion-empleados/Service/persona.service';
 import { HorarioService } from './Service/horario.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-horario',
@@ -40,7 +41,6 @@ export class HorarioComponent implements OnInit {
     );
   }
 
-  // Método para enviar el formulario
   submitForm() {
     const form = document.getElementById('horarioForm') as HTMLFormElement;
     const formData = new FormData(form);
@@ -50,12 +50,12 @@ export class HorarioComponent implements OnInit {
       console.error('Debes seleccionar una persona para asignarle un horario.');
       return;
     }
-
+  
     const fecha = formData.get('fecha') as string;
     // Convertir fecha a formato dd/mm/yyyy
     const [year, month, day] = fecha.split('-');
     const fechaFormatted = `${day}/${month}/${year}`;
-
+  
     const createHorarioDto = {
       lugarTrabajo: formData.get('lugar') as string,
       puesto: formData.get('puesto') as string,
@@ -65,23 +65,39 @@ export class HorarioComponent implements OnInit {
       horaFin: formData.get('horaFin') as string,
       userId: this.selectedUserId // Usa el userId seleccionado
     };
-
+  
     console.log('DTO de creación de horario:', createHorarioDto);
-
+  
     this.horarioService.createHorario(createHorarioDto).subscribe(
       (response) => {
         console.log('Horario creado exitosamente:', response);
-        // Aquí puedes agregar lógica adicional después de crear el horario
+  
+        // Mostrar SweetAlert de éxito
+        Swal.fire({
+          icon: 'success',
+          title: '¡Horario creado!',
+          text: 'El horario ha sido creado exitosamente.',
+          confirmButtonText: 'OK'
+        }).then(() => {
+          // Aquí puedes agregar lógica adicional después de mostrar la alerta
+        });
       },
       (error) => {
         console.error('Error al crear horario:', error);
-        // Aquí puedes manejar el error como desees
+        // Mostrar SweetAlert de error
+        Swal.fire({
+          icon: 'error',
+          title: '¡Error!',
+          text: 'Hubo un error al crear el horario. Por favor, intenta nuevamente.',
+          confirmButtonText: 'OK'
+        });
       }
     );
-
-    // Ocultar el formulario después de enviarlo
+  
+    // Limpiar selección después de enviar el formulario
     this.selectedUserId = null;
   }
+  
 
   // Método para actualizar el userId seleccionado
   setSelectedUserId(userId: string) {

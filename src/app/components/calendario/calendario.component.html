@@ -40,29 +40,33 @@
                     <p><strong>Lugar de Trabajo:</strong> {{ horario.lugarTrabajo }}</p>
                     
                     <!-- Formulario para editar el horario -->
-                    <form (ngSubmit)="updateHorario(selectedHorario)">
-                      <label>
-                        Hora Inicio:
-                        <input type="time" [(ngModel)]="selectedHorario.horaInicio" name="horaInicio" (click)="stopEventPropagation($event)">
-                      </label>
-                      <label>
-                        Hora Fin:
-                        <input type="time" [(ngModel)]="selectedHorario.horaFin" name="horaFin" (click)="stopEventPropagation($event)">
-                      </label>                      
-                      <label>
-                        Puesto:
-                        <input [(ngModel)]="selectedHorario.puesto" name="puesto" (click)="stopEventPropagation($event)">
-                      </label>
-                      <label>
-                        Lugar de Trabajo:
-                        <input [(ngModel)]="selectedHorario.lugarTrabajo" name="lugarTrabajo" (click)="stopEventPropagation($event)">
-                      </label>
-                      <!-- Botón para guardar cambios -->
-                      <button type="submit" (click)="stopEventPropagation($event)">Guardar cambios</button>
-                    </form>
-                    
-                    <!-- Botón para eliminar el horario -->
-                    <button (click)="deleteHorario(selectedHorario); stopEventPropagation($event)">Eliminar horario</button>
+<div class="floating-label" 
+[class.show-form]="selectedHorario === horario"
+(click)="stopEventPropagation($event)">
+<form *ngIf="selectedHorario === horario" (ngSubmit)="updateHorario(selectedHorario)">
+<label>
+ Hora Inicio:
+ <input type="time" [(ngModel)]="selectedHorario.horaInicio" name="horaInicio" (click)="stopEventPropagation($event)">
+</label>
+<label>
+ Hora Fin:
+ <input type="time" [(ngModel)]="selectedHorario.horaFin" name="horaFin" (click)="stopEventPropagation($event)">
+</label>                      
+<label>
+ Puesto:
+ <input [(ngModel)]="selectedHorario.puesto" name="puesto" (click)="stopEventPropagation($event)">
+</label>
+<label>
+ Lugar de Trabajo:
+ <input [(ngModel)]="selectedHorario.lugarTrabajo" name="lugarTrabajo" (click)="stopEventPropagation($event)">
+</label>
+<!-- Botón para guardar cambios -->
+<button type="submit" (click)="stopEventPropagation($event)">Guardar cambios</button>
+</form>
+<!-- Botón para eliminar el horario -->
+<button (click)="deleteHorario(selectedHorario); stopEventPropagation($event)">Eliminar horario</button>
+</div>
+
                   </div>
                 </div>
               </div>
