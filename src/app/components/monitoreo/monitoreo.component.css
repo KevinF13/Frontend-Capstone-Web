@@ -1,0 +1,6 @@
+.map-container {
+    height: 600px; /* Ajusta la altura según tus necesidades */
+    width: 100%; /* Ajusta el ancho según tus necesidades */
+    border: 1px solid #ccc; /* Borde opcional para visualización */
+  }
+  

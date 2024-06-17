@@ -1,73 +1,8 @@
-/* Estilos para el formulario emergente */
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* Estilos generales para la tabla */
+.table-container {
+  overflow-x: auto;
 }
 
-.container {
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
-}
-
-.main {
-  max-width: 500px;
-}
-
-.sign {
-  text-align: center;
-  font-size: 28px;
-  margin-bottom: 20px;
-  color: #ff0000; /* Rojo */
-}
-
-.form1 {
-  display: flex;
-  flex-direction: column;
-}
-
-.form-group {
-  margin-bottom: 20px;
-}
-
-.form-control {
-  width: 100%;
-  padding: 15px;
-  border: 2px solid #ff0000; /* Rojo */
-  border-radius: 5px;
-  font-size: 18px;
-}
-
-.submit {
-  background-color: #ff0000; /* Rojo */
-  color: white;
-  border: none;
-  padding: 15px 30px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 18px;
-}
-
-.close-button {
-  background-color: #ff0000; /* Rojo */
-  color: white;
-  border: none;
-  padding: 15px 30px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 18px;
-  margin-top: 10px;
-}
-
-/* Estilos para la tabla de Usuarios */
 .md-table {
   width: 100%;
   border-collapse: collapse;
@@ -96,14 +31,26 @@
 }
 
 /* Estilos para los detalles del usuario seleccionado */
-.user-details {
-  width: 60%;
-  margin: 20px auto;
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  background-color: #ffffff;
   padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+  width: 90%;
+  max-width: 600px; /* Ancho máximo para el contenedor de detalles */
+  box-sizing: border-box;
 }
 
 .close-button {
@@ -111,9 +58,10 @@
   background-color: #e74c3c;
   color: #fff;
   border: none;
-  padding: 10px;
-  cursor: pointer;
+  padding: 10px 20px;
   border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px; /* Tamaño de fuente ajustado */
 }
 
 .close-button:hover {
@@ -127,25 +75,25 @@
   border-radius: 50%;
 }
 
-.user-info p {
-  margin: 10px 0;
+.user-info {
+  margin-top: 20px;
 }
 
-.input-field {
-  width: calc(50% - 10px);
-  margin-left: 10px;
-  padding: 10px;
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 12px;
   border: 1px solid #ccc;
   border-radius: 4px;
-}
-
-.input-field + .input-field {
-  margin-left: 20px;
+  font-size: 16px; /* Tamaño de fuente ajustado */
 }
 
 .input-checkbox {
-  margin-left: 10px;
-  transform: scale(1.5);
+  margin-left: 5px;
+  transform: scale(1.2); /* Tamaño del checkbox ajustado */
 }
 
 .button-container {
@@ -156,10 +104,11 @@
 
 .edit-button,
 .delete-button {
-  padding: 10px 20px;
+  padding: 12px 20px;
   border: none;
   cursor: pointer;
   border-radius: 4px;
+  font-size: 16px; /* Tamaño de fuente ajustado */
 }
 
 .edit-button {
@@ -178,4 +127,29 @@
 
 .delete-button:hover {
   background-color: #c0392b;
+}
+
+@media (max-width: 768px) {
+  .table-container {
+    overflow-x: auto;
+    margin-bottom: 20px; /* Espacio inferior para separar de los detalles en dispositivos móviles */
+  }
+
+  .md-table {
+    width: 100%;
+    margin-top: 10px; /* Reducir margen superior en dispositivos móviles */
+  }
+
+  .md-table-header,
+  .md-table-content {
+    padding: 8px; /* Reducir padding de celdas en dispositivos móviles */
+  }
+
+  .md-table-headers-row {
+    font-size: 14px; /* Reducir tamaño de fuente de encabezados en dispositivos móviles */
+  }
+
+  .md-table-content-row:hover {
+    background-color: #f0f0f0; /* Color de fondo más claro al hacer hover en dispositivos móviles */
+  }
 }

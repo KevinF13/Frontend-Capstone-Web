@@ -1,64 +1,74 @@
-
 <!-- Tabla de Usuarios -->
-<table class="md-table">
-  <thead>
-    <tr class="md-table-headers-row">
-      <th class="md-table-header">ID</th>
-      <th class="md-table-header">Email</th>
-      <th class="md-table-header">Role</th>
-      <th class="md-table-header md-table-td-more">Acciones</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr class="md-table-content-row" *ngFor="let user of users" (click)="mostrarDetallesUsuario(user._id)">
-      <td class="md-table-content">{{ user._id }}</td>
-      <td class="md-table-content">{{ user.email }}</td>
-      <td class="md-table-content">{{ user.role }}</td>
-      <td class="md-table-td-more">
-        <button class="open-button" (click)="seleccionarUsuario(user._id)">
-          Ver Detalles
-        </button>        
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-<!-- Detalles del usuario seleccionado -->
-<div *ngIf="selectedUserDetails" class="user-details">
-  <button class="close-button" (click)="cerrarDetallesUsuario()">Cerrar</button>
-  <h2>Información Personal</h2>
-  <img [src]="selectedUserDetails.imagen" alt="Imagen de usuario" class="user-image">
-  <div class="user-info">
-    <p><strong>UserId:</strong> {{ selectedUserDetails.userId}}</p>
-    <p><strong>Nombres:</strong>
-      <input type="text" [(ngModel)]="selectedUserDetails.nombres" class="input-field">
-    </p>
-    <p><strong>Apellidos:</strong>
-      <input type="text" [(ngModel)]="selectedUserDetails.apellidos" class="input-field">
-    </p>
-    <p><strong>Cédula:</strong>
-      <input type="text" [(ngModel)]="selectedUserDetails.cedula" class="input-field">
-    </p>
-    <p><strong>Dirección de Domicilio:</strong>
-      <input type="text" [(ngModel)]="selectedUserDetails.direccionDomicilio" class="input-field">
-    </p>
-    <p><strong>Fecha de Nacimiento:</strong>
-      <input type="text" [(ngModel)]="selectedUserDetails.fechaNacimiento" class="input-field">
-    </p>
-    <p><strong>Número Celular:</strong>
-      <input type="text" [(ngModel)]="selectedUserDetails.telefono" class="input-field">
-    </p>
-    <p><strong>Maneja Arma:</strong>
-      <input type="checkbox" [(ngModel)]="selectedUserDetails.manejaArma" class="input-checkbox">
-    </p>
-    <p><strong>Fecha de Ingreso:</strong>
-      <input type="text" [(ngModel)]="selectedUserDetails.fechaIngreso" class="input-field">
-    </p>
-  </div>
-  <!-- Botones de editar y eliminar -->
-  <div class="button-container">
-    <button class="edit-button" (click)="guardarCambios()">Guardar Cambios</button>
-    <button class="delete-button" (click)="deletePersona(selectedUserDetails.userId)">Eliminar</button>
-  </div>
+<div class="table-container">
+  <table class="md-table">
+    <thead>
+      <tr class="md-table-headers-row">
+        <th class="md-table-header">ID</th>
+        <th class="md-table-header">Email</th>
+        <th class="md-table-header">Role</th>
+        <th class="md-table-header md-table-td-more">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="md-table-content-row" *ngFor="let user of users" (click)="mostrarDetallesUsuario(user._id)">
+        <td class="md-table-content">{{ user._id }}</td>
+        <td class="md-table-content">{{ user.email }}</td>
+        <td class="md-table-content">{{ user.role }}</td>
+        <td class="md-table-td-more">
+          <button class="open-button" (click)="seleccionarUsuario(user._id)">
+            Ver Detalles
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 
+<!-- Detalles del usuario seleccionado -->
+<div *ngIf="selectedUserDetails" class="overlay">
+  <div class="container">
+    <button class="close-button" (click)="cerrarDetallesUsuario()">Cerrar</button>
+    <h2>Información Personal</h2>
+    <img [src]="selectedUserDetails.imagen" alt="Imagen de usuario" class="user-image">
+    <div class="user-info">
+      <p><strong>UserId:</strong> {{ selectedUserDetails.userId}}</p>
+      <div class="form-group">
+        <label for="nombres">Nombres:</label>
+        <input type="text" [(ngModel)]="selectedUserDetails.nombres" id="nombres" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="apellidos">Apellidos:</label>
+        <input type="text" [(ngModel)]="selectedUserDetails.apellidos" id="apellidos" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="cedula">Cédula:</label>
+        <input type="text" [(ngModel)]="selectedUserDetails.cedula" id="cedula" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="direccion">Dirección de Domicilio:</label>
+        <input type="text" [(ngModel)]="selectedUserDetails.direccionDomicilio" id="direccion" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="fechaNacimiento">Fecha de Nacimiento:</label>
+        <input type="text" [(ngModel)]="selectedUserDetails.fechaNacimiento" id="fechaNacimiento" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="telefono">Número Celular:</label>
+        <input type="text" [(ngModel)]="selectedUserDetails.telefono" id="telefono" class="form-control">
+      </div>
+      <div class="form-group">
+        <label>Maneja Arma:</label>
+        <input type="checkbox" [(ngModel)]="selectedUserDetails.manejaArma" class="input-checkbox">
+      </div>
+      <div class="form-group">
+        <label for="fechaIngreso">Fecha de Ingreso:</label>
+        <input type="text" [(ngModel)]="selectedUserDetails.fechaIngreso" id="fechaIngreso" class="form-control">
+      </div>
+    </div>
+    <!-- Botones de editar y eliminar -->
+    <div class="button-container">
+      <button class="edit-button" (click)="guardarCambios()">Guardar Cambios</button>
+      <button class="delete-button" (click)="deletePersona(selectedUserDetails.userId)">Eliminar</button>
+    </div>
+  </div>
+</div>

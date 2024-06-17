@@ -1,19 +1,22 @@
 <div class="header">
   <a [routerLink]="isLoggedIn ? '/home' : '/'" class="logo">Codisecurity</a>
-  <div class="header-right">
+  <button class="menu-toggle" (click)="toggleMenu()">☰</button>
+  <div class="header-right" [ngClass]="{'show': isMenuOpen}">
     <a routerLink="/home">Página Principal</a>
     <a *ngIf="isLoggedIn && isSupervisor" [routerLink]="'/bitacora'">Bitácora</a>
-    <div class="dropdown" *ngIf="isLoggedIn && isSupervisor">
+    <!-- <div class="dropdown" *ngIf="isLoggedIn && isSupervisor">
       <a [routerLink]="'/guardias'">Empleados</a>
       <div class="dropdown-content">
         <a routerLink="/infoEmpleados">Ver Empleados</a>
         <a routerLink="/registrarGuardia">Registrar Empleados</a>
       </div>
-    </div>
+    </div> -->
+    <a *ngIf="isLoggedIn && isSupervisor" [routerLink]="'/infoEmpleados'">Gestión Empleados</a>
+    <a *ngIf="isLoggedIn && isSupervisor" [routerLink]="'/registrarGuardia'">Nuevo Guardia</a>
     <a *ngIf="isLoggedIn && isSupervisor" [routerLink]="'/asignacionHorario'">Asignación de Turnos</a>
     <a *ngIf="isLoggedIn && isSupervisor" [routerLink]="'/calendario'">Ver Turnos</a>
-    <a *ngIf="isLoggedIn && isSupervisor" [routerLink]="'/home'">Monitoreo</a>
-    <a *ngIf="!isLoggedIn " routerLink="/login">Iniciar Sesión</a>
+    <a *ngIf="isLoggedIn && isSupervisor" [routerLink]="'/monitoreo'">Monitoreo</a>
+    <a *ngIf="!isLoggedIn" routerLink="/login">Iniciar Sesión</a>
     <a *ngIf="isLoggedIn" (click)="logout()">Cerrar Sesión</a>
   </div>
 </div>

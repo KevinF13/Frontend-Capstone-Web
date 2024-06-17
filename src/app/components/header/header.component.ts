@@ -31,5 +31,11 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/']); // Redirige al usuario a la página de inicio
 }
 
+//Toggle Para el menu de opciones
+isMenuOpen = false;
+
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
 }
 

@@ -32,11 +32,11 @@
       </thead>
       <tbody>
         <tr *ngFor="let bitacora of filtrarBitacorasPorNombreAgente()">
-          <td>{{ bitacora.userId }}</td>
-          <td>{{ bitacora.nombreAgente }}</td>
-          <td>{{ bitacora.fechaHorario }}</td>
-          <td>{{ bitacora.cliente }}</td>
-          <td>
+          <td data-label="User ID">{{ bitacora.userId }}</td>
+          <td data-label="Nombre Agente">{{ bitacora.nombreAgente }}</td>
+          <td data-label="Fecha">{{ bitacora.fechaHorario }}</td>
+          <td data-label="Cliente">{{ bitacora.cliente }}</td>
+          <td data-label="Visualizar">
             <div *ngIf="bitacoras">
               <button class="pdf-btn" (click)="generarPDF(bitacora)">Generar PDF</button>
             </div>              

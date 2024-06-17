@@ -3,74 +3,80 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-}
-
-.main {
+    background-color: #f3f3f3; /* Fondo gris claro */
+  }
+  
+  .main {
     background-color: #FFFFFF;
     width: 400px;
-    height: auto;
+    max-width: 90%; /* Ancho máximo del formulario */
     border-radius: 1.5em;
     box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
-    padding: 40px;
+    padding: 30px 40px; /* Ajustamos el padding para reducir espacios */
     box-sizing: border-box;
-}
-
-.sign {
-    color: #8C55AA;
+  }
+  
+  .sign {
+    color: #ff0000;
     font-weight: bold;
     font-size: 23px;
     text-align: center;
     margin-bottom: 20px;
-}
-
-.form1 input {
+  }
+  
+  .form1 input {
     width: 100%;
     color: rgb(38, 50, 56);
     font-weight: 700;
     font-size: 14px;
     letter-spacing: 1px;
     background: rgba(136, 126, 126, 0.04);
-    padding: 10px 20px;
+    padding: 12px 20px; /* Ajustamos el padding para reducir espacios */
     border: none;
     border-radius: 20px;
     outline: none;
     box-sizing: border-box;
     border: 2px solid rgba(0, 0, 0, 0.02);
     margin-bottom: 20px;
-    text-align: center;
     font-family: 'Ubuntu', sans-serif;
-}
-
-.form1 input:focus {
+  }
+  
+  .form1 input:focus {
     border: 2px solid rgba(0, 0, 0, 0.18);
-}
-
-.submit {
+  }
+  
+  .submit {
     cursor: pointer;
     border-radius: 5em;
     color: #fff;
-    background: linear-gradient(to right, #9C27B0, #E040FB);
+    background: linear-gradient(to right, #b02727, #fb4040);
     border: 0;
-    padding: 10px 0;
+    padding: 14px 0; /* Ajustamos el padding para reducir espacios */
     font-family: 'Ubuntu', sans-serif;
     width: 100%;
-    font-size: 13px;
+    font-size: 16px; /* Mantenemos el tamaño del texto del botón */
     box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
-}
-
-.forgot {
+  }
+  
+  .forgot {
     text-align: center;
-    color: #E1BEE7;
-    margin-top: 20px;
-}
-
-a {
-    color: #E1BEE7;
+    color: #e7bebe;
+    margin-top: 10px; /* Reducimos el margen superior */
+    margin-bottom: 10px; /* Reducimos el margen inferior */
+  }
+  
+  a {
+    color: #e7bebe;
     text-decoration: none;
-}
-
-@media (max-width: 768px) {
+  }
+  
+  @media (max-width: 768px) {
     .main {
-        width: 80%;
+      width: 80%;
     }
-}
+  
+    .submit {
+      font-size: 14px; /* Reducimos el tamaño del texto del botón para pantallas más pequeñas */
+    }
+  }
+  

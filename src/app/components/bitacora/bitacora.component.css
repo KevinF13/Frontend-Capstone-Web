@@ -3,50 +3,41 @@
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
+  font-family: Arial, sans-serif;
 }
 
+/* Estilos para entradas y botones */
 .select-input, .date-input, .limpiar-btn, .pdf-btn {
-  padding: 8px 16px;
+  padding: 10px;
   font-size: 16px;
   border-radius: 5px;
   cursor: pointer;
+  margin-top: 10px;
 }
 
 .select-input, .date-input {
   border: 1px solid #ccc;
+  width: 100%;
 }
 
 .limpiar-btn, .pdf-btn {
   border: none;
   color: white;
-}
-
-/* Estilos para el selector de agente */
-.selector-container {
-  margin-top: 10px;
-}
-
-.select-input {
   width: 100%;
-}
-
-/* Estilos para el filtro de fecha */
-.filtro-fecha-container {
   margin-top: 10px;
-}
-
-.date-input {
-  width: 100%;
-}
-
-/* Estilos para el botón de limpiar filtros */
-.limpiar-filtros-container {
-  margin-top: 10px;
-  margin-bottom: 10px;
 }
 
 .limpiar-btn {
   background-color: #f44336; /* Rojo */
+}
+
+.pdf-btn {
+  background-color: #00214ea2; /* Azul oscuro */
+}
+
+/* Estilos para el selector de agente */
+.selector-container, .filtro-fecha-container, .limpiar-filtros-container {
+  margin-bottom: 10px;
 }
 
 /* Estilos para la tabla */
@@ -62,6 +53,7 @@
 .bitacoras-table th, .bitacoras-table td {
   padding: 8px;
   border-bottom: 1px solid #ddd;
+  text-align: left;
 }
 
 .bitacoras-table th {
@@ -72,7 +64,42 @@
   background-color: #ff00001f; /* Rojo claro */
 }
 
-/* Estilos para el botón de generar PDF */
-.pdf-btn {
-  background-color: #00214ea2; /* Rojo */
+/* Diseño responsivo */
+@media (max-width: 600px) {
+  .bitacoras-table, .bitacoras-table thead, .bitacoras-table tbody, .bitacoras-table th, .bitacoras-table td, .bitacoras-table tr {
+    display: block;
+  }
+
+  .bitacoras-table thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  .bitacoras-table tr {
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+  }
+
+  .bitacoras-table td {
+    border: none;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    padding-left: 50%;
+    text-align: left;
+  }
+
+  .bitacoras-table td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 0;
+    width: 45%;
+    padding-left: 10px;
+    font-weight: bold;
+    white-space: nowrap;
+  }
+
+  .bitacoras-table td:last-child {
+    border-bottom: 0;
+  }
 }

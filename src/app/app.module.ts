@@ -20,6 +20,7 @@ import { BitacoraComponent } from './components/bitacora/bitacora.component';
 import { CalendarioComponent } from './components/calendario/calendario.component';
 import { RegistroPersonaComponent } from './components/registro-persona/registro-persona.component';
 import { DatePipe } from '@angular/common';
+import { MonitoreoComponent } from './components/monitoreo/monitoreo.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { DatePipe } from '@angular/common';
     HorarioComponent,
     BitacoraComponent,
     CalendarioComponent,
-    RegistroPersonaComponent
+    RegistroPersonaComponent,
+    MonitoreoComponent
   ],
   imports: [
     BrowserModule,
