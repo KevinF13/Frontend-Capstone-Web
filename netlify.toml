@@ -1,6 +1,6 @@
 [build]
   command = "npm run build"
-  publish = "dist/frontend-capstone"
+  publish = "dist\frontend-capstone"
   environment = { NPM_FLAGS = "--legacy-peer-deps" }
 
 [build.environment]
