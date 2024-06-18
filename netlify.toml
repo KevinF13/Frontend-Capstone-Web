@@ -1,3 +1,10 @@
 [build]
-  command = "npm install --legacy-peer-deps && npm run build"
-  publish = "dist/frontend-capstone"  # Reemplaza "dist" con el directorio de salida de tu proyecto Angular
+  command = "npm run build"
+  publish = "dist/frontend-capstone"
+  environment = { NPM_FLAGS = "--legacy-peer-deps" }
+
+[build.environment]
+  NPM_FLAGS = "--legacy-peer-deps"
+
+[context.production.environment]
+  NPM_FLAGS = "--legacy-peer-deps"

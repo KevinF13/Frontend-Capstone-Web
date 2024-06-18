@@ -21,6 +21,8 @@ import { CalendarioComponent } from './components/calendario/calendario.componen
 import { RegistroPersonaComponent } from './components/registro-persona/registro-persona.component';
 import { DatePipe } from '@angular/common';
 import { MonitoreoComponent } from './components/monitoreo/monitoreo.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 @NgModule({
@@ -46,7 +48,9 @@ import { MonitoreoComponent } from './components/monitoreo/monitoreo.component';
     FormsModule, 
     HttpClientModule,
     ReactiveFormsModule,
-    MatInputModule
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

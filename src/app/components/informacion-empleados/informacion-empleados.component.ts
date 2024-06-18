@@ -67,6 +67,9 @@ export class InformacionEmpleadosComponent implements OnInit {
   mostrarDetallesUsuario(userId: string) {
     const usuarioSeleccionado = this.personas.find(persona => persona.userId === userId);
     if (usuarioSeleccionado) {
+      // Convertir fecha de ingreso al formato YYYY-MM-DD
+      usuarioSeleccionado.fechaIngreso = this.convertirFecha(usuarioSeleccionado.fechaIngreso);
+      
       this.selectedUserDetails = usuarioSeleccionado;
     } else {
       this.selectedUserDetails = null;
@@ -77,6 +80,25 @@ export class InformacionEmpleadosComponent implements OnInit {
       });
     }
   }
+  
+  // Función para convertir fecha a formato YYYY-MM-DD
+  convertirFecha(fecha: string): string {
+    // Si la fecha ya está en el formato esperado, retornarla
+    if (fecha.match(/^\d{4}-\d{2}-\d{2}$/)) {
+      return fecha;
+    }
+  
+    // Si la fecha está en formato "DD/MM/YYYY", convertirla a "YYYY-MM-DD"
+    const partes = fecha.split('/');
+    if (partes.length === 3) {
+      return `${partes[2]}-${partes[1]}-${partes[0]}`;
+    }
+  
+    // Si no se puede convertir, retornar la fecha original
+    return fecha;
+  }
+  
+  
 
   cerrarDetallesUsuario() {
     this.selectedUserDetails = null;
@@ -98,6 +120,7 @@ export class InformacionEmpleadosComponent implements OnInit {
     this.editPersonaForm.get('userId')!.disable();
     this.showEditForm = true;
   }
+  
 
   getUsers(): void {
     this.authService.getAllUsers().subscribe(
@@ -228,5 +251,10 @@ export class InformacionEmpleadosComponent implements OnInit {
       }
     );
   }
+
+  toggleWeapon(hasWeapon: boolean) {
+    this.selectedUserDetails.manejaArma = hasWeapon;
+  }
+  
   
 }

@@ -50,20 +50,26 @@
       </div>
       <div class="form-group">
         <label for="fechaNacimiento">Fecha de Nacimiento:</label>
-        <input type="text" [(ngModel)]="selectedUserDetails.fechaNacimiento" id="fechaNacimiento" class="form-control">
+        <input type="date" [(ngModel)]="selectedUserDetails.fechaNacimiento" id="fechaNacimiento" class="form-control">
       </div>
       <div class="form-group">
         <label for="telefono">Número Celular:</label>
         <input type="text" [(ngModel)]="selectedUserDetails.telefono" id="telefono" class="form-control">
       </div>
       <div class="form-group">
-        <label>Maneja Arma:</label>
-        <input type="checkbox" [(ngModel)]="selectedUserDetails.manejaArma" class="input-checkbox">
+        <label for="manejaArma">¿Maneja arma?</label>
+        <div class="form-check-toggle">
+          <label class="form-check-label" (click)="toggleWeapon(true)" [class.active]="selectedUserDetails.manejaArma">
+            <img src="https://thumbs.dreamstime.com/b/pistola-y-balas-39643288.jpg" alt="Maneja Arma">
+          </label>
+          <label class="form-check-label" (click)="toggleWeapon(false)" [class.active]="!selectedUserDetails.manejaArma">
+            <img src="https://www.nidec.es/2884-home_default/defensa-de-seguridad-rgida-aligerada-de-polipropileno-60-cm.jpg" alt="No Maneja Arma">
+          </label>
+          <input type="hidden" formControlName="manejaArma">
+        </div>
       </div>
-      <div class="form-group">
-        <label for="fechaIngreso">Fecha de Ingreso:</label>
-        <input type="text" [(ngModel)]="selectedUserDetails.fechaIngreso" id="fechaIngreso" class="form-control">
-      </div>
+      
+        
     </div>
     <!-- Botones de editar y eliminar -->
     <div class="button-container">

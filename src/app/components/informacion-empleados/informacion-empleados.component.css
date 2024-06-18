@@ -30,19 +30,6 @@
   cursor: pointer; /* Cambiar el cursor al hacer hover */
 }
 
-/* Estilos para los detalles del usuario seleccionado */
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .container {
   background-color: #ffffff;
   padding: 20px;
@@ -51,10 +38,13 @@
   width: 90%;
   max-width: 600px; /* Ancho máximo para el contenedor de detalles */
   box-sizing: border-box;
+  position: relative; /* Añadido para el z-index funcione */
 }
 
 .close-button {
-  float: right;
+  position: absolute;
+  top: 10px;
+  right: 10px;
   background-color: #e74c3c;
   color: #fff;
   border: none;
@@ -62,10 +52,6 @@
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px; /* Tamaño de fuente ajustado */
-}
-
-.close-button:hover {
-  background-color: #c0392b;
 }
 
 .user-image {
@@ -79,26 +65,9 @@
   margin-top: 20px;
 }
 
-.form-group {
-  margin-bottom: 15px;
-}
-
-.form-control {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 16px; /* Tamaño de fuente ajustado */
-}
-
-.input-checkbox {
-  margin-left: 5px;
-  transform: scale(1.2); /* Tamaño del checkbox ajustado */
-}
-
 .button-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around; /* Ajustado para distribuir los botones */
   margin-top: 20px;
 }
 
@@ -129,27 +98,27 @@
   background-color: #c0392b;
 }
 
-@media (max-width: 768px) {
-  .table-container {
-    overflow-x: auto;
-    margin-bottom: 20px; /* Espacio inferior para separar de los detalles en dispositivos móviles */
-  }
 
-  .md-table {
-    width: 100%;
-    margin-top: 10px; /* Reducir margen superior en dispositivos móviles */
-  }
+.container .form-check-toggle {
+  display: flex;
+  justify-content: space-between;
+}
 
-  .md-table-header,
-  .md-table-content {
-    padding: 8px; /* Reducir padding de celdas en dispositivos móviles */
-  }
+.container .form-check-toggle label {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
 
-  .md-table-headers-row {
-    font-size: 14px; /* Reducir tamaño de fuente de encabezados en dispositivos móviles */
-  }
+.container .form-check-toggle label img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-right: 5px; /* Reducir el espacio entre los botones */
+}
 
-  .md-table-content-row:hover {
-    background-color: #f0f0f0; /* Color de fondo más claro al hacer hover en dispositivos móviles */
-  }
+
+
+.container .form-check-toggle label.active img {
+  border: 2px solid #8C55AA;
 }
