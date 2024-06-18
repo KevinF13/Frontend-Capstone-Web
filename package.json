@@ -7,8 +7,7 @@
     "build": "ng build --prod",
     "prebuild": "npm install $NPM_FLAGS",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "install": "npm install --legacy-peer-deps"
+    "test": "ng test"
   },
   "private": true,
   "dependencies": {
