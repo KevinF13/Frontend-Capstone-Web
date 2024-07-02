@@ -4,6 +4,7 @@
   <div class="header-right" [ngClass]="{'show': isMenuOpen}">
     <!-- <a routerLink="/home">Página Principal</a> -->
     <a *ngIf="isLoggedIn && isSupervisor" [routerLink]="'/bitacora'">Bitácora</a>
+    <a *ngIf="isLoggedIn && isSupervisor" [routerLink]="'/dashboard'">Informe Analítico</a>
     <!-- <div class="dropdown" *ngIf="isLoggedIn && isSupervisor">
       <a [routerLink]="'/guardias'">Empleados</a>
       <div class="dropdown-content">

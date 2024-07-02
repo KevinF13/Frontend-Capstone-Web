@@ -3,9 +3,12 @@
   display: none;
 }
 
-/* Resto de tus estilos */
+/* Estilos generales */
 body {
   font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
 }
 
 .table-container {
@@ -17,6 +20,8 @@ body {
   width: 100%;
   border-collapse: collapse;
   border: 1px solid #ddd;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .md-table th, .md-table td {
@@ -26,7 +31,8 @@ body {
 }
 
 .md-table-header {
-  background-color: #ff1c1c85;
+  background-color: #ff0000;
+  color: white;
   font-weight: bold;
 }
 
@@ -72,14 +78,40 @@ body {
   }
 
   .md-table-content img.persona-imagen {
-      width: 20px;
-      height: 20px;
+      width: 40px;
+      height: 40px;
   }
 }
 
+/* Estilos para los botones en la tabla */
+.md-table-td-more {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 0;
+}
 
+.md-table-td-more button {
+  background-color: #2881a7;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin: 5px;
+}
 
-/*ESTE ES EL CSS PARA EL FORMULARIO DE CREACION*/
+.md-table-td-more button:hover {
+  background-color: #215f88;
+}
+
+.md-table-td-more button i {
+  font-style: normal;
+  color: white;
+}
+
 /* Estilos para la pantalla flotante del formulario */
 #form-container {
   position: fixed;
@@ -90,104 +122,68 @@ body {
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  z-index: 999; /* Asegura que el formulario esté por encima de otros elementos */
-  max-width: 80%; /* Establece el ancho máximo del formulario */
+  z-index: 999;
+  max-width: 400px; /* Ajuste del ancho máximo del formulario */
+  width: 100%; /* Ancho completo */
 }
 
-/* Estilos para el formulario dentro de la pantalla flotante */
 #horarioForm {
-  max-width: 100%; /* Ancho máximo del formulario */
+  max-width: 100%;
 }
 
-/* Estilos para los campos del formulario */
 #horarioForm input[type="text"],
 #horarioForm select,
 #horarioForm input[type="date"],
 #horarioForm input[type="time"] {
-  width: calc(100% - 10px); /* Ancho del campo con margen */
-  margin-bottom: 15px; /* Espacio entre campos */
-  padding: 10px; /* Ajuste de relleno */
-  border: 1px solid #ddd; /* Borde del campo */
-  border-radius: 5px; /* Bordes redondeados */
-  font-size: 16px; /* Tamaño de fuente */
+  width: calc(100% - 20px);
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
 }
 
-/* Estilos para el botón del formulario */
 #horarioForm button.submit-button {
-  background-color: #048b7d; /* Color de fondo del botón */
-  color: #ffffff; /* Color del texto del botón */
+  background-color: #08ff31b0;
+  color: #ffffff;
   border: none;
   border-radius: 5px;
-  padding: 12px 24px; /* Relleno del botón */
+  padding: 12px 24px;
   cursor: pointer;
-  transition: background-color 0.3s ease; /* Transición suave para el color de fondo */
+  transition: background-color 0.3s ease;
+  margin: 10px 0;
+  width: 100%;
 }
 
-/* Cambia el color de fondo del botón cuando se pasa el mouse */
 #horarioForm button.submit-button:hover {
-  background-color: #05a1c4; /* Cambia a un tono más oscuro al pasar el mouse */
+  background-color: #0056b3;
 }
 
-/* Estilos para el botón Cerrar */
 #close-button {
-  background-color: #dc3545; /* Color de fondo del botón */
-  color: #ffffff; /* Color del texto del botón */
+  background-color: #dc3545;
+  color: #ffffff;
   border: none;
   border-radius: 5px;
-  padding: 10px 20px; /* Relleno del botón */
+  padding: 10px 20px;
   cursor: pointer;
-  transition: background-color 0.3s ease; /* Transición suave para el color de fondo */
-  position: absolute; /* Posiciona el botón */
-  top: 10px; /* Espacio desde arriba */
-  right: 10px; /* Espacio desde la derecha */
+  transition: background-color 0.3s ease;
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
 
-/* Cambia el color de fondo del botón Cerrar cuando se pasa el mouse */
 #close-button:hover {
-  background-color: #c82333; /* Cambio a un tono más oscuro al pasar el mouse */
-}
-
-/* Estilos para la tabla de personas */
-.md-table {
-  width: 100%; /* Ancho completo de la tabla */
-  margin-bottom: 20px; /* Espacio inferior */
-  border-collapse: collapse; /* Colapsa los bordes de las celdas */
-}
-
-/* Estilos para las filas de la tabla */
-.md-table-content-row {
-  border-bottom: 1px solid #ddd; /* Borde inferior de cada fila */
-}
-
-/* Estilos para las celdas de la tabla */
-.md-table-content {
-  padding: 10px; /* Relleno de las celdas */
-}
-
-/* Estilos para los botones de la tabla */
-.md-table-td-more button {
-  background-color: #02abff; /* Color de fondo del botón */
-  color: #ffffff; /* Color del texto del botón */
-  border: none;
-  border-radius: 5px;
-  padding: 8px 16px; /* Ajuste de relleno */
-  cursor: pointer;
-  transition: background-color 0.3s ease; /* Transición suave para el color de fondo */
-}
-
-/* Cambia el color de fondo del botón cuando se pasa el mouse */
-.md-table-td-more button:hover {
-  background-color: #0056b3; /* Cambio a un tono más oscuro al pasar el mouse */
+  background-color: #c82333;
 }
 
 /* Estilos para la imagen de la persona */
 .persona-imagen {
-  width: 50px; /* Ancho de la imagen */
-  height: 50px; /* Alto de la imagen */
-  border-radius: 50%; /* Bordes redondeados para un aspecto circular */
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
 }
 
 /* Estilos generales para el cuerpo */
 body {
-  font-family: Arial, sans-serif; /* Fuente predeterminada */
+  font-family: Arial, sans-serif;
 }

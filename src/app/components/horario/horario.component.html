@@ -7,7 +7,7 @@
         <th class="md-table-header">Apellidos</th>
         <th class="md-table-header">Maneja Arma</th>
         <th class="md-table-header">Imagen</th>
-        <th class="md-table-header">UserID</th>
+        <!-- <th class="md-table-header">UserID</th> -->
         <th class="md-table-header md-table-td-more">Acciones</th>
       </tr>
     </thead>
@@ -18,11 +18,14 @@
         <td class="md-table-content">{{ persona.manejaArma }}</td>
         <td class="md-table-content">
           <img src="{{ persona.imagen }}" alt="Imagen de la persona" class="persona-imagen">
-        </td>
-        <td class="md-table-content">{{ persona.userId }}</td>
+        <!-- </td>
+        <td class="md-table-content">{{ persona.userId }}</td> -->
         <td class="md-table-td-more">
-          <button mat-button aria-label (click)="setSelectedUserId(persona.userId)">
+          <button mat-button aria-label (click)="setSelectedUserId(persona.userId, false)">
             <i>Crear Horario</i>
+          </button>
+          <button mat-button aria-label (click)="setSelectedUserId(persona.userId, true)">
+            <i>Crear Horario con Rango</i>
           </button>
         </td>
       </tr>
@@ -32,21 +35,36 @@
 
 <!-- Formulario para Crear Horario -->
 <div id="form-container" [class.hidden]="selectedUserId === null">
-  <button id="close-button" (click)="closeForm()">Cerrar</button>
+  <button id="close-button" (click)="clearForm()">Cerrar</button>
   <h2 *ngIf="selectedUserId !== null">Crear Horario</h2>
   <form id="horarioForm" *ngIf="selectedUserId !== null">
     <label for="lugar">Lugar de Trabajo:</label>
     <input type="text" id="lugar" name="lugar" required><br>
     <label for="puesto">Puesto de Trabajo:</label>
     <input type="text" id="puesto" name="puesto" required><br>
-    <label for="fecha">Fecha:</label>
-    <input type="date" id="fecha" name="fecha" [min]="today" (change)="updateDiaSemana($event)" required><br>
+    <div *ngIf="showEnviarButton">
+      <label for="fecha">Fecha:</label>
+      <input type="date" id="fecha" name="fecha" [min]="today" (change)="updateDiaSemana($event)" required><br>
+      <input type="hidden" id="diaSemana" name="diaSemana">
+    </div>  
+    <!-- Selección de rango de fechas -->
+    <div *ngIf="showEnviarConRangoButton">
+      <label for="startDate">Fecha de Inicio:</label>
+      <input type="date" id="startDate" name="startDate" (change)="onStartDateChange($event)" required><br>
+      <label for="endDate">Fecha de Fin:</label>
+      <input type="date" id="endDate" name="endDate" (change)="onEndDateChange($event)" required><br>
+    </div>    
+    
     <label for="horaInicio">Hora de Inicio:</label>
     <input type="time" id="horaInicio" name="horaInicio" required><br>
     <label for="horaFin">Hora de Fin:</label>
     <input type="time" id="horaFin" name="horaFin" required><br>
+    
     <input type="hidden" id="diaSemana" name="diaSemana">
     <input type="hidden" id="userId" name="userId" [value]="selectedUserId">
-    <button type="button" class="submit-button" (click)="submitForm()">Enviar</button>
+    
+    <!-- Botones para enviar formulario -->
+    <button type="button" class="submit-button" *ngIf="showEnviarButton" (click)="submitForm()">Enviar</button>
+    <button type="button" class="submit-button" *ngIf="showEnviarConRangoButton" (click)="submitFormWithRange()">Enviar</button>
   </form>
 </div>
