@@ -7,7 +7,7 @@
 }
 
 .container h2 {
-    color: #8C55AA;
+    color: #aa5555;
     font-weight: bold;
     font-size: 23px;
     text-align: center;
@@ -64,14 +64,14 @@
 
 
 .container .form-check-toggle label.active img {
-    border: 2px solid #8C55AA;
+    border: 2px solid #aa5555;
 }
 
 .container .btn-primary {
     cursor: pointer;
     border-radius: 5em;
     color: #fff;
-    background: linear-gradient(to right, #9C27B0, #E040FB);
+    background: linear-gradient(to right, #b02727, #fb4040);
     border: 0;
     padding: 10px 0;
     font-family: 'Ubuntu', sans-serif;

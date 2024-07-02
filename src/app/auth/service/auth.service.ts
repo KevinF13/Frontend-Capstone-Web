@@ -28,8 +28,8 @@ interface LoginResponse {
 })
 export class AuthService {
   private apiUrl = `${environment.apiUrl}/auth`;
-  private loggedIn = new BehaviorSubject<boolean>(false);
-  private currentUserRole = new BehaviorSubject<string | null>(null);
+  private loggedIn = new BehaviorSubject<boolean>(this.hasToken());
+  private currentUserRole = new BehaviorSubject<string | null>(localStorage.getItem('role'));
 
   constructor(private http: HttpClient) {}
 
@@ -52,6 +52,7 @@ export class AuthService {
     return this.http.post<LoginResponse>(`${this.apiUrl}/login`, body).pipe(
       tap((response: LoginResponse) => {
         localStorage.setItem('token', response.token);
+        localStorage.setItem('role', response.role);
         this.loggedIn.next(true);
         this.currentUserRole.next(response.role);  // Actualiza el rol actual del usuario
       })
@@ -86,6 +87,7 @@ export class AuthService {
 
   setCurrentUserRole(role: string) {
     this.currentUserRole.next(role);  // Establece el rol actual del usuario
+    localStorage.setItem('role', role);
   }
 
   getCurrentUserRole(): Observable<string | null> {
@@ -94,6 +96,7 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('role');
     this.loggedIn.next(false);
     this.currentUserRole.next(null);
   }
@@ -103,22 +106,27 @@ export class AuthService {
   }
 
   // Método delete para eliminar un usuario por ID
-deleteUser(userId: string): Observable<void> {
-  const token = this.getToken();
-  let headers = new HttpHeaders({
-    'Authorization': `Bearer ${token}`
-  });
-  return this.http.delete<void>(`${this.apiUrl}/user/${userId}`, { headers });
-}
-private getToken(): string {
-  const token = localStorage.getItem('token');
-  if (!token) {
-    throw new Error('No se ha iniciado sesión. El token no está disponible.');
+  deleteUser(userId: string): Observable<void> {
+    const token = this.getToken();
+    let headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.delete<void>(`${this.apiUrl}/user/${userId}`, { headers });
   }
-  return token;
-}
 
-  ///PRUEBAS
+  private getToken(): string {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('No se ha iniciado sesión. El token no está disponible.');
+    }
+    return token;
+  }
+
+  private hasToken(): boolean {
+    return !!localStorage.getItem('token');
+  }
+
+  // PRUEBAS
   private userId: string | null = null;
 
   setUserId(userId: string) {

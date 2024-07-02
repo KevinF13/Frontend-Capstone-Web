@@ -3,7 +3,7 @@
   <table class="md-table">
     <thead>
       <tr class="md-table-headers-row">
-        <th class="md-table-header">ID</th>
+        <!-- <th class="md-table-header">ID</th> -->
         <th class="md-table-header">Email</th>
         <th class="md-table-header">Role</th>
         <th class="md-table-header md-table-td-more">Acciones</th>
@@ -11,7 +11,7 @@
     </thead>
     <tbody>
       <tr class="md-table-content-row" *ngFor="let user of users" (click)="mostrarDetallesUsuario(user._id)">
-        <td class="md-table-content">{{ user._id }}</td>
+        <!-- <td class="md-table-content">{{ user._id }}</td> -->
         <td class="md-table-content">{{ user.email }}</td>
         <td class="md-table-content">{{ user.role }}</td>
         <td class="md-table-td-more">

@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { AuthService } from 'src/app/auth/service/auth.service';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { cedulaValidator } from './cedula.validator'; // Importar el validador
 
 @Component({
   selector: 'app-registro-persona',
@@ -15,10 +16,10 @@ import { DatePipe } from '@angular/common';
 export class RegistroPersonaComponent implements OnInit {
   personaForm!: FormGroup;
   loading = false;
-  userId: string = ''; // Definimos la propiedad userId
+  userId: string = '';
 
   constructor(private fb: FormBuilder, private personaService: PersonaService, private authService: AuthService, private router: Router, private datePipe: DatePipe) {
-    this.createForm(); // Inicializa el formulario con un userId vacío
+    this.createForm();
   }
 
   ngOnInit() {
@@ -28,33 +29,29 @@ export class RegistroPersonaComponent implements OnInit {
     const year = currentDate.getFullYear();
     const formattedDate = `${day < 10 ? '0' + day : day}/${month < 10 ? '0' + month : month}/${year}`;
     this.personaForm.get('fechaIngreso')?.setValue(formattedDate);
-  
-    // Obtener userId del AuthService
+
     const userId = this.authService.getUserId();
     if (userId !== null) {
       this.userId = userId;
       this.personaForm.get('userId')?.setValue(this.userId);
     } else {
-      // Manejar el caso en que userId sea null, por ejemplo, asignar un valor predeterminado o mostrar un error
       console.error('No se pudo obtener el userId del AuthService.');
     }
   }
-  
 
   createForm() {
     this.personaForm = this.fb.group({
       nombres: ['', Validators.required],
       apellidos: ['', Validators.required],
-      cedula: ['', Validators.required],
+      cedula: ['', [Validators.required, cedulaValidator()]], // Aplicar el validador personalizado
       fechaNacimiento: ['', Validators.required],
       direccionDomicilio: ['', Validators.required],
       fechaIngreso: ['', Validators.required],
       telefono: ['', Validators.required],
       manejaArma: [false],
       imagen: [''],
-      userId: [''] // Inicializar el campo userId
+      userId: ['']
     });
-    // Asignar el userId del signup al campo userId del formulario
     this.personaForm.get('userId')?.setValue(this.userId);
   }
 
