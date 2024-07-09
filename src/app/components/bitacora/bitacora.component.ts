@@ -12,32 +12,40 @@ import { BitacoraNovedad } from './Model/bitacoraNovedad';
 export class BitacoraComponent implements OnInit {
   bitacoras: Bitacora[] = [];
   bitacoraNovedad: BitacoraNovedad[] = [];
-  nombresAgentes: string[] = [];
+  nombresAgentes: string[] = []; // Inicializado como un array vacío
   filtroNombreAgente: string = '';
   filtroFechaHorario: string = '';
+
+  
+  imageUrl: string = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDtCS--5BguZl3QOlVnKHam2CDxxV8yVav-g&s';
 
   constructor(private bitacoraService: BitacoraService) { }
 
   ngOnInit(): void {
-    this.getAllPersonas();
+    this.getAllBitacoras();
+    this.getAllBitacoraNovedad();
   }
 
-  getAllPersonas(): void {
-    this.bitacoraService.getAllBitacoras({}).subscribe(bitacoras => {
-      console.log('Bitacoras obtenidas:', bitacoras);
-      this.bitacoras = bitacoras;
-      this.nombresAgentes = Array.from(new Set(bitacoras.map(bitacora => bitacora.nombreAgente)));
-      console.log('Nombres de agentes únicos:', this.nombresAgentes);
-    }, error => {
-      console.error('Error obteniendo bitácoras:', error);
-    });
+  getAllBitacoras(): void {
+    this.bitacoraService.getAllBitacoras({}).subscribe(
+      bitacoras => {
+        this.bitacoras = bitacoras;
+      },
+      error => {
+        console.error('Error obteniendo bitácoras:', error);
+      }
+    );
+  }
 
-    this.bitacoraService.getAllBitacoraNovedad({}).subscribe(bitacoraNovedad => {
-      console.log('Bitacoras novedad obtenidas:', bitacoraNovedad);
-      this.bitacoraNovedad = bitacoraNovedad;
-    }, error => {
-      console.error('Error obteniendo bitácoras novedad:', error);
-    });
+  getAllBitacoraNovedad(): void {
+    this.bitacoraService.getAllBitacoraNovedad({}).subscribe(
+      bitacoraNovedad => {
+        this.bitacoraNovedad = bitacoraNovedad;
+      },
+      error => {
+        console.error('Error obteniendo bitácoras novedad:', error);
+      }
+    );
   }
 
   filtrarBitacorasPorNombreAgente(): Bitacora[] {
@@ -55,7 +63,6 @@ export class BitacoraComponent implements OnInit {
       );
     }
 
-    console.log('Bitacoras filtradas:', bitacorasFiltradas);
     return bitacorasFiltradas;
   }
 
@@ -65,43 +72,64 @@ export class BitacoraComponent implements OnInit {
   }
 
   generarPDF(bitacoraSeleccionada: Bitacora): void {
-    const doc = new jsPDF();
-
-    const titulo = 'BITACORA';
-    const margenRojo: [number, number, number, number] = [10, 10, doc.internal.pageSize.width - 20, doc.internal.pageSize.height - 20];
-
-    doc.setDrawColor(255, 0, 0);
-    doc.rect(...margenRojo);
-
-    const tituloX = (doc.internal.pageSize.width / 2) - (doc.getStringUnitWidth(titulo) * doc.getFontSize() / 2);
+    const doc = new jsPDF('p', 'pt', 'letter');
+    const margin = 40;
+    let y = margin;
+  
+    // Encabezado con imagen encima del título
+    const imgWidth = 100; // Tamaño de la imagen reducido
+    const imgHeight = 50; // Tamaño de la imagen reducido
+    const imgX = margin;
+    const imgY = margin;
+    doc.addImage(this.imageUrl, 'PNG', imgX, imgY, imgWidth, imgHeight);
+  
+    // Título centrado entre la imagen y el margen derecho
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(20);
-    doc.text(titulo, tituloX, 20);
-
-    let contenido = `
-      Agente: ${bitacoraSeleccionada.nombreAgente}\n
-      Fecha: ${bitacoraSeleccionada.fechaHorario}\n
-      Turno: ${bitacoraSeleccionada.turnoHorario}\n
-      Cliente: ${bitacoraSeleccionada.cliente}\n
-      Prendas De la Empresa: ${bitacoraSeleccionada.prendasEmpresa}\n
-      Prendas Del Cliente: ${bitacoraSeleccionada.prendasCliente}\n
-    `;
-
+    const titleText = 'BITÁCORA';
+    const titleWidth = doc.getTextWidth(titleText);
+    const titleX = imgX + imgWidth + 130; // Ajuste para mover el título un poco más a la izquierda
+    const titleY = imgY + imgHeight / 2 + 10; // Ajuste vertical para centrar el título
+    doc.text(titleText, titleX, titleY);
+  
+    // Información de la bitácora
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(12);
+    y += imgY + imgHeight + 20; // Ajuste para espacio debajo del título y la imagen
+    doc.text(`Agente: ${bitacoraSeleccionada.nombreAgente}`, margin, y);
+    y += 20;
+    doc.text(`Fecha: ${bitacoraSeleccionada.fechaHorario}`, margin, y);
+    y += 20;
+    doc.text(`Turno: ${bitacoraSeleccionada.turnoHorario}`, margin, y);
+    y += 20;
+    doc.text(`Cliente: ${bitacoraSeleccionada.cliente}`, margin, y);
+    y += 20;
+    doc.text(`Prendas de la Empresa: ${bitacoraSeleccionada.prendasEmpresa}`, margin, y);
+    y += 20;
+    doc.text(`Prendas del Cliente: ${bitacoraSeleccionada.prendasCliente}`, margin, y);
+    y += 40;
+  
+    // Novedades
     const novedades = this.bitacoraNovedad.filter(novedad => novedad.idBitacora === bitacoraSeleccionada._id);
     if (novedades.length > 0) {
-      contenido += '\nNovedades:\n';
+      doc.setFont('helvetica', 'bold');
+      doc.text('Novedades:', margin, y);
+      y += 20;
+  
+      doc.setFont('helvetica', 'normal');
       novedades.forEach((novedad, index) => {
-        contenido += `
-          ${index + 1}. Hora Novedad: ${novedad.horaNovedad}
-          Novedad: ${novedad.novedad}
-        `;
+        const novedadTexto = `${index + 1}. Hora Novedad: ${novedad.horaNovedad}\nNovedad: ${novedad.novedad}`;
+        const lines = doc.splitTextToSize(novedadTexto, doc.internal.pageSize.width - 2 * margin);
+        lines.forEach((line: string) => {
+          doc.text(line, margin, y);
+          y += 20;
+        });
       });
     }
-
-    doc.setFont('helvetica');
-    doc.setFontSize(12);
-    doc.text(contenido, 20, 40);
-
+  
+    // Guardar PDF
     doc.save('bitacora.pdf');
   }
+  
+  
 }

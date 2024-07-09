@@ -296,7 +296,7 @@ export class DashboardComponent implements OnInit {
       data: {
         labels: ['Maneja Arma', 'No Maneja Arma'],
         datasets: [{
-          label: 'Personas',
+          label: 'Agentes que Manejan Armas',
           data: [manejaArmaCount, noManejaArmaCount],
           backgroundColor: [
             'rgba(255, 99, 132, 0.6)',

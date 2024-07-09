@@ -32,7 +32,7 @@ export class HorarioComponent implements OnInit {
     const day = String(today.getDate()).padStart(2, '0');
     const month = String(today.getMonth() + 1).padStart(2, '0');
     const year = today.getFullYear();
-    this.today = `${month}-${day}-${year}`;
+    this.today = `${day}/${month}/${year}`;
   }
 
   getPersonas(): void {
@@ -49,30 +49,37 @@ export class HorarioComponent implements OnInit {
   submitForm() {
     const form = document.getElementById('horarioForm') as HTMLFormElement;
     const formData = new FormData(form);
-    
+  
     // Verifica si se ha seleccionado una persona
     if (!this.selectedUserId) {
       console.error('Debes seleccionar una persona para asignarle un horario.');
       return;
     }
   
+    const lugarTrabajo = formData.get('lugar') as string;
+    const puesto = formData.get('puesto') as string;
+    const horaInicio = formData.get('horaInicio') as string;
+    const horaFin = formData.get('horaFin') as string;
     const fecha = formData.get('fecha') as string;
-    // Convertir fecha a formato dd/mm/yyyy
-    const [year, month, day] = fecha.split('-');
-    const fechaFormatted = `${month}/${day}/${year}`;
   
+    // Parsear la fecha seleccionada
+    const [year, month, day] = fecha.split('-');
+    const date = new Date(`${year}-${month}-${day}T00:00:00`); // Asegurando que es inicio del día
+    const diaSemana = this.getDiaSemana(date);
+    const fechaFormatted = `${day}/${month}/${year}`;
+  
+    // Crear el DTO
     const createHorarioDto = {
-      lugarTrabajo: formData.get('lugar') as string,
-      puesto: formData.get('puesto') as string,
-      diaSemana: formData.get('diaSemana') as string,
-      fecha: fechaFormatted, // Enviar fecha en formato dd/mm/yyyy
-      horaInicio: formData.get('horaInicio') as string,
-      horaFin: formData.get('horaFin') as string,
-      userId: this.selectedUserId // Usa el userId seleccionado
+      lugarTrabajo,
+      puesto,
+      diaSemana,
+      fecha: fechaFormatted,
+      horaInicio,
+      horaFin,
+      userId: this.selectedUserId
     };
   
-    console.log('DTO de creación de horario:', createHorarioDto);
-  
+    // Llamar al servicio para crear el horario
     this.horarioService.createHorario(createHorarioDto).subscribe(
       (response) => {
         console.log('Horario creado exitosamente:', response);
@@ -89,6 +96,7 @@ export class HorarioComponent implements OnInit {
       },
       (error) => {
         console.error('Error al crear horario:', error);
+  
         // Mostrar SweetAlert de error
         Swal.fire({
           icon: 'error',
@@ -102,6 +110,9 @@ export class HorarioComponent implements OnInit {
     // Limpiar selección después de enviar el formulario
     this.selectedUserId = null;
   }
+  
+  
+  
 
   submitFormWithRange() {
     const form = document.getElementById('horarioForm') as HTMLFormElement;
@@ -126,7 +137,7 @@ export class HorarioComponent implements OnInit {
       const day = String(date.getDate()).padStart(2, '0');
       const month = String(date.getMonth() + 1).padStart(2, '0');
       const year = date.getFullYear();
-      const fechaFormatted = `${month}/${day}/${year}`;
+      const fechaFormatted = `${day}/${month}/${year}`;
 
       // Crear el DTO para cada día
       const createHorarioDto = {
