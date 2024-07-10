@@ -1,0 +1,50 @@
+<div class="container">
+    <h1>Gestión de Clientes</h1>
+  
+    <div class="form-container">
+      <h2>{{ isEditing ? 'Editar Cliente' : 'Crear Cliente' }}</h2>
+  
+      <form (ngSubmit)="saveCliente()">
+        <div class="form-group">
+          <label for="nombreCliente">Nombre del Cliente</label>
+          <input type="text" id="nombreCliente" [(ngModel)]="cliente.nombreCliente" name="nombreCliente" required>
+        </div>
+  
+        <div class="form-group">
+          <label for="descripcion">Descripción</label>
+          <textarea id="descripcion" [(ngModel)]="cliente.descripcion" name="descripcion" required></textarea>
+        </div>
+  
+        <div class="button-group">
+          <button type="submit" class="btn btn-primary">{{ isEditing ? 'Actualizar' : 'Crear' }}</button>
+          <button type="button" class="btn btn-secondary" (click)="cancel()">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  
+    <div class="list-container">
+      <h2>Lista de Clientes</h2>
+  
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+  
+        <tbody>
+          <tr *ngFor="let cliente of clientes">
+            <td>{{ cliente.nombreCliente }}</td>
+            <td>{{ cliente.descripcion }}</td>
+            <td>
+              <button class="btn btn-edit" (click)="selectCliente(cliente)">Editar</button>
+              <button class="btn btn-delete" (click)="deleteCliente(cliente._id)">Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

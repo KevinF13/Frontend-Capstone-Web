@@ -24,7 +24,7 @@ export class LoginComponent {
             text: '¡Bienvenido de nuevo!',
           });
           this.authService.setCurrentUserRole(response.role);  // Actualiza el rol actual en AuthService
-          this.router.navigate(['/home']);
+          this.router.navigate(['/dashboard']);
         } else {
           Swal.fire({
             icon: 'error',

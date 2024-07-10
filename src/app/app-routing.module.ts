@@ -11,6 +11,7 @@ import { CalendarioComponent } from './components/calendario/calendario.componen
 import { HeaderComponent } from './components/header/header.component';
 import { RegistroPersonaComponent } from './components/registro-persona/registro-persona.component';
 import { MonitoreoComponent } from './components/monitoreo/monitoreo.component';
+import { ClienteComponent } from './components/cliente/cliente.component';
 
 const routes: Routes = [
   { path: 'registrarGuardia', component: SignupComponent },
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: 'calendario', component: CalendarioComponent },
   { path: 'registroPerfil', component: RegistroPersonaComponent },
   { path: 'monitoreo', component: MonitoreoComponent },
+  { path: 'cliente', component: ClienteComponent },
   { path: '**', redirectTo: '/home' }
   // { path: '', redirectTo: '/header', pathMatch: 'full' }
 ];

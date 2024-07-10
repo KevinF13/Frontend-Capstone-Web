@@ -1,7 +1,6 @@
 <div class="bitacoras-container" *ngIf="bitacoras.length">
   <h1>Bitácoras Registradas</h1>
   
-  <!-- Selector para elegir nombre de agente -->
   <div class="selector-container">
     <select class="select-input" [(ngModel)]="filtroNombreAgente">
       <option value="">Seleccionar agente</option>
@@ -9,12 +8,13 @@
     </select>
   </div>
 
-  <!-- Input para filtrar por fechaHorario -->
   <div class="filtro-fecha-container">
-    <input class="date-input" type="date" [(ngModel)]="filtroFechaHorario">
+    <label for="fechaRango">Seleccionar rango de fechas:</label>
+    <input id="fechaRango" class="date-input" type="date" [(ngModel)]="filtroFechaInicio" (change)="seleccionarFechaInicio()">
+    <span> - </span>
+    <input class="date-input" type="date" [(ngModel)]="filtroFechaFin" (change)="filtrarPorRango()">
   </div>
 
-  <!-- Botón para limpiar los filtros -->
   <div class="limpiar-filtros-container">
     <button class="limpiar-btn" (click)="limpiarFiltros()">Limpiar Filtros</button>
   </div>
@@ -23,7 +23,6 @@
     <table class="bitacoras-table">
       <thead>
         <tr>
-          <!-- <th>User ID</th> -->
           <th>Nombre Agente</th>
           <th>Fecha</th>
           <th>Cliente</th>
@@ -32,7 +31,6 @@
       </thead>
       <tbody>
         <tr *ngFor="let bitacora of filtrarBitacorasPorNombreAgente()">
-          <!-- <td data-label="User ID">{{ bitacora.userId }}</td> -->
           <td data-label="Nombre Agente">{{ bitacora.nombreAgente }}</td>
           <td data-label="Fecha">{{ bitacora.fechaHorario }}</td>
           <td data-label="Cliente">{{ bitacora.cliente }}</td>

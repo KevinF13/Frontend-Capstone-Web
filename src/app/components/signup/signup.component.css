@@ -16,7 +16,7 @@
 }
 
 .sign {
-    color: #8C55AA;
+    color: #aa5555;
     font-weight: bold;
     font-size: 23px;
     text-align: center;
@@ -74,14 +74,14 @@
 }
 
 .role-option.selected {
-    border-color: #8C55AA;
+    border-color: #aa5555;
 }
 
 .submit {
     cursor: pointer;
     border-radius: 5em;
     color: #fff;
-    background: linear-gradient(to right, #9C27B0, #E040FB);
+    background: linear-gradient(to right, #b02727, #fb4040);
     border: 0;
     padding: 10px 0;
     font-family: 'Ubuntu', sans-serif;
@@ -92,12 +92,12 @@
 
 .forgot {
     text-align: center;
-    color: #E1BEE7;
+    color: #e7bebe;
     margin-top: 20px;
 }
 
 a {
-    color: #E1BEE7;
+    color: #e7bebe;
     text-decoration: none;
 }
 

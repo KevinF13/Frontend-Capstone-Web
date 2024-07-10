@@ -23,6 +23,7 @@ import { DatePipe } from '@angular/common';
 import { MonitoreoComponent } from './components/monitoreo/monitoreo.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { ClienteComponent } from './components/cliente/cliente.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     BitacoraComponent,
     CalendarioComponent,
     RegistroPersonaComponent,
-    MonitoreoComponent
+    MonitoreoComponent,
+    ClienteComponent
   ],
   imports: [
     BrowserModule,
