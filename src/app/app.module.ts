@@ -24,6 +24,7 @@ import { MonitoreoComponent } from './components/monitoreo/monitoreo.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ClienteComponent } from './components/cliente/cliente.component';
+import { NotificacionComponent } from './components/notificacion/notificacion.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { ClienteComponent } from './components/cliente/cliente.component';
     CalendarioComponent,
     RegistroPersonaComponent,
     MonitoreoComponent,
-    ClienteComponent
+    ClienteComponent,
+    NotificacionComponent
   ],
   imports: [
     BrowserModule,

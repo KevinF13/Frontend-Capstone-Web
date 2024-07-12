@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/auth/service/auth.service';
 import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
+import { EmergencyService } from './Service/emergency.service';
+import { Notificacion } from './Model/notificacion.model';
 
 @Component({
   selector: 'app-header',
@@ -9,33 +11,48 @@ import { Observable, tap } from 'rxjs';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  isLoggedIn: boolean = false; // Variable para verificar si el usuario ha iniciado sesión
-  isSupervisor: boolean = false; // Variable para verificar si el usuario es Supervisor
+  isLoggedIn: boolean = false;
+  isSupervisor: boolean = false;
+  emergencyMessages: Notificacion[] = [];
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService, 
+    private router: Router, 
+    private emergencyService: EmergencyService
+  ) {}
 
   ngOnInit() {
     this.authService.isLoggedIn().subscribe((loggedIn) => {
-      this.isLoggedIn = loggedIn; // Actualiza el estado de inicio de sesión en el componente de encabezado
+      this.isLoggedIn = loggedIn;
     });
 
     this.authService.getCurrentUserRole().subscribe((role) => {
       this.isSupervisor = role === 'Supervisor';
     });
+
+    this.loadEmergencyMessages();
   }
 
-  // Método para cerrar sesión
+  loadEmergencyMessages(): void {
+    this.emergencyService.getEmergencyMessages().subscribe(
+      (messages: Notificacion[]) => {
+        this.emergencyMessages = messages;
+      },
+      error => {
+        console.error('Error fetching emergency messages', error);
+      }
+    );
+  }
+
   logout() {
     this.authService.logout();
-    this.isLoggedIn = false; // Actualiza isLoggedIn como false después de cerrar sesión
-    this.router.navigate(['/']); // Redirige al usuario a la página de inicio
-}
+    this.isLoggedIn = false;
+    this.router.navigate(['/']);
+  }
 
-//Toggle Para el menu de opciones
-isMenuOpen = false;
+  isMenuOpen = false;
 
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
   }
 }
-

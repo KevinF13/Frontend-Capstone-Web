@@ -14,8 +14,7 @@ export class BitacoraComponent implements OnInit {
   bitacoraNovedad: BitacoraNovedad[] = [];
   nombresAgentes: string[] = [];
   filtroNombreAgente: string = '';
-  filtroFechaInicio: string = '';
-  filtroFechaFin: string = '';
+  filtroFechaHorario: string = '';
 
   imageUrl: string = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDtCS--5BguZl3QOlVnKHam2CDxxV8yVav-g&s';
 
@@ -51,6 +50,9 @@ export class BitacoraComponent implements OnInit {
   }
 
   filtrarBitacorasPorNombreAgente(): Bitacora[] {
+    console.log('Filtrando por agente:', this.filtroNombreAgente);
+    console.log('Filtrando por fecha:', this.filtroFechaHorario);
+
     let bitacorasFiltradas = this.bitacoras;
 
     if (this.filtroNombreAgente.trim()) {
@@ -59,24 +61,19 @@ export class BitacoraComponent implements OnInit {
       );
     }
 
-    if (this.filtroFechaInicio && this.filtroFechaFin) {
-      const fechaInicio = new Date(this.filtroFechaInicio);
-      const fechaFin = new Date(this.filtroFechaFin);
-      fechaFin.setDate(fechaFin.getDate() + 1); // Suma un día para incluir la fecha fin en el filtro
-
-      bitacorasFiltradas = bitacorasFiltradas.filter(bitacora => {
-        const fechaBitacora = new Date(bitacora.fechaHorario);
-        return fechaBitacora >= fechaInicio && fechaBitacora < fechaFin;
-      });
+    if (this.filtroFechaHorario.trim()) {
+      bitacorasFiltradas = bitacorasFiltradas.filter(bitacora =>
+        bitacora.fechaHorario.includes(this.filtroFechaHorario)
+      );
     }
 
+    console.log('Bitácoras filtradas:', bitacorasFiltradas);
     return bitacorasFiltradas;
   }
 
   limpiarFiltros(): void {
     this.filtroNombreAgente = '';
-    this.filtroFechaInicio = '';
-    this.filtroFechaFin = '';
+    this.filtroFechaHorario = '';
   }
 
   generarPDF(bitacoraSeleccionada: Bitacora): void {
@@ -132,22 +129,5 @@ export class BitacoraComponent implements OnInit {
     }
 
     doc.save('bitacora.pdf');
-  }
-
-  seleccionarFechaInicio(): void {
-    // Limpiar fecha de fin si se selecciona una nueva fecha de inicio
-    if (this.filtroFechaInicio && this.filtroFechaFin) {
-      const fechaInicio = new Date(this.filtroFechaInicio);
-      const fechaFin = new Date(this.filtroFechaFin);
-      if (fechaInicio > fechaFin) {
-        this.filtroFechaFin = '';
-      }
-    }
-  }
-
-  filtrarPorRango(): void {
-    if (this.filtroFechaInicio && this.filtroFechaFin) {
-      this.filtroNombreAgente = ''; // Limpiar filtro de agente al seleccionar rango de fechas
-    }
   }
 }

@@ -3,13 +3,14 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 import { Persona } from '../Model/persona';
+import { Cliente } from '../../cliente/Model/cliente';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PersonaService {
   private apiUrl = `${environment.apiUrl}/persona`; // Ajusta el URL de acuerdo a tu configuración
-
+  private apiUrlCliente = `${environment.apiUrl}/cliente`;
   constructor(private http: HttpClient) {}
 
   // Método privado para obtener el token almacenado en localStorage
@@ -19,6 +20,18 @@ export class PersonaService {
       throw new Error('No se ha iniciado sesión. El token no está disponible.');
     }
     return token;
+  }
+
+  // Método para obtener todas las cliente
+  getAllClientes(page: number = 1, keyword: string = ''): Observable<Cliente[]> {
+    const token = this.getToken();
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('keyword', keyword);
+    let headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get<Cliente[]>(this.apiUrlCliente, { params, headers });
   }
 
   // Método para obtener todas las personas

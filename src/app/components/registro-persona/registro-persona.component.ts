@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/auth/service/auth.service';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { cedulaValidator } from './cedula.validator'; // Importar el validador
+import { Cliente } from '../cliente/Model/cliente';
 
 @Component({
   selector: 'app-registro-persona',
@@ -17,8 +18,15 @@ export class RegistroPersonaComponent implements OnInit {
   personaForm!: FormGroup;
   loading = false;
   userId: string = '';
+  clientes: Cliente[] = [];
 
-  constructor(private fb: FormBuilder, private personaService: PersonaService, private authService: AuthService, private router: Router, private datePipe: DatePipe) {
+  constructor(
+    private fb: FormBuilder, 
+    private personaService: PersonaService, 
+    private authService: AuthService, 
+    private router: Router, 
+    private datePipe: DatePipe
+  ) {
     this.createForm();
   }
 
@@ -37,6 +45,8 @@ export class RegistroPersonaComponent implements OnInit {
     } else {
       console.error('No se pudo obtener el userId del AuthService.');
     }
+
+    this.loadClientes();
   }
 
   createForm() {
@@ -50,9 +60,21 @@ export class RegistroPersonaComponent implements OnInit {
       telefono: ['', Validators.required],
       manejaArma: [false],
       imagen: [''],
-      userId: ['']
+      userId: [''],
+      clienteId: ['', Validators.required],
     });
     this.personaForm.get('userId')?.setValue(this.userId);
+  }
+
+  loadClientes() {
+    this.personaService.getAllClientes().subscribe(
+      (clientes) => {
+        this.clientes = clientes;
+      },
+      (error) => {
+        console.error('Error al cargar los clientes:', error);
+      }
+    );
   }
 
   onSubmit() {

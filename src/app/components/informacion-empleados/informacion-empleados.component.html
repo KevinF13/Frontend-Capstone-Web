@@ -1,80 +1,103 @@
-<!-- Tabla de Usuarios -->
-<div class="table-container">
-  <table class="md-table">
-    <thead>
-      <tr class="md-table-headers-row">
-        <!-- <th class="md-table-header">ID</th> -->
-        <th class="md-table-header">Email</th>
-        <th class="md-table-header">Role</th>
-        <th class="md-table-header md-table-td-more">Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr class="md-table-content-row" *ngFor="let user of users" (click)="mostrarDetallesUsuario(user._id)">
-        <!-- <td class="md-table-content">{{ user._id }}</td> -->
-        <td class="md-table-content">{{ user.email }}</td>
-        <td class="md-table-content">{{ user.role }}</td>
-        <td class="md-table-td-more">
-          <button class="open-button" (click)="seleccionarUsuario(user._id)">
-            Ver Detalles
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<div class="container">
+  <div class="left-side">
+    <!-- Tabla de Usuarios -->
+    <div class="table-container">
+      <table class="md-table">
+        <thead>
+          <tr class="md-table-headers-row">
+            <th class="md-table-header">Correo Empresarial</th>
+            <th class="md-table-header">Rol</th>
+            <th class="md-table-header md-table-td-more">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="md-table-content-row" *ngFor="let user of users.slice((currentPage-1)*itemsPerPage, currentPage*itemsPerPage)" (click)="mostrarDetallesUsuario(user._id)">
+            <td class="md-table-content">{{ user.email }}</td>
+            <td class="md-table-content">{{ user.role }}</td>
+            <td class="md-table-td-more">
+              <button class="open-button" (click)="seleccionarUsuario(user._id)">
+                Ver Detalles
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- Paginación -->
+      <div class="pagination">
+        <button class="pagination-button" [disabled]="currentPage === 1" (click)="previousPage()">Anterior</button>
+        <span class="pagination-info">{{ currentPage }} / {{ totalPages }}</span>
+        <button class="pagination-button" [disabled]="currentPage === totalPages" (click)="nextPage()">Siguiente</button>
+      </div>
+    </div>
+  </div>
 
-<!-- Detalles del usuario seleccionado -->
-<div *ngIf="selectedUserDetails" class="overlay">
-  <div class="container">
-    <button class="close-button" (click)="cerrarDetallesUsuario()">Cerrar</button>
-    <h2>Información Personal</h2>
-    <img [src]="selectedUserDetails.imagen" alt="Imagen de usuario" class="user-image">
-    <div class="user-info">
-      <p><strong>UserId:</strong> {{ selectedUserDetails.userId}}</p>
-      <div class="form-group">
-        <label for="nombres">Nombres:</label>
-        <input type="text" [(ngModel)]="selectedUserDetails.nombres" id="nombres" class="form-control">
-      </div>
-      <div class="form-group">
-        <label for="apellidos">Apellidos:</label>
-        <input type="text" [(ngModel)]="selectedUserDetails.apellidos" id="apellidos" class="form-control">
-      </div>
-      <div class="form-group">
-        <label for="cedula">Cédula:</label>
-        <input type="text" [(ngModel)]="selectedUserDetails.cedula" id="cedula" class="form-control">
-      </div>
-      <div class="form-group">
-        <label for="direccion">Dirección de Domicilio:</label>
-        <input type="text" [(ngModel)]="selectedUserDetails.direccionDomicilio" id="direccion" class="form-control">
-      </div>
-      <div class="form-group">
-        <label for="fechaNacimiento">Fecha de Nacimiento:</label>
-        <input type="date" [(ngModel)]="selectedUserDetails.fechaNacimiento" id="fechaNacimiento" class="form-control">
-      </div>
-      <div class="form-group">
-        <label for="telefono">Número Celular:</label>
-        <input type="text" [(ngModel)]="selectedUserDetails.telefono" id="telefono" class="form-control">
-      </div>
-      <div class="form-group">
-        <label for="manejaArma">¿Maneja arma?</label>
-        <div class="form-check-toggle">
-          <label class="form-check-label" (click)="toggleWeapon(true)" [class.active]="selectedUserDetails.manejaArma">
-            <img src="https://thumbs.dreamstime.com/b/pistola-y-balas-39643288.jpg" alt="Maneja Arma">
-          </label>
-          <label class="form-check-label" (click)="toggleWeapon(false)" [class.active]="!selectedUserDetails.manejaArma">
-            <img src="https://www.nidec.es/2884-home_default/defensa-de-seguridad-rgida-aligerada-de-polipropileno-60-cm.jpg" alt="No Maneja Arma">
-          </label>
-          <input type="hidden" formControlName="manejaArma">
+  <div class="right-side">
+    <!-- Información Personal -->
+    <div class="personal-info">
+      <div *ngIf="selectedUserDetails" class="overlay">
+        <div class="container">
+          <button class="close-button" (click)="cerrarDetallesUsuario()">Cerrar</button>
+          <h2>Información Personal</h2>
+          <img [src]="selectedUserDetails.imagen" alt="Imagen de usuario" class="user-image">
+          <div class="user-info">
+            <p><strong>UserId:</strong> {{ selectedUserDetails.userId }}</p>
+            <div>
+              <label for="clienteId">Cliente</label>
+              <select [(ngModel)]="selectedUserDetails.clienteId" id="clienteId" class="custom-select">
+                <option *ngFor="let cliente of clientes" [value]="cliente._id">{{ cliente.nombreCliente }}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="nombres">Nombres:</label>
+              <input type="text" [(ngModel)]="selectedUserDetails.nombres" id="nombres" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="apellidos">Apellidos:</label>
+              <input type="text" [(ngModel)]="selectedUserDetails.apellidos" id="apellidos" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="cedula">Cédula:</label>
+              <input type="text" [(ngModel)]="selectedUserDetails.cedula" id="cedula" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="direccion">Dirección de Domicilio:</label>
+              <input type="text" [(ngModel)]="selectedUserDetails.direccionDomicilio" id="direccion" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="fechaNacimiento">Fecha de Nacimiento:</label>
+              <input type="date" [(ngModel)]="selectedUserDetails.fechaNacimiento" id="fechaNacimiento" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="telefono">Número Celular:</label>
+              <input type="text" [(ngModel)]="selectedUserDetails.telefono" id="telefono" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="manejaArma">¿Maneja arma?</label>
+              <div class="form-check-toggle">
+                <label class="form-check-label" (click)="toggleWeapon(true)" [class.active]="selectedUserDetails.manejaArma">
+                  <img src="https://thumbs.dreamstime.com/b/pistola-y-balas-39643288.jpg" alt="Maneja Arma">
+                </label>
+                <label class="form-check-label" (click)="toggleWeapon(false)" [class.active]="!selectedUserDetails.manejaArma">
+                  <img src="https://www.nidec.es/2884-home_default/defensa-de-seguridad-rgida-aligerada-de-polipropileno-60-cm.jpg" alt="No Maneja Arma">
+                </label>
+                <input type="hidden" [(ngModel)]="selectedUserDetails.manejaArma">
+              </div>
+            </div>
+          </div>
+          <!-- Botones de editar y eliminar -->
+          <div class="button-container">
+            <button class="edit-button" (click)="guardarCambios()">Guardar Cambios</button>
+            <button class="delete-button" (click)="deletePersona(selectedUserDetails.userId)">Eliminar</button>
+          </div>
         </div>
       </div>
-      
-        
-    </div>
-    <!-- Botones de editar y eliminar -->
-    <div class="button-container">
-      <button class="edit-button" (click)="guardarCambios()">Guardar Cambios</button>
-      <button class="delete-button" (click)="deletePersona(selectedUserDetails.userId)">Eliminar</button>
+
+      <div *ngIf="!selectedUserDetails" class="overlay">
+        <div class="container">
+          <button class="close-button" (click)="cerrarDetallesUsuario()">Cerrar</button>
+          <p>No se ha seleccionado ningún usuario.</p>
+        </div>
+      </div>
     </div>
   </div>
 </div>

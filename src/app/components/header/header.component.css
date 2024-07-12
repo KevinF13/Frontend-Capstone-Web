@@ -1,5 +1,7 @@
 /* Estilos del header */
 .header {
+  position: relative;
+  z-index: 1000; /* Asegura que el header esté sobre otros elementos */
   overflow: hidden;
   background-color: #333;
   padding: 20px 10px;
@@ -92,6 +94,58 @@
 /* Mostrar el submenú al pasar el mouse */
 .dropdown:hover .dropdown-content {
   display: block;
+}
+
+/* Estilos para la notificación de emergencia */
+.emergency-notification {
+  position: relative;
+  margin-left: 15px;
+}
+
+.emergency-notification .icon {
+  font-size: 24px;
+  color: #f00; /* Color rojo para alerta */
+  cursor: pointer;
+}
+
+.emergency-notification .dropdown {
+  display: none;
+  position: absolute;
+  top: 30px;
+  right: 0;
+  background-color: #fff;
+  color: #333;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border-radius: 5px;
+}
+
+.emergency-notification:hover .dropdown {
+  display: block;
+}
+
+.emergency-notification .dropdown ul {
+  list-style: none;
+  margin: 0;
+  padding: 10px;
+}
+
+.emergency-notification .dropdown ul li {
+  padding: 8px 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+.emergency-notification .dropdown ul li:last-child {
+  border-bottom: none;
+}
+
+.emergency-notification .dropdown ul li a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.emergency-notification .dropdown ul li a:hover {
+  text-decoration: underline;
 }
 
 /* Media queries para responsividad */

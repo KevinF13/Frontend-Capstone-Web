@@ -1,4 +1,6 @@
 export interface Persona {
+  userId: string;
+  clienteId: string;
   nombres: string;
   apellidos: string;
   cedula: string;
@@ -8,5 +10,5 @@ export interface Persona {
   manejaArma: boolean;
   imagen: string;
   fechaIngreso: string;
-  userId: string;
+  
 }

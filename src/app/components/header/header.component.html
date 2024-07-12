@@ -1,6 +1,7 @@
 <div class="header">
   <a [routerLink]="isLoggedIn ? '/dashboard' : '/'" class="logo">Codisecurity</a>
   <button class="menu-toggle" (click)="toggleMenu()">☰</button>
+  
   <div class="header-right" [ngClass]="{'show': isMenuOpen}">
     <!-- <a routerLink="/home">Página Principal</a> -->
     <a *ngIf="isLoggedIn && isSupervisor" [routerLink]="'/cliente'">Clientes</a>
@@ -20,5 +21,16 @@
     <a *ngIf="isLoggedIn && isSupervisor" [routerLink]="'/monitoreo'">Monitoreo</a>
     <a *ngIf="!isLoggedIn" routerLink="/login">Iniciar Sesión</a>
     <a *ngIf="isLoggedIn" (click)="logout()">Cerrar Sesión</a>
+  </div>
+  <div class="emergency-notification" *ngIf="emergencyMessages.length > 0">
+    <span class="icon" title="You have emergency messages!">⚠️</span>
+    <div class="dropdown">
+      <ul>
+        <li *ngFor="let message of emergencyMessages">
+          {{ message.notificacion }} 
+          <a [href]="message.ubicacion" target="_blank">Ver Ubicación</a>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>

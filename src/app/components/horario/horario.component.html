@@ -16,6 +16,16 @@
         <td class="md-table-content">{{ persona.nombres }}</td>
         <td class="md-table-content">{{ persona.apellidos }}</td>
         <td class="md-table-content">{{ persona.manejaArma }}</td>
+        <div class="emergency-notification">
+          <span class="icon" *ngIf="" title="You have emergency messages!">
+            ⚠️
+          </span>
+          <div *ngIf="" class="dropdown">
+            <ul>
+              <li *ngFor=""></li>
+            </ul>
+          </div>
+        </div>
         <td class="md-table-content">
           <img src="{{ persona.imagen }}" alt="Imagen de la persona" class="persona-imagen">
         <!-- </td>

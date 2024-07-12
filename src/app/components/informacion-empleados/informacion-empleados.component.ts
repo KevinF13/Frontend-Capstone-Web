@@ -4,6 +4,7 @@ import { PersonaService } from './Service/persona.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService, User } from 'src/app/auth/service/auth.service';
 import Swal from 'sweetalert2';
+import { Cliente } from '../cliente/Model/cliente';
 
 @Component({
   selector: 'app-informacion-empleados',
@@ -13,12 +14,17 @@ import Swal from 'sweetalert2';
 export class InformacionEmpleadosComponent implements OnInit {
   users: User[] = [];
   personas: Persona[] = [];
+  clientes: Cliente[] = [];
   showCreateForm: boolean = false;
   showEditForm: boolean = false;
   createPersonaForm: FormGroup;
   editPersonaForm: FormGroup;
   selectedUserId: string | undefined;
-  selectedUserDetails: any; // Variable para almacenar los detalles del usuario seleccionado
+  selectedUserDetails: Persona | null = null; // Asegúrate de inicializar como null
+
+  // Pagination variables
+  currentPage: number = 1;
+  itemsPerPage: number = 5; // Número de ítems por página
 
   constructor(private fb: FormBuilder, private personaService: PersonaService, private authService: AuthService) {
     this.createPersonaForm = this.fb.group({
@@ -31,7 +37,8 @@ export class InformacionEmpleadosComponent implements OnInit {
       manejaArma: [false, Validators.required],
       imagen: ['', Validators.required],
       fechaIngreso: ['', Validators.required],
-      userId: ['', Validators.required]
+      userId: ['', Validators.required],
+      clienteId: ['', Validators.required]
     });
 
     this.editPersonaForm = this.fb.group({
@@ -44,13 +51,26 @@ export class InformacionEmpleadosComponent implements OnInit {
       manejaArma: [false, Validators.required],
       imagen: ['', Validators.required],
       fechaIngreso: ['', Validators.required],
-      userId: ['', Validators.required]
+      userId: ['', Validators.required],
+      clienteId: ['', Validators.required]
     });
   }
 
   ngOnInit(): void {
     this.getPersonas();
     this.getUsers();
+    this.getClientes();
+  }
+
+  getClientes(): void {
+    this.personaService.getAllClientes().subscribe(
+      (clientes) => {
+        this.clientes = clientes;
+      },
+      (error) => {
+        console.error('Error al obtener clientes', error);
+      }
+    );
   }
 
   seleccionarUsuario(userId: string) {
@@ -98,8 +118,6 @@ export class InformacionEmpleadosComponent implements OnInit {
     return fecha;
   }
   
-  
-
   cerrarDetallesUsuario() {
     this.selectedUserDetails = null;
   }
@@ -115,12 +133,12 @@ export class InformacionEmpleadosComponent implements OnInit {
       manejaArma: persona.manejaArma,
       imagen: persona.imagen,
       fechaIngreso: persona.fechaIngreso,
-      userId: userId  // Asignar el userId al campo del formulario
+      userId: userId,  // Asignar el userId al campo del formulario
+   
     });
     this.editPersonaForm.get('userId')!.disable();
     this.showEditForm = true;
   }
-  
 
   getUsers(): void {
     this.authService.getAllUsers().subscribe(
@@ -171,6 +189,14 @@ export class InformacionEmpleadosComponent implements OnInit {
   }
 
   getPersonas(): void {
+    this.personaService.getAllClientes().subscribe(
+      (clientes) => {
+        this.clientes = clientes;
+      },
+      (error) => {
+        console.error('Error al obtener clientes', error);
+      }
+    );
     this.personaService.getAllPersonas().subscribe(
       (personas) => {
         this.personas = personas;
@@ -219,42 +245,61 @@ export class InformacionEmpleadosComponent implements OnInit {
   }
 
   guardarCambios() {
-    const personaData = this.selectedUserDetails;
-    const userId = this.selectedUserDetails.userId;
-  
-    this.personaService.updatePersona(userId, personaData).subscribe(
-      updatedPersona => {
-        // Actualizar los detalles del usuario en la variable local
-        this.selectedUserDetails = updatedPersona;
-  
-        // Ocultar el formulario de edición
-        this.showEditForm = false;
-  
-        // Mostrar una alerta de éxito
-        Swal.fire({
-          icon: 'success',
-          title: '¡Éxito!',
-          text: 'La persona ha sido actualizada correctamente.',
-          confirmButtonText: 'OK'
-        });
-      },
-      error => {
-        console.error('Error al actualizar la persona:', error);
-  
-        // Mostrar una alerta de error
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: 'Ocurrió un error al actualizar la persona. Por favor, inténtalo de nuevo.',
-          confirmButtonText: 'OK'
-        });
-      }
-    );
+    if (this.selectedUserDetails) {
+      const personaData = this.selectedUserDetails;
+      const userId = this.selectedUserDetails.userId;
+    
+      this.personaService.updatePersona(userId, personaData).subscribe(
+        updatedPersona => {
+          // Actualizar los detalles del usuario en la variable local
+          this.selectedUserDetails = updatedPersona;
+    
+          // Ocultar el formulario de edición
+          this.showEditForm = false;
+    
+          // Mostrar una alerta de éxito
+          Swal.fire({
+            icon: 'success',
+            title: '¡Éxito!',
+            text: 'La persona ha sido actualizada correctamente.',
+            confirmButtonText: 'OK'
+          });
+        },
+        error => {
+          console.error('Error al actualizar la persona:', error);
+    
+          // Mostrar una alerta de error
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Ocurrió un error al actualizar la persona. Por favor, inténtalo de nuevo.',
+            confirmButtonText: 'OK'
+          });
+        }
+      );
+    }
   }
 
   toggleWeapon(hasWeapon: boolean) {
-    this.selectedUserDetails.manejaArma = hasWeapon;
+    if (this.selectedUserDetails) {
+      this.selectedUserDetails.manejaArma = hasWeapon;
+    }
   }
-  
-  
+
+  // Métodos para paginación
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+    }
+  }
+
+  get totalPages(): number {
+    return Math.ceil(this.users.length / this.itemsPerPage);
+  }
 }

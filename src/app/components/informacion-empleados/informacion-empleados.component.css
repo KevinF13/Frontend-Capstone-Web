@@ -41,17 +41,24 @@
   position: relative; /* Añadido para el z-index funcione */
 }
 
-.close-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background-color: #e74c3c;
-  color: #fff;
+.button-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.open-button {
+  padding: 8px 16px;
   border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
+  background-color: #cc2e2e; /* Verde */
+  color: white;
   cursor: pointer;
-  font-size: 16px; /* Tamaño de fuente ajustado */
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.open-button:hover {
+  background-color: #ae2727; /* Verde más oscuro al hacer hover */
 }
 
 .user-image {
@@ -98,7 +105,6 @@
   background-color: #c0392b;
 }
 
-
 .container .form-check-toggle {
   display: flex;
   justify-content: space-between;
@@ -117,8 +123,27 @@
   margin-right: 5px; /* Reducir el espacio entre los botones */
 }
 
-
-
 .container .form-check-toggle label.active img {
   border: 2px solid #8C55AA;
+}
+
+/* Estilos para el selector de Cliente */
+.custom-select {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.custom-select:focus {
+  border-color: #80bdff;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
