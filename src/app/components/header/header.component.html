@@ -23,6 +23,6 @@
     <a *ngIf="isLoggedIn" (click)="logout()">Cerrar Sesión</a>
   </div>
   <div class="emergency-notification" *ngIf="emergencyMessages.length > 0" >
-    <span class="icon" title="You have emergency messages!" [routerLink]="'/notificacion'">⚠️</span>
+    <span class="icon" title="You have emergency messages!" *ngIf="isLoggedIn && isSupervisor" [routerLink]="'/notificacion'">⚠️</span>
   </div>
 </div>
