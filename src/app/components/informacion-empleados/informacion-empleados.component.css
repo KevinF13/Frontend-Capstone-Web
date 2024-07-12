@@ -6,12 +6,12 @@
 .md-table {
   width: 100%;
   border-collapse: collapse;
-  border: 2px solid #ff0000; /* Rojo */
+  border: 2px solid #ff0000; /* Borde rojo */
   margin-top: 20px;
 }
 
 .md-table-headers-row {
-  background-color: #ff0000; /* Rojo */
+  background-color: #ff0000; /* Fondo rojo */
   color: white;
 }
 
@@ -26,19 +26,20 @@
 }
 
 .md-table-content-row:hover {
-  background-color: #ffcccc; /* Rojo claro al hacer hover */
-  cursor: pointer; /* Cambiar el cursor al hacer hover */
+  background-color: #ffcccc; /* Fondo rojo claro al hacer hover */
+  cursor: pointer;
 }
 
 .container {
   background-color: #ffffff;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
   width: 90%;
-  max-width: 600px; /* Ancho máximo para el contenedor de detalles */
+  max-width: 900px; /* Ajuste de ancho máximo */
+  margin: 20px auto; /* Centrado horizontal y espacio alrededor */
   box-sizing: border-box;
-  position: relative; /* Añadido para el z-index funcione */
+  position: relative;
 }
 
 .button-container {
@@ -47,18 +48,62 @@
   margin-top: 20px;
 }
 
-.open-button {
-  padding: 8px 16px;
+.open-button,
+.edit-button,
+.delete-button,
+.close-button,
+.pagination-button {
+  padding: 12px 20px;
   border: none;
-  background-color: #cc2e2e; /* Verde */
-  color: white;
   cursor: pointer;
   border-radius: 4px;
+  font-size: 16px;
   transition: background-color 0.3s ease;
 }
 
+.open-button {
+  background-color: #cc2e2e; /* Rojo */
+  color: white;
+}
+
 .open-button:hover {
-  background-color: #ae2727; /* Verde más oscuro al hacer hover */
+  background-color: #ae2727; /* Rojo más oscuro al hacer hover */
+}
+
+.edit-button {
+  background-color: #27ae60; /* Verde */
+  color: white;
+}
+
+.edit-button:hover {
+  background-color: #2ecc71; /* Verde más oscuro al hacer hover */
+}
+
+.delete-button {
+  background-color: #e74c3c; /* Rojo */
+  color: white;
+}
+
+.delete-button:hover {
+  background-color: #c0392b; /* Rojo más oscuro al hacer hover */
+}
+
+.close-button {
+  background-color: #333; /* Gris oscuro */
+  color: white;
+}
+
+.close-button:hover {
+  background-color: #555; /* Gris más oscuro al hacer hover */
+}
+
+.pagination-button {
+  background-color: #007bff; /* Azul */
+  color: white;
+}
+
+.pagination-button:hover {
+  background-color: #0056b3; /* Azul más oscuro al hacer hover */
 }
 
 .user-image {
@@ -70,39 +115,6 @@
 
 .user-info {
   margin-top: 20px;
-}
-
-.button-container {
-  display: flex;
-  justify-content: space-around; /* Ajustado para distribuir los botones */
-  margin-top: 20px;
-}
-
-.edit-button,
-.delete-button {
-  padding: 12px 20px;
-  border: none;
-  cursor: pointer;
-  border-radius: 4px;
-  font-size: 16px; /* Tamaño de fuente ajustado */
-}
-
-.edit-button {
-  background-color: #27ae60;
-  color: #fff;
-}
-
-.edit-button:hover {
-  background-color: #2ecc71;
-}
-
-.delete-button {
-  background-color: #e74c3c;
-  color: #fff;
-}
-
-.delete-button:hover {
-  background-color: #c0392b;
 }
 
 .container .form-check-toggle {

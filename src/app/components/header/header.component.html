@@ -22,15 +22,7 @@
     <a *ngIf="!isLoggedIn" routerLink="/login">Iniciar Sesión</a>
     <a *ngIf="isLoggedIn" (click)="logout()">Cerrar Sesión</a>
   </div>
-  <div class="emergency-notification" *ngIf="emergencyMessages.length > 0">
-    <span class="icon" title="You have emergency messages!">⚠️</span>
-    <div class="dropdown">
-      <ul>
-        <li *ngFor="let message of emergencyMessages">
-          {{ message.notificacion }} 
-          <a [href]="message.ubicacion" target="_blank">Ver Ubicación</a>
-        </li>
-      </ul>
-    </div>
+  <div class="emergency-notification" *ngIf="emergencyMessages.length > 0" >
+    <span class="icon" title="You have emergency messages!" [routerLink]="'/notificacion'">⚠️</span>
   </div>
 </div>

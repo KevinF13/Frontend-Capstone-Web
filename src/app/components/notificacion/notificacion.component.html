@@ -1,1 +1,10 @@
-<p>notificacion works!</p>
+<div class="notification-container">
+    <h3 class="notification-title">Notificaciones</h3>
+    <ul class="notification-list">
+      <li *ngFor="let message of emergencyMessages" class="notification-item">
+        <span class="notification-message">{{ message.notificacion }}</span>
+        <a [href]="message.ubicacion" target="_blank" class="notification-link">Ver Ubicación</a>
+      </li>
+    </ul>
+  </div>
+  

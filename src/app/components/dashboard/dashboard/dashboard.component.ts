@@ -6,6 +6,8 @@ import { Persona } from '../../informacion-empleados/Model/persona';
 import { PersonaService } from '../../informacion-empleados/Service/persona.service';
 import { DiaSemana, Horario } from '../../horario/Model/horario';
 import { HorarioService } from '../../horario/Service/horario.service';
+import { ClienteService } from '../../cliente/Service/cliente.service';
+import { Cliente } from '../../cliente/Model/cliente';
 
 
 @Component({
@@ -14,17 +16,90 @@ import { HorarioService } from '../../horario/Service/horario.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+ 
   public bitacoraChart: any;
   public personas: Persona[] = [];
   public horarios: Horario[] = [];
+  public clientesData: { nombreCliente: string, count: number }[] = []; // Data for the clients chart
+  
 
-  constructor(private bitacoraService: BitacoraService, private personaService: PersonaService, private horarioService: HorarioService) {}
+  constructor(
+    private bitacoraService: BitacoraService, 
+    private personaService: PersonaService,
+    private horarioService: HorarioService,
+    private clienteService: ClienteService
+  ) {}
 
   ngOnInit(): void {
     this.loadBitacoraData();
     this.loadDataEmpleados();
+    this.loadClientesData();
   }
 
+  loadClientesData(): void {
+    this.clienteService.getAll().subscribe(
+      (clientes: Cliente[]) => {
+        // Inicializar datos de clientes con contador a 0
+        this.clientesData = clientes.map(cliente => ({
+          nombreCliente: cliente.nombreCliente,
+          count: 0
+        }));
+
+        // Obtener todas las personas
+        this.personaService.getAllPersonas().subscribe(
+          (personas: Persona[]) => {
+            personas.forEach(persona => {
+              // Incrementar el contador para el cliente correspondiente
+              const clienteIndex = this.clientesData.findIndex(cliente => cliente.nombreCliente === persona.clienteId);
+              if (clienteIndex !== -1) {
+                this.clientesData[clienteIndex].count++;
+              }
+            });
+
+            // Llamar al método para crear el gráfico una vez que se tienen los datos
+            this.createClientesChart();
+          },
+          error => {
+            console.error('Error cargando datos de personas', error);
+          }
+        );
+      },
+      error => {
+        console.error('Error cargando datos de clientes', error);
+      }
+    );
+  }
+
+  createClientesChart(): void {
+    const labels = this.clientesData.map(cliente => cliente.nombreCliente);
+    const data = this.clientesData.map(cliente => cliente.count);
+
+    const ctx = document.getElementById('clientesChart') as HTMLCanvasElement;
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Cantidad de User IDs por Cliente',
+          data: data,
+          backgroundColor: 'rgba(54, 162, 235, 0.6)',
+          borderColor: 'rgba(54, 162, 235, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              stepSize: 1 // Mostrar solo enteros en el eje Y
+            }
+          }
+        }
+      }
+    });
+  }
+  
   loadBitacoraData(): void {
     this.bitacoraService.getAllBitacoras().subscribe(data => {
       const clientes = data.map(bitacora => bitacora.cliente);

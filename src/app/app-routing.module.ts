@@ -12,6 +12,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { RegistroPersonaComponent } from './components/registro-persona/registro-persona.component';
 import { MonitoreoComponent } from './components/monitoreo/monitoreo.component';
 import { ClienteComponent } from './components/cliente/cliente.component';
+import { NotificacionComponent } from './components/notificacion/notificacion.component';
 
 const routes: Routes = [
   { path: 'registrarGuardia', component: SignupComponent },
@@ -25,6 +26,7 @@ const routes: Routes = [
   { path: 'registroPerfil', component: RegistroPersonaComponent },
   { path: 'monitoreo', component: MonitoreoComponent },
   { path: 'cliente', component: ClienteComponent },
+  { path: 'notificacion', component: NotificacionComponent },
   { path: '**', redirectTo: '/home' }
   // { path: '', redirectTo: '/header', pathMatch: 'full' }
 ];
