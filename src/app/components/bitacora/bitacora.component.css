@@ -1,3 +1,9 @@
+.h1{
+  text-align: center;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
 /* Estilos generales */
 .bitacoras-container {
   max-width: 800px;

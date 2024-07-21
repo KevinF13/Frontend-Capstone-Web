@@ -1,3 +1,9 @@
+.h1{
+  text-align: center;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
 .map-container {
     height: 600px; /* Ajusta la altura según tus necesidades */
     width: 100%; /* Ajusta el ancho según tus necesidades */

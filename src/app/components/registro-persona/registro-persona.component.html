@@ -1,65 +1,85 @@
 <div class="container">
-    <h2>Registro de Persona</h2>
-    <form [formGroup]="personaForm" (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <label for="userId">UserId:</label>
-        <!-- Agregar el atributo readonly y el estilo CSS -->
-        <input type="text" class="form-control" id="userId" formControlName="userId" required readonly style="border: none; cursor: not-allowed;">
-      </div>
-      <div class="form-group">
-        <label for="clienteId">Asigne un Cliente al Agente:</label>
-        <select class="form-control" id="clienteId" formControlName="clienteId" required>
-          <option *ngFor="let cliente of clientes" [value]="cliente._id">{{ cliente.nombreCliente }}</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="nombres">Nombres:</label>
-        <input type="text" class="form-control" id="nombres" formControlName="nombres" required>
-      </div>
-      <div class="form-group">
-        <label for="apellidos">Apellidos:</label>
-        <input type="text" class="form-control" id="apellidos" formControlName="apellidos" required>
-      </div>
-      <div class="form-group">
-        <label for="cedula">Cédula:</label>
-        <input type="text" class="form-control" id="cedula" formControlName="cedula" required>
-        <div *ngIf="personaForm.get('cedula')?.hasError('cedulaInvalida') && personaForm.get('cedula')?.touched">
-          <small class="text-danger">Cédula Inválida</small>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="fechaNacimiento">Fecha de Nacimiento:</label>
-        <input type="date" class="form-control" id="fechaNacimiento" formControlName="fechaNacimiento" required>
-      </div>
-      <div class="form-group">
-        <label for="imagen">Imagen:</label>
-        <input type="text" class="form-control" id="imagen" formControlName="imagen" required>
-      </div>
-      <div class="form-group">
-        <label for="direccionDomicilio">Dirección de Domicilio:</label>
-        <input type="text" class="form-control" id="direccionDomicilio" formControlName="direccionDomicilio" required>
-      </div>
-      <div class="form-group">
-        <label for="fechaIngreso">Fecha de Ingreso:</label>
-        <input type="text" class="form-control" id="fechaIngreso" formControlName="fechaIngreso" required readonly style="border: none; cursor: not-allowed;">
-      </div>
-      <div class="form-group">
-        <label for="telefono">Teléfono:</label>
-        <input type="text" class="form-control" id="telefono" formControlName="telefono" required>
-      </div>
-      <div class="form-group">
-        <label for="manejaArma">¿Maneja arma?</label>
-        <div class="form-check-toggle">
-          <label class="form-check-label" (click)="toggleWeapon(true)" [class.active]="personaForm.get('manejaArma')?.value === true">
-            <img src="https://thumbs.dreamstime.com/b/pistola-y-balas-39643288.jpg" alt="Maneja Arma">
-          </label>
-          <label class="form-check-label" (click)="toggleWeapon(false)" [class.active]="personaForm.get('manejaArma')?.value === false">
-            <img src="https://www.nidec.es/2884-home_default/defensa-de-seguridad-rgida-aligerada-de-polipropileno-60-cm.jpg" alt="No Maneja Arma">
-          </label>
-          <input type="hidden" formControlName="manejaArma">
-        </div>
+  <h2>Registro de Persona</h2>
+  <form [formGroup]="personaForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="userId">UserId:</label>
+      <input type="text" class="form-control" id="userId" formControlName="userId" required readonly style="border: none; cursor: not-allowed;">
     </div>
-      <button type="submit" class="btn btn-primary" [disabled]="loading">Registrar</button>
-    </form>
+    <div class="form-group">
+      <label for="clienteId">Asigne un Cliente al Agente:</label>
+      <select class="form-control" id="clienteId" formControlName="clienteId" required>
+        <option *ngFor="let cliente of clientes" [value]="cliente._id">{{ cliente.nombreCliente }}</option>
+      </select>
+      <div *ngIf="personaForm.get('clienteId')?.invalid && personaForm.get('clienteId')?.touched">
+        <small class="text-danger">Es obligatorio asignar un cliente al agente</small>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="nombres">Nombres:</label>
+      <input type="text" class="form-control" id="nombres" formControlName="nombres" required>
+      <div *ngIf="personaForm.get('nombres')?.invalid && personaForm.get('nombres')?.touched">
+        <small class="text-danger">El nombre es obligatorio</small>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="apellidos">Apellidos:</label>
+      <input type="text" class="form-control" id="apellidos" formControlName="apellidos" required>
+      <div *ngIf="personaForm.get('apellidos')?.invalid && personaForm.get('apellidos')?.touched">
+        <small class="text-danger">Los apellidos son obligatorios</small>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="cedula">Cédula:</label>
+      <input type="text" class="form-control" id="cedula" formControlName="cedula" required>
+      <div *ngIf="personaForm.get('cedula')?.invalid && personaForm.get('cedula')?.touched">
+        <small class="text-danger" *ngIf="personaForm.get('cedula')?.hasError('cedulaInvalida')">Cédula Inválida</small>
+        <small class="text-danger" *ngIf="personaForm.get('cedula')?.hasError('required')">La cédula es obligatoria</small>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="fechaNacimiento">Fecha de Nacimiento:</label>
+      <input type="date" class="form-control" id="fechaNacimiento" formControlName="fechaNacimiento" required>
+      <div *ngIf="personaForm.get('fechaNacimiento')?.invalid && personaForm.get('fechaNacimiento')?.touched">
+        <small class="text-danger">La fecha de nacimiento es obligatoria</small>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="imagen">Imagen:</label>
+      <input type="text" class="form-control" id="imagen" formControlName="imagen" required>
+      <div *ngIf="personaForm.get('imagen')?.invalid && personaForm.get('imagen')?.touched">
+        <small class="text-danger">La imagen es obligatoria</small>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="direccionDomicilio">Dirección de Domicilio:</label>
+      <input type="text" class="form-control" id="direccionDomicilio" formControlName="direccionDomicilio" required>
+      <div *ngIf="personaForm.get('direccionDomicilio')?.invalid && personaForm.get('direccionDomicilio')?.touched">
+        <small class="text-danger">La dirección de domicilio es obligatoria</small>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="fechaIngreso">Fecha de Ingreso:</label>
+      <input type="text" class="form-control" id="fechaIngreso" formControlName="fechaIngreso" required readonly style="border: none; cursor: not-allowed;">
+    </div>
+    <div class="form-group">
+      <label for="telefono">Teléfono:</label>
+      <input type="text" class="form-control" id="telefono" formControlName="telefono" required>
+      <div *ngIf="personaForm.get('telefono')?.invalid && personaForm.get('telefono')?.touched">
+        <small class="text-danger">El teléfono es obligatorio</small>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="manejaArma">¿Maneja arma?</label>
+      <div class="form-check-toggle">
+        <label class="form-check-label" (click)="toggleWeapon(true)" [class.active]="personaForm.get('manejaArma')?.value === true">
+          <img src="https://thumbs.dreamstime.com/b/pistola-y-balas-39643288.jpg" alt="Maneja Arma">
+        </label>
+        <label class="form-check-label" (click)="toggleWeapon(false)" [class.active]="personaForm.get('manejaArma')?.value === false">
+          <img src="https://www.nidec.es/2884-home_default/defensa-de-seguridad-rgida-aligerada-de-polipropileno-60-cm.jpg" alt="No Maneja Arma">
+        </label>
+        <input type="hidden" formControlName="manejaArma">
+      </div>
   </div>
-  
+    <button type="submit" class="btn btn-primary" [disabled]="loading">Registrar</button>
+  </form>
+</div>

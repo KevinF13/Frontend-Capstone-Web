@@ -79,13 +79,14 @@ export class RegistroPersonaComponent implements OnInit {
 
   onSubmit() {
     if (this.personaForm.invalid) {
+      this.showMissingFieldsAlert();
       return;
     }
-
+  
     this.loading = true;
-
+  
     const persona: Persona = this.personaForm.value;
-
+  
     this.personaService.createPersona(persona).subscribe(
       (response) => {
         Swal.fire('Éxito', '¡Persona registrada exitosamente!', 'success');
@@ -101,6 +102,42 @@ export class RegistroPersonaComponent implements OnInit {
       }
     );
   }
+  
+  showMissingFieldsAlert() {
+    const missingFields = [];
+    const controls = this.personaForm.controls;
+  
+    if (controls['nombres'].invalid) {
+      missingFields.push('Nombres');
+    }
+    if (controls['apellidos'].invalid) {
+      missingFields.push('Apellidos');
+    }
+    if (controls['cedula'].invalid) {
+      missingFields.push('Cédula');
+    }
+    if (controls['fechaNacimiento'].invalid) {
+      missingFields.push('Fecha de Nacimiento');
+    }
+    if (controls['direccionDomicilio'].invalid) {
+      missingFields.push('Dirección de Domicilio');
+    }
+    if (controls['fechaIngreso'].invalid) {
+      missingFields.push('Fecha de Ingreso');
+    }
+    if (controls['telefono'].invalid) {
+      missingFields.push('Teléfono');
+    }
+    if (controls['clienteId'].invalid) {
+      missingFields.push('Cliente');
+    }
+    if (controls['imagen'].invalid) {
+      missingFields.push('Imagen');
+    }
+  
+    Swal.fire('Campos faltantes', `Por favor, complete los siguientes campos: ${missingFields.join(', ')}`, 'warning');
+  }
+  
 
   toggleWeapon(hasWeapon: boolean) {
     this.personaForm.get('manejaArma')?.setValue(hasWeapon);

@@ -1,28 +1,32 @@
-<div class="header">
+<div class="menu-button" (click)="toggleMenu()">☰</div>
+<div class="header" [ngClass]="{'show': isMenuOpen}">
   <a [routerLink]="isLoggedIn ? '/dashboard' : '/'" class="logo">Codisecurity</a>
-  <button class="menu-toggle" (click)="toggleMenu()">☰</button>
-  
-  <div class="header-right" [ngClass]="{'show': isMenuOpen}">
-    <!-- <a routerLink="/home">Página Principal</a> -->
-    <a *ngIf="isLoggedIn && isSupervisor" [routerLink]="'/cliente'">Clientes</a>
-    <a *ngIf="isLoggedIn && isSupervisor" [routerLink]="'/bitacora'">Bitácora</a>
-    <!-- <a *ngIf="isLoggedIn && isSupervisor" [routerLink]="'/dashboard'">Informe Analítico</a> -->
-    <!-- <div class="dropdown" *ngIf="isLoggedIn && isSupervisor">
-      <a [routerLink]="'/guardias'">Empleados</a>
-      <div class="dropdown-content">
-        <a routerLink="/infoEmpleados">Ver Empleados</a>
-        <a routerLink="/registrarGuardia">Registrar Empleados</a>
-      </div>
-    </div> -->
-    <a *ngIf="isLoggedIn && isSupervisor" [routerLink]="'/infoEmpleados'">Gestión Empleados</a>
-    <a *ngIf="isLoggedIn && isSupervisor" [routerLink]="'/registrarGuardia'">Nuevo Guardia</a>
-    <a *ngIf="isLoggedIn && isSupervisor" [routerLink]="'/asignacionHorario'">Asignación de Turnos</a>
-    <a *ngIf="isLoggedIn && isSupervisor" [routerLink]="'/calendario'">Ver Turnos</a>
-    <a *ngIf="isLoggedIn && isSupervisor" [routerLink]="'/monitoreo'">Monitoreo</a>
-    <a *ngIf="!isLoggedIn" routerLink="/login">Iniciar Sesión</a>
-    <a *ngIf="isLoggedIn" (click)="logout()">Cerrar Sesión</a>
+  <div class="emergency-notification" *ngIf="emergencyMessages.length > 0">
+    <span class="icon" title="You have emergency messages!" *ngIf="isLoggedIn && isSupervisor" [routerLink]="'/notificacion'">⚠️ Notificaciones SOS</span>
   </div>
-  <div class="emergency-notification" *ngIf="emergencyMessages.length > 0" >
-    <span class="icon" title="You have emergency messages!" *ngIf="isLoggedIn && isSupervisor" [routerLink]="'/notificacion'">⚠️</span>
+  <div class="header-left">
+    <ul>
+      <li class="menu-item">
+        <a *ngIf="isLoggedIn && isSupervisor" class="menu-title">GESTION DE EMPLEADOS</a>
+        <ul class="submenu">
+          <li *ngIf="isLoggedIn && isSupervisor"><a [routerLink]="'/infoEmpleados'">Listado Empleados</a></li>
+          <li *ngIf="isLoggedIn && isSupervisor"><a [routerLink]="'/registrarGuardia'">Nuevo Empleado</a></li>
+          <li *ngIf="isLoggedIn && isSupervisor"><a [routerLink]="'/monitoreo'">Monitoreo GPS</a></li>
+        </ul>
+      </li>
+      <li class="menu-item">
+        <a *ngIf="isLoggedIn && isSupervisor" class="menu-title">GESTION DE HORARIO</a>
+        <ul class="submenu">
+          <li *ngIf="isLoggedIn && isSupervisor"><a [routerLink]="'/asignacionHorario'">Asignación Horario</a></li>
+          <li *ngIf="isLoggedIn && isSupervisor"><a [routerLink]="'/calendario'">Calendario</a></li>
+        </ul>
+      </li>
+      <li *ngIf="isLoggedIn && isSupervisor"><a [routerLink]="'/bitacora'">Bitácoras</a></li>
+      <li *ngIf="isLoggedIn && isSupervisor"><a [routerLink]="'/cliente'">Clientes</a></li>
+    </ul>
+    <ul class="auth-links">
+      <li *ngIf="!isLoggedIn"><a class="auth-link" routerLink="/login">Iniciar Sesión</a></li>
+      <li *ngIf="isLoggedIn"><a class="auth-link" (click)="logout()">Cerrar Sesión</a></li>
+    </ul>
   </div>
 </div>

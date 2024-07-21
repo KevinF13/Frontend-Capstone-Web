@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/auth/service/auth.service';
 import { Router } from '@angular/router';
-import { Observable, tap } from 'rxjs';
-import { EmergencyService } from './Service/emergency.service';
 import { Notificacion } from './Model/notificacion.model';
+import { EmergencyService } from './Service/emergency.service';
 
 @Component({
   selector: 'app-header',
@@ -14,6 +13,7 @@ export class HeaderComponent implements OnInit {
   isLoggedIn: boolean = false;
   isSupervisor: boolean = false;
   emergencyMessages: Notificacion[] = [];
+  isMenuOpen: boolean = false;
 
   constructor(
     private authService: AuthService, 
@@ -50,9 +50,8 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/']);
   }
 
-  isMenuOpen = false;
-
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
   }
 }
+    
