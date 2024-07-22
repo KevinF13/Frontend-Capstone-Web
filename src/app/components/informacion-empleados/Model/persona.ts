@@ -10,5 +10,6 @@ export interface Persona {
   manejaArma: boolean;
   imagen: string;
   fechaIngreso: string;
-  
+  createdAt:Date;
+  updatedAt:Date;
 }

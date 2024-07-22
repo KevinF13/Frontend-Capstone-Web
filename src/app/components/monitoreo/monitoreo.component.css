@@ -1,12 +1,85 @@
-.h1{
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
   text-align: center;
   margin-bottom: 10px;
   font-weight: bold;
 }
 
+.content {
+  display: flex;
+  width: 100%;
+}
+
+.left-panel {
+  width: 30%;
+  padding: 10px;
+}
+
+.right-panel {
+  width: 70%;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+.empleado-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.estado {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.estado.active {
+  background-color: green;
+}
+
+.estado.inactive {
+  background-color: red;
+}
+
 .map-container {
-    height: 600px; /* Ajusta la altura según tus necesidades */
-    width: 100%; /* Ajusta el ancho según tus necesidades */
-    border: 1px solid #ccc; /* Borde opcional para visualización */
-  }
-  
+  height: 600px; /* Ajusta la altura según tus necesidades */
+  width: 100%;
+  border: 1px solid #ccc; /* Borde opcional para visualización */
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.pagination button {
+  margin: 0 5px;
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
