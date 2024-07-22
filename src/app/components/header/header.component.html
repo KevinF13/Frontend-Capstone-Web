@@ -1,6 +1,8 @@
 <div class="menu-button" (click)="toggleMenu()">☰</div>
 <div class="header" [ngClass]="{'show': isMenuOpen}">
-  <a [routerLink]="isLoggedIn ? '/dashboard' : '/'" class="logo">Codisecurity</a>
+  <a [routerLink]="isLoggedIn ? '/dashboard' : '/'" class="logo"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDtCS--5BguZl3QOlVnKHam2CDxxV8yVav-g&s" 
+    style="width: 250px; border-radius: 2%;"
+    alt=""></a>
   <div class="emergency-notification" *ngIf="emergencyMessages.length > 0">
     <span class="icon" title="You have emergency messages!" *ngIf="isLoggedIn && isSupervisor" [routerLink]="'/notificacion'">⚠️ Notificaciones SOS</span>
   </div>

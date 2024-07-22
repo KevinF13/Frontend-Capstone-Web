@@ -220,7 +220,7 @@ export class InformacionEmpleadosComponent implements OnInit {
             this.getPersonas();
             this.getUsers();
             // Aquí puedes agregar lógica para actualizar la lista de personas en la vista
-            
+            this.cerrarDetallesUsuario();
             this.personas = this.personas.filter(persona => persona.userId !== userId);
             Swal.fire('Eliminada!', '', 'success');
           },

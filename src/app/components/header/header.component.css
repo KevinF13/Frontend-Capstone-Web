@@ -19,7 +19,7 @@
   left: -350px; /* Inicialmente oculto fuera de la pantalla */
   width: 350px; /* Ajusta el ancho según sea necesario */
   height: 100%;
-  background-color: #502c2c;
+  background-color: #424242;
   padding: 20px;
   display: flex;
   flex-direction: column;
