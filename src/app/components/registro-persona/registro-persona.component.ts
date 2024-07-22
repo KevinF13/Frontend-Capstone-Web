@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { cedulaValidator } from './cedula.validator'; // Importar el validador
 import { Cliente } from '../cliente/Model/cliente';
+import { mayorDeEdadValidator } from './fecha-nacimiento.validator';
 
 @Component({
   selector: 'app-registro-persona',
@@ -53,8 +54,8 @@ export class RegistroPersonaComponent implements OnInit {
     this.personaForm = this.fb.group({
       nombres: ['', Validators.required],
       apellidos: ['', Validators.required],
-      cedula: ['', [Validators.required, cedulaValidator()]], // Aplicar el validador personalizado
-      fechaNacimiento: ['', Validators.required],
+      cedula: ['', [Validators.required, cedulaValidator()]],
+      fechaNacimiento: ['', [Validators.required, mayorDeEdadValidator()]],
       direccionDomicilio: ['', Validators.required],
       fechaIngreso: ['', Validators.required],
       telefono: ['', Validators.required],
@@ -82,11 +83,11 @@ export class RegistroPersonaComponent implements OnInit {
       this.showMissingFieldsAlert();
       return;
     }
-  
+
     this.loading = true;
-  
+
     const persona: Persona = this.personaForm.value;
-  
+
     this.personaService.createPersona(persona).subscribe(
       (response) => {
         Swal.fire('Éxito', '¡Persona registrada exitosamente!', 'success');
@@ -95,18 +96,17 @@ export class RegistroPersonaComponent implements OnInit {
         this.router.navigate(['/registrarGuardia']);
       },
       (error) => {
-        console.log(persona);
         console.error('Error al registrar persona:', error);
         Swal.fire('Error', 'Hubo un problema al registrar la persona, por favor intenta de nuevo más tarde', 'error');
         this.loading = false;
       }
     );
   }
-  
+
   showMissingFieldsAlert() {
     const missingFields = [];
     const controls = this.personaForm.controls;
-  
+
     if (controls['nombres'].invalid) {
       missingFields.push('Nombres');
     }
@@ -134,10 +134,9 @@ export class RegistroPersonaComponent implements OnInit {
     if (controls['imagen'].invalid) {
       missingFields.push('Imagen');
     }
-  
+
     Swal.fire('Campos faltantes', `Por favor, complete los siguientes campos: ${missingFields.join(', ')}`, 'warning');
   }
-  
 
   toggleWeapon(hasWeapon: boolean) {
     this.personaForm.get('manejaArma')?.setValue(hasWeapon);

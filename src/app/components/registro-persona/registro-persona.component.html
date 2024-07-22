@@ -40,9 +40,11 @@
       <label for="fechaNacimiento">Fecha de Nacimiento:</label>
       <input type="date" class="form-control" id="fechaNacimiento" formControlName="fechaNacimiento" required>
       <div *ngIf="personaForm.get('fechaNacimiento')?.invalid && personaForm.get('fechaNacimiento')?.touched">
-        <small class="text-danger">La fecha de nacimiento es obligatoria</small>
+        <small class="text-danger" *ngIf="personaForm.get('fechaNacimiento')?.hasError('noEsMayorDeEdad')">Debe ser mayor de edad</small>
+        <small class="text-danger" *ngIf="personaForm.get('fechaNacimiento')?.hasError('required')">La fecha de nacimiento es obligatoria</small>
       </div>
     </div>
+    
     <div class="form-group">
       <label for="imagen">Imagen:</label>
       <input type="text" class="form-control" id="imagen" formControlName="imagen" required>
